@@ -43,13 +43,11 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
-import Checkbox from "@/components/UI/Checkbox.vue";
 
 export default {
     name: "CreateOrder",
     components: {
-        simplebar,
-        Checkbox
+        simplebar
     },
     computed: {
         tarrifs: () => this.$store.orderDetails.tarrifs,

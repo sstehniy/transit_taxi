@@ -197,7 +197,7 @@ export default {
     transform: translate(-50%, -50%);
     background-color: #fdbf5a;
 }
-.control {
+/*.control {
     width: 50%;
     height: 100%;
 
@@ -220,7 +220,7 @@ export default {
     overflow-y: auto;
     position: relative;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
-}
+}*/
 .controls {
     width: 100%;
     height: 45px;

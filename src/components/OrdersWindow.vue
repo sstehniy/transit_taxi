@@ -49,6 +49,7 @@ import OrderMin from "./OrderMin.vue";
 import StatusSettings from "./StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
 
+
 export default {
     components: {
         simplebar,
@@ -166,6 +167,52 @@ export default {
     background-color: #fafafa;
     display: flex;
     flex-direction: column;
+    max-width: calc(15px + 27vw);
+    min-width: 300px;
+    min-height: 215px;
+    height: 80vh;
+    max-height: 80vh;
+    border-radius: 8px;
+
+    resize: vertical;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+}
+.controls {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+
+    border-radius: 8px 8px 0 0;
+
+    position: relative;
+}
+.separator {
+    position: absolute;
+    width: 2px;
+    height: 70%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fdbf5a;
+}
+.control {
+    width: 50%;
+    height: 100%;
+
+    text-align: center;
+    line-height: 45px;
+    font-size: 14px;
+    position: relative;
+
+    background-color: #ececec;
+
+=======
+
+    display: flex;
+    flex-direction: column;
 
     max-width: calc(15px + 27vw);
     min-width: 300px;
@@ -208,6 +255,7 @@ export default {
     position: relative;
 
     background-color: #ececec;
+
 
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
@@ -287,6 +335,28 @@ export default {
 .operations-button:hover {
     color: #6b6565;
 }
+
+
+.add-order {
+    background-color: #fdbf5a;
+}
+.refresh {
+    background-color: #f4f4f4;
+    transition: background-color 0.2s ease-in-out;
+}
+.refresh:hover {
+    background-color: #fafafa;
+}
+.order-counter {
+    margin: 0 auto;
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.status-settings {
+    position: absolute;
+    z-index: 2;
+
 
 .add-order {
     background-color: #fdbf5a;

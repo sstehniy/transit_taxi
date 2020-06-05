@@ -10,24 +10,100 @@
                     <input
                         type="text"
                         name="client-number"
+                        v-model="clientNumber"
                         class="form-input"
                         placeholder="x-xxx-xxx-xx-x"
                     />
                 </div>
                 <div class="form-field">
                     <label for="client-name-autocomplete" class="form-label">Имя клиента:</label>
+                    <input
+                        type="text"
+                        name="client-name"
+                        v-model="clientName"
+                        class="form-input"
+                        placeholder="Введите имя"
+                    />
                 </div>
                 <div class="form-field">
                     <label for="client-group-autocomplete" class="form-label">Клиентская группа:</label>
-                </div>
-                <div class="form-field">
                     <input
                         type="text"
                         class="form-input"
-                        name="client-name"
-                        placeholder="Введите имя"
+                        v-model="clientGroup"
+                        name="client-group"
+                        placeholder="Введите группы"
                     />
-                    <Checkbox :checked="saveClientName" />
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox
+                            :checked="saveClientName"
+                            @toggle-checked="toggleCheckBox('saveClientName')"
+                        />
+                        <p class="control-text">Сохранить</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="route" class="form-label primary">Маршрут</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <input
+                            type="text"
+                            name="origin"
+                            v-model="origin"
+                            placeholder="Адрес подачи"
+                        />
+                        <img
+                            alt="pinpoint"
+                            id="pinpoint"
+                            :src="require('@/assets/pinpoint-icon.svg')"
+                        />
+                        <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                    </div>
+                    <div class="form-input extended">
+                        <input
+                            type="text"
+                            name="destitation"
+                            v-model="destination"
+                            placeholder="Адрес назначения"
+                        />
+                        <img
+                            alt="pinpoint"
+                            id="pinpoint"
+                            :src="require('@/assets/pinpoint-icon.svg')"
+                        />
+                        <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox
+                            :checked="twoWayRide"
+                            @toggle-checked="toggleCheckBox('twoWayRide')"
+                        />
+                        <p class="control-text">Обратно</p>
+                    </div>
+                    <div class="control-wrapper">
+                        <Checkbox
+                            :checked="saveClientName"
+                            @toggle-checked="toggleCheckBox('saveClientName')"
+                        />
+                        <p class="control-text">Добавить адрес</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="client" class="form-label primary">Клиент</label>
+                <div class="form-input extended">
+                    <input
+                        type="text"
+                        name="destitation"
+                        v-model="destination"
+                        placeholder="Адрес назначения"
+                    />
+                    <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                 </div>
             </div>
         </simplebar>
@@ -43,11 +119,13 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
+import Checkbox from "@/components/UI/Checkbox.vue";
 
 export default {
     name: "CreateOrder",
     components: {
-        simplebar
+        simplebar,
+        Checkbox
     },
     computed: {
         tarrifs: () => this.$store.orderDetails.tarrifs,
@@ -59,6 +137,7 @@ export default {
         return {
             clientNumber: "",
             clientName: "",
+            clientGroup: "",
             saveClientName: false,
             origin: "",
             stops: [],
@@ -86,6 +165,11 @@ export default {
                 card: null
             }
         };
+    },
+    methods: {
+        toggleCheckBox(fieldName) {
+            this[fieldName] = !this[fieldName];
+        }
     }
 };
 </script>
@@ -108,29 +192,33 @@ export default {
 }
 .create-order-header .header {
     margin: 0;
-    font-weight: normal;
     line-height: 45px;
-    font-size: 14px;
+    font-weight: normal;
+    font-size: 13px;
     color: #181c21;
 }
 
 .scrollable-form {
     width: 100%;
     height: 448px;
-    padding: 10px 25px 25px 15px;
+    padding: 0 25px 25px 15px;
     overflow-y: scroll;
     background: #fafafa;
+}
+
+.form-section {
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 .form-label {
     display: block;
     font-size: 11px;
-    line-height: 15px;
     color: #181c21;
 }
+
 .form-label.primary {
     font-size: 14px;
-    line-height: 18px;
     margin-bottom: 3px;
 }
 .form-label.inline {
@@ -144,10 +232,60 @@ export default {
     background: #ececec;
     border-radius: 5px;
     border: none;
-    font-size: 10px;
-    line-height: 15px;
+    font-size: 11px;
     color: #6b6565;
     outline: none;
+}
+
+.form-input.extended {
+    display: flex;
+    align-items: center;
+}
+
+.form-input.extended input {
+    flex-grow: 1;
+    background-color: transparent;
+    outline: none;
+    font-size: 11px;
+    border: none;
+    width: 70%;
+}
+
+.form-input.extended img {
+    margin: 0 7px;
+}
+
+.form-input.extended img#pinpoint {
+    height: 17px;
+    width: 11px;
+    margin: 0 10px;
+}
+.form-input.extended img#drop {
+    height: 6px;
+    width: 8px;
+    margin: 0 5px;
+}
+
+.form-section-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.control-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.control-text {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: normal;
+    white-space: nowrap;
+    font-size: 11px;
+    line-height: 15px;
+    margin-left: 2px;
+    color: #181c21;
 }
 
 .create-order-footer {

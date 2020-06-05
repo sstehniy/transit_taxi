@@ -23,8 +23,7 @@
         },
         methods: {
             toggleOptions() {
-                if (this.options === false) {this.options = true}
-                else {this.options = false}
+                this.option = !this.options;
             },
             pickOption(someSetting) {
                 this.options = false;

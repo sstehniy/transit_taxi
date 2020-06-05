@@ -15,22 +15,19 @@
                     />
                 </div>
                 <div class="form-field">
-                    <label for="client-name" class="form-label">Имя клиента:</label>
-                    <input
-                        type="text"
-                        name="client-name"
-                        class="form-input"
-                        placeholder="Ввести имя"
-                    />
+                    <label for="client-name-autocomplete" class="form-label">Имя клиента:</label>
                 </div>
                 <div class="form-field">
-                    <label for="client-group" class="form-label">Клиентская группа:</label>
+                    <label for="client-group-autocomplete" class="form-label">Клиентская группа:</label>
+                </div>
+                <div class="form-field">
                     <input
                         type="text"
-                        group="client-name"
                         class="form-input"
-                        placeholder="Ввести имя"
+                        name="client-name"
+                        placeholder="Введите имя"
                     />
+                    <Checkbox :checked="saveClientName" />
                 </div>
             </div>
         </simplebar>
@@ -46,9 +43,14 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
+import Checkbox from "@/components/UI/Checkbox.vue";
 
 export default {
     name: "CreateOrder",
+    components: {
+        simplebar,
+        Checkbox
+    },
     computed: {
         tarrifs: () => this.$store.orderDetails.tarrifs,
         crewGroups: () => this.$store.orderDetails.crewGroups,
@@ -86,9 +88,6 @@ export default {
                 card: null
             }
         };
-    },
-    components: {
-        simplebar
     }
 };
 </script>

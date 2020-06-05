@@ -3,30 +3,31 @@
         <div class="container-manage">
             <div class="controls">
                 <div class="control filters">
-                    <div class="control-name">Фильтры</div>
+                    <div class="control-name">Водитель</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
                 </div>
                 <div class="control currents">
-                    <div class="control-name">Текущие</div>
+                    <div class="control-name">Группа 1</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
                 </div>
                 <div class="separator"></div>
             </div>
-            <simplebar class="scrollable-orders" data-simplebar-auto-hide="false">
-                <OrderMin
+            <simplebar class="scrollable-drivers" data-simplebar-auto-hide="false" ref="scroll">
+                <Driver v-for="driver in drivers" :key="driver.driver_id" :driverInfo="driver" />
+                <!--<OrderMin
                     v-for="order in orders"
                     :key="order.id"
                     :orderInfo="order"
                     @change-status="toggleSettings"
-                />
+                />-->
                 <div class="blank-separator"></div>
             </simplebar>
             <div class="operations">
                 <div class="operations-buttons">
-                    <div class="operations-button add-order">+ &nbsp; &nbsp; Заказ</div>
-                    <div class="operations-button refresh">Обновить</div>
+                    <div class="operations-button all-drivers">+ Водитель</div>
+                    <div class="operations-button photo">Фотоосмотр</div>
                 </div>
-                <div class="order-counter">{{ this.orders.length }}/100</div>
+                <div class="driver-counter">{{ this.drivers.length }}/100</div>
             </div>
         </div>
         <StatusSettings
@@ -41,88 +42,75 @@
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
-import OrderMin from "./OrderMin.vue";
+/*import OrderMin from "./OrderMin.vue";*/
+import Driver from "./Driver.vue";
 import StatusSettings from "./StatusSettings.vue";
 
 export default {
     components: {
         simplebar,
-        OrderMin,
+        /*OrderMin,*/
+        Driver,
         StatusSettings
     },
     data() {
         return {
-            numberOfOrders: 0,
-            orders: [
+            drivers: [
                 {
-                    id: 1,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
+                    driver_id: 1,
+                    name: "DRIVER_NAME1",
+                    balance: 100.0,
+                    birthday: "01.01.1980",
+                    car_id: 1,
+                    license: "1234567890",
+                    home_phone: "123456",
+                    mobile_phone: "+79123456788",
+                    is_locked: false,
+                    is_dismissed: false,
+                    order_params: [3, 4],
+                    phones: [
+                        {
+                            phone: "79999999999",
+                            is_default: true,
+                            use_for_call: true
+                        },
+                        {
+                            phone: "79999999999",
+                            is_default: false,
+                            use_for_call: true
+                        }
+                    ],
+                    term_account: "00008"
                 },
                 {
-                    id: 2,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 3,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 4,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 5,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 6,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
+                    driver_id: 2,
+                    name: "DRIVER_NAME2",
+                    balance: -50.0,
+                    birthday: "01.01.1980",
+                    car_id: 2,
+                    license: "1234567899",
+                    home_phone: "123457",
+                    mobile_phone: "+79123456789",
+                    is_locked: true,
+                    is_dismissed: true,
+                    order_params: [5, 6],
+                    phones: [
+                        {
+                            phone: "79999999999",
+                            is_default: true,
+                            use_for_call: true
+                        },
+                        {
+                            phone: "79999999999",
+                            is_default: false,
+                            use_for_call: false
+                        }
+                    ],
+                    term_account: "00009"
                 }
             ],
             settings: false,
-            orderIdWaitingForChange: null
+            driverIdWaitingForChange: null
         };
     },
     methods: {
@@ -139,7 +127,16 @@ export default {
             this.orders[this.orderIdWaitingForChange - 1].status = status;
             this.settings = false;
             this.orderIdWaitingForChange = null;
+        },
+        handleScroll() {
+            console.log("scroll");
         }
+    },
+    mounted() {
+        this.$refs.scroll.scrollElement.addEventListener(
+            "scroll",
+            this.handleScroll
+        );
     }
 };
 </script>
@@ -212,17 +209,14 @@ export default {
     top: 21px;
     right: 10%;
 }
-.orders-container {
-    width: 100%;
-    height: calc(100% - 125px);
-    max-height: calc(100% - 135px);
-    overflow-y: scroll;
-}
-.scrollable-orders {
+
+.scrollable-drivers {
     width: 100%;
     height: calc(100% - 125px);
     max-height: calc(100% - 125px);
     overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
 }
 .orders {
     width: 100%;
@@ -278,17 +272,17 @@ export default {
     color: #6b6565;
 }
 
-.add-order {
+.all-drivers {
     background-color: #fdbf5a;
 }
-.refresh {
+.photo {
     background-color: #f4f4f4;
     transition: background-color 0.2s ease-in-out;
 }
-.refresh:hover {
+.photo:hover {
     background-color: #fafafa;
 }
-.order-counter {
+.driver-counter {
     margin: 0 auto;
     margin-top: 8px;
     font-size: 12px;

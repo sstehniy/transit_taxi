@@ -103,39 +103,38 @@ export default {
 }
 .create-order-header {
     padding: 10px;
-    height: 40px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 45px;
     background: #ececec;
     border-radius: 8px 8px 0px 0px;
 }
 .create-order-header .header {
     margin: 0;
-    font-family: "Poppins";
-    font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    line-height: 45px;
+    font-size: 14px;
     color: #181c21;
 }
 
 .scrollable-form {
     width: 100%;
     height: 448px;
-    padding: 15px 25px 25px 15px;
+    padding: 10px 25px 25px 15px;
     overflow-y: scroll;
     background: #fafafa;
 }
 
 .form-label {
     display: block;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 15px;
     color: #181c21;
 }
 .form-label.primary {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
+    margin-bottom: 3px;
 }
 .form-label.inline {
     display: inline-block;
@@ -148,9 +147,6 @@ export default {
     background: #ececec;
     border-radius: 5px;
     border: none;
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: normal;
     font-size: 10px;
     line-height: 15px;
     color: #6b6565;

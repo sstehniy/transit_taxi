@@ -49,7 +49,6 @@ import OrderMin from "./OrderMin.vue";
 import StatusSettings from "./StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
 
-
 export default {
     components: {
         simplebar,
@@ -206,11 +205,7 @@ export default {
     line-height: 45px;
     font-size: 14px;
     position: relative;
-
     background-color: #ececec;
-
-=======
-
     display: flex;
     flex-direction: column;
 
@@ -255,7 +250,6 @@ export default {
     position: relative;
 
     background-color: #ececec;
-
 
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
@@ -336,7 +330,6 @@ export default {
     color: #6b6565;
 }
 
-
 .add-order {
     background-color: #fdbf5a;
 }
@@ -356,7 +349,7 @@ export default {
 .status-settings {
     position: absolute;
     z-index: 2;
-
+}
 
 .add-order {
     background-color: #fdbf5a;

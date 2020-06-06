@@ -13,8 +13,76 @@ export default new Vuex.Store({
             reports: false,
             chat: false
         },
+        orders: [
+            {
+                id: 1,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            },
+            {
+                id: 2,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            },
+            {
+                id: 3,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            },
+            {
+                id: 4,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            },
+            {
+                id: 5,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            },
+            {
+                id: 6,
+                number: 3453,
+                status: "Принят",
+                origin: "ул. Дальняя, д.35(Шахты)",
+                destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
+                timestamp: "13:42",
+                date: "12:05:2020",
+                driverNumber: 110,
+                driverName: "Водитель 7"
+            }
+        ],
         orderDetails: {
-            tarrifs: [
+            tariffs: [
                 { id: 1, title: "Тариф 1" },
                 { id: 2, title: "Тариф 2" },
                 { id: 3, title: "Тариф 3" }
@@ -57,7 +125,16 @@ export default new Vuex.Store({
                     state.windows[key] = false;
                 }
             }
+        },
+        addOrder(state, order) {
+            state.orders = [...state.orders, { ...order }];
         }
     },
-    actions: {}
+    actions: {
+        createOrder({ commit }, order) {
+            setTimeout(() => {
+                commit("addOrder", order);
+            }, 2000);
+        }
+    }
 });

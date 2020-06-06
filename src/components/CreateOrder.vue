@@ -207,22 +207,22 @@
                 </div>
             </div>
             <div class="form-section">
-                <label class="form-label primary" for="tarrif">Тариф</label>
+                <label class="form-label primary" for="tariff">Тариф</label>
                 <div class="form-field">
                     <div class="form-input extended">
                         <p
-                            @click="showTarrifs=!showTarrifs"
-                        >{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
+                            @click="showTarifsf=!showTariffs"
+                        >{{tariff.id? tariff.title: "Выберите тариф"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showTarrifs=!showTarrifs"
+                            @click="showTariffs=!showTariffs"
                         />
                         <FormDropdownSelect
-                            v-if="showTarrifs"
-                            :options="getTarrifs"
-                            @select-option="setTarrif"
+                            v-if="showTariffs"
+                            :options="getTariffs"
+                            @select-option="setTariff"
                         />
                     </div>
                 </div>
@@ -353,8 +353,8 @@ export default {
         FormDropdownSelect
     },
     computed: {
-        getTarrifs() {
-            return this.$store.state.orderDetails.tarrifs;
+        getTariffs() {
+            return this.$store.state.orderDetails.tariffs;
         },
         getAttributes() {
             return this.$store.state.orderDetails.attributes;
@@ -403,11 +403,11 @@ export default {
             showCrews: false,
             autoMatch: false,
             serveTime: null,
-            tarrif: {
+            tariff: {
                 title: "",
                 id: null
             },
-            showTarrifs: false,
+            showTariffs: false,
             hourlyPayment: false,
             orderState: {
                 title: "",
@@ -496,9 +496,9 @@ export default {
             this.crew = { ...crew };
             this.showCrews = false;
         },
-        setTarrif(tarrif) {
-            this.tarrif = { ...tarrif };
-            this.showTarrifs = false;
+        setTariff(tariff) {
+            this.tariff = { ...tariff };
+            this.showTariffs = false;
         },
         setOrderState(orderState) {
             this.orderState = { ...orderState };
@@ -506,6 +506,44 @@ export default {
         },
         setDate({ target }) {
             this.timestamp.date = target.value;
+        },
+        submit() {
+            // const newOrder = {
+            //     // this example id will be replaced by id created in db
+            //     id: Math.random() * 1000,
+            //     state_id: this.orderState.id,
+            //     state_kind: this.orderState.title
+            //         .toLowerCase()
+            //         .split(" ")
+            //         .join("_"),
+            //     server_time_offset: 0,
+            //     start_time: "20130204181111",
+            //     source_time: "20130204181111",
+            //     source: this.origin.address,
+            //     source_lat: this.origin.lat,
+            //     source_lon: this.origin.lon,
+            //     destination: this.destination.address,
+            //     destination_lat: this.destination.lat,
+            //     destination_lon: this.destination.lon,
+            //     stops: [...this.stops],
+            //     customer: this.clientName,
+            //     passanger: this.clientName,
+            //     crew_id: this.crew.id,
+            //     prior_crew_id: 0,
+            //     driver_id: 0,
+            //     car_id: 0,
+            //     phone: this.clientNumber,
+            //     client_id: 140,
+            //     tariff_id: this.tariff.id,
+            //     order_crew_group_id: this.crewGroup.id,
+            //     creation_way: "operator",
+            //     client_employee_id: 1,
+            //     is_prior: false,
+            //     is_really_prior: false,
+            //     email: "mail@mail.ru",
+            //     prior_to_current_before_minutes: 30,
+            //     flight_number: "123/123123-0"
+            // };
         },
         // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
         getRandomCoord() {

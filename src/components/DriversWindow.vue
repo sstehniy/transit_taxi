@@ -42,14 +42,12 @@
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
-/*import OrderMin from "./OrderMin.vue";*/
 import Driver from "./Driver.vue";
 import StatusSettings from "./StatusSettings.vue";
 
 export default {
     components: {
         simplebar,
-        /*OrderMin,*/
         Driver,
         StatusSettings
     },
@@ -217,6 +215,7 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
+    z-index: 10;
 }
 .orders {
     width: 100%;

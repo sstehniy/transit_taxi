@@ -122,7 +122,9 @@
                 </div>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
+                        <p
+                            @click="showAttributes=!showAttributes"
+                        >{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -154,7 +156,9 @@
                 <label for="crew-group" class="form-label primary">Группа экипажа</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
+                        <p
+                            @click="showCrewGroups=!showCrewGroups"
+                        >{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -171,7 +175,7 @@
                 <label for="crew" class="form-label primary">Экипаж</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{crew.id? crew.title: "Выберите экипаж"}}</p>
+                        <p @click="showCrews=!showCrews">{{crew.id? crew.title: "Выберите экипаж"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -206,7 +210,9 @@
                 <label class="form-label primary" for="tarrif">Тариф</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
+                        <p
+                            @click="showTarrifs=!showTarrifs"
+                        >{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -501,11 +507,13 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .form-input.extended input,
 p {
     flex-grow: 1;
+    line-height: 37px;
     background-color: transparent;
     outline: none;
     font-size: 11px;

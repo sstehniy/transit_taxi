@@ -15,6 +15,7 @@ export default {
 
 <style scoped>
 svg {
+    cursor: pointer;
     height: 14px;
     width: 14px;
 }

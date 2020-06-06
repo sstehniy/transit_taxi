@@ -1,0 +1,38 @@
+{
+    "id": 20648,
+    "state_id": 44,
+    "state_kind": "new_order",
+    "server_time_offset": 0,
+    "start_time": "20130204181111",
+    "source_time": "20130204181111",
+    "source": "30 Лет Победы ул. /Ижевск/, 4Б",
+    "source_lat": 56.863613,
+    "source_lon": 53.186539,
+    "destination": "Кирова ул. /Ижевск/, 56",
+    "destination_lat": 56.862202,
+    "destination_lon": 53.187485,
+    "stops": [
+        {
+            "address": "30 Лет Победы ул. /Ижевск/, 8",
+            "lat": 56.863388,
+            "lon": 53.184269
+        }
+    ],
+    "customer": "Маша",
+    "passenger": "Маша",
+    "crew_id": 0,
+    "prior_crew_id": 0,
+    "driver_id": 0,
+    "car_id": 0,
+    "phone": "18",
+    "client_id": 140,
+    "tariff_id": 1,
+    "order_crew_group_id": 1,
+    "creation_way": "operator",
+    "client_employee_id": 1,
+    "is_prior": false,
+    "is_really_prior": false,
+    "email": "mail@mail.ru",
+    "prior_to_current_before_minutes": 30,
+    "flight_number": "123/123123-0"
+}

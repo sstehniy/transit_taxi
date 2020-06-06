@@ -39,7 +39,7 @@
                     <div class="control-wrapper">
                         <Checkbox
                             :checked="saveClientName"
-                            @toggle-checked="toggleCheckBox('saveClientName')"
+                            @click.native="toggleCheckBox('saveClientName')"
                         />
                         <p class="control-text">Сохранить</p>
                     </div>
@@ -52,7 +52,7 @@
                         <input
                             type="text"
                             name="origin"
-                            v-model="origin"
+                            v-model="origin.adress"
                             placeholder="Адрес подачи"
                         />
                         <img
@@ -62,11 +62,26 @@
                         />
                         <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     </div>
+                    <div class="form-input extended" v-for="stop in stops" :key="stop.id">
+                        <input
+                            type="text"
+                            name="new-stop"
+                            v-model="stop.adress"
+                            placeholder="Новый адрес"
+                        />
+                        <img
+                            alt="pinpoint"
+                            id="pinpoint"
+                            :src="require('@/assets/pinpoint-icon.svg')"
+                        />
+                        <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                        <span id="delete" @click="removeStop(stop.id)">+</span>
+                    </div>
                     <div class="form-input extended">
                         <input
                             type="text"
                             name="destitation"
-                            v-model="destination"
+                            v-model="destination.adress"
                             placeholder="Адрес назначения"
                         />
                         <img
@@ -81,30 +96,51 @@
                     <div class="control-wrapper">
                         <Checkbox
                             :checked="twoWayRide"
-                            @toggle-checked="toggleCheckBox('twoWayRide')"
+                            @click.native="toggleCheckBox('twoWayRide')"
                         />
                         <p class="control-text">Обратно</p>
                     </div>
                     <div class="control-wrapper">
-                        <Checkbox
-                            :checked="saveClientName"
-                            @toggle-checked="toggleCheckBox('saveClientName')"
-                        />
+                        <AddIcon @click.native="addStop" />
                         <p class="control-text">Добавить адрес</p>
                     </div>
                 </div>
             </div>
             <div class="form-section">
                 <label for="client" class="form-label primary">Клиент</label>
-                <div class="form-input extended">
-                    <input
-                        type="text"
-                        name="destitation"
-                        v-model="destination"
-                        placeholder="Адрес назначения"
-                    />
-                    <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                <div class="form-input extended" v-for="attr in attributes" :key="attr.id">
+                    <p>{{attr.title}}</p>
+                    <span id="delete" @click="removeAttribute(attr.id)">+</span>
                 </div>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showAttributes=!showAttributes"
+                        />
+                        <FormDropdownSelect
+                            v-if="showAttributes"
+                            :options="getAttributes"
+                            @select-option="setNewAttribute"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <AddIcon @click.native="addAttribute" />
+                        <p class="control-text">Добавить атрибут</p>
+                    </div>
+                </div>
+                <input
+                    class="form-input"
+                    type="text"
+                    name="order-comment"
+                    v-model="orderComment"
+                    placeholder="Комментари к заказу"
+                />
             </div>
         </simplebar>
         <div class="create-order-footer">
@@ -119,19 +155,34 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
+import FormDropdownSelect from "./UI/FormDropdownSelect.vue";
 import Checkbox from "@/components/UI/Checkbox.vue";
+import AddIcon from "@/components/UI/AddIcon.vue";
 
 export default {
     name: "CreateOrder",
     components: {
         simplebar,
-        Checkbox
+        Checkbox,
+        AddIcon,
+        FormDropdownSelect
     },
     computed: {
-        tarrifs: () => this.$store.orderDetails.tarrifs,
-        crewGroups: () => this.$store.orderDetails.crewGroups,
-        crews: () => this.$store.state.orderDetails.crews,
-        orderStates: () => this.$store.state.orderDetails.orderStates
+        getTarrifs() {
+            return this.$store.state.orderDetails.tarrifs;
+        },
+        getAttributes() {
+            return this.$store.state.orderDetails.attributes;
+        },
+        getCrewGroups() {
+            return this.$store.state.orderDetails.crewGroups;
+        },
+        getCrews() {
+            return this.$store.state.orderDetails.crews;
+        },
+        getOrderStates() {
+            return this.$store.state.orderDetails.orderStates;
+        }
     },
     data() {
         return {
@@ -139,13 +190,21 @@ export default {
             clientName: "",
             clientGroup: "",
             saveClientName: false,
-            origin: "",
-            stops: [],
-            destination: "",
-            twoWayRide: false,
-            attributes: {
-                childSeat: false
+            origin: {
+                adress: "",
+                lat: null,
+                lon: null
             },
+            stops: [],
+            destination: {
+                adress: "",
+                lat: null,
+                lon: null
+            },
+            twoWayRide: false,
+            newAttribute: null,
+            attributes: [],
+            showAttributes: false,
             orderComment: "",
             crewGroupId: 1,
             crewId: 1,
@@ -169,6 +228,46 @@ export default {
     methods: {
         toggleCheckBox(fieldName) {
             this[fieldName] = !this[fieldName];
+        },
+        addStop() {
+            this.stops = [
+                ...this.stops,
+                {
+                    address: "",
+                    lat: this.getRandomCoord(),
+                    lon: this.getRandomCoord(),
+                    id: this.stops.length
+                }
+            ];
+        },
+        removeStop(id) {
+            this.stops = this.stops.filter(s => s.id !== id);
+        },
+        setNewAttribute($event) {
+            if (
+                (this.attributes.length &&
+                    !this.attributes.find(attr => attr.id === $event.id)) ||
+                !this.attributes.length
+            ) {
+                this.newAttribute = { id: $event.id, title: $event.title };
+                this.showAttributes = false;
+                console.log("added new attr");
+            } else {
+                console.log("did not add new attr");
+            }
+        },
+        addAttribute() {
+            if (this.newAttribute) {
+                this.attributes = [...this.attributes, this.newAttribute];
+                this.newAttribute = null;
+            }
+        },
+        removeAttribute(id) {
+            this.attributes = this.attributes.filter(attr => attr.id !== id);
+        },
+        // ! method to get pseudo-coordinates while creating adresses(only for testimg purposes)
+        getRandomCoord() {
+            return 40 + Math.random() * 20;
         }
     }
 };
@@ -194,7 +293,7 @@ export default {
     margin: 0;
     line-height: 45px;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 14px;
     color: #181c21;
 }
 
@@ -228,6 +327,7 @@ export default {
     margin-top: 5px;
     margin-bottom: 10px;
     width: 100%;
+    height: 37px;
     padding: 10px;
     background: #ececec;
     border-radius: 5px;
@@ -240,9 +340,11 @@ export default {
 .form-input.extended {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.form-input.extended input {
+.form-input.extended input,
+p {
     flex-grow: 1;
     background-color: transparent;
     outline: none;
@@ -253,6 +355,7 @@ export default {
 
 .form-input.extended img {
     margin: 0 7px;
+    cursor: pointer;
 }
 
 .form-input.extended img#pinpoint {
@@ -266,8 +369,21 @@ export default {
     margin: 0 5px;
 }
 
+.form-input.extended span#delete {
+    font-size: 23px;
+    line-height: 90%;
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    top: -8px;
+    right: -4px;
+
+    transform: rotate(45deg);
+}
+
 .form-section-controls {
     width: 100%;
+    margin: 5px 0;
     display: flex;
     justify-content: space-between;
 }

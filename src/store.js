@@ -19,6 +19,11 @@ export default new Vuex.Store({
                 { id: 2, title: "Тариф 2" },
                 { id: 3, title: "Тариф 3" }
             ],
+            attributes: [
+                { id: 1, title: "Детское кресло" },
+                { id: 2, title: "Attribute 2" },
+                { id: 3, title: "Attribute 3" }
+            ],
             crewGroups: [
                 { id: 1, title: "Группа 1" },
                 { id: 2, title: "Группа 2" },
@@ -30,19 +35,15 @@ export default new Vuex.Store({
                 { id: 3, title: "Экипаж 3" }
             ],
             orderStates: [
-                { id: 1, title: "Экипаж 1" },
-                { id: 2, title: "Экипаж 2" },
-                { id: 3, title: "Экипаж 3" }
+                { id: 1, title: "Статус 1" },
+                { id: 2, title: "Статус 2" },
+                { id: 3, title: "Статус 3" }
             ]
         }
     },
     mutations: {
         toggleOrders(state) {
-            if (state.ordersOpen === false) {
-                state.ordersOpen = true;
-            } else {
-                state.ordersOpen = false;
-            }
+            state.ordersOpen = !state.ordersOpen;
         },
         toggleWindow(state, window) {
             for (var key in state.windows) {

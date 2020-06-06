@@ -32,14 +32,14 @@
                         class="form-input"
                         v-model="clientGroup"
                         name="client-group"
-                        placeholder="Введите группы"
+                        placeholder="Введите группу"
                     />
                 </div>
                 <div class="form-section-controls">
                     <div class="control-wrapper">
                         <Checkbox
                             :checked="saveClientName"
-                            @toggle-checked="toggleCheckBox('saveClientName')"
+                            @click.native="toggleCheckBox('saveClientName')"
                         />
                         <p class="control-text">Сохранить</p>
                     </div>
@@ -52,7 +52,8 @@
                         <input
                             type="text"
                             name="origin"
-                            v-model="origin"
+                            :value="origin.address"
+                            @input="setNewOrigin"
                             placeholder="Адрес подачи"
                         />
                         <img
@@ -62,11 +63,33 @@
                         />
                         <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     </div>
+                    <div
+                        class="form-input extended"
+                        v-for="stop in stops"
+                        :key="stop.id"
+                        :id="stop.id"
+                    >
+                        <input
+                            type="text"
+                            name="new-stop"
+                            :value="stop.address"
+                            @input="updateStop"
+                            placeholder="Новый адрес"
+                        />
+                        <img
+                            alt="pinpoint"
+                            id="pinpoint"
+                            :src="require('@/assets/pinpoint-icon.svg')"
+                        />
+                        <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                        <span id="delete" @click="removeStop(stop.id)">+</span>
+                    </div>
                     <div class="form-input extended">
                         <input
                             type="text"
                             name="destitation"
-                            v-model="destination"
+                            :value="destination.address"
+                            @input="setNewDestination"
                             placeholder="Адрес назначения"
                         />
                         <img
@@ -81,29 +104,130 @@
                     <div class="control-wrapper">
                         <Checkbox
                             :checked="twoWayRide"
-                            @toggle-checked="toggleCheckBox('twoWayRide')"
+                            @click.native="toggleCheckBox('twoWayRide')"
                         />
                         <p class="control-text">Обратно</p>
                     </div>
                     <div class="control-wrapper">
-                        <Checkbox
-                            :checked="saveClientName"
-                            @toggle-checked="toggleCheckBox('saveClientName')"
-                        />
+                        <AddIcon @click.native="addStop" />
                         <p class="control-text">Добавить адрес</p>
                     </div>
                 </div>
             </div>
             <div class="form-section">
-                <label for="client" class="form-label primary">Клиент</label>
-                <div class="form-input extended">
+                <label for="attributes" class="form-label primary">Атрибуты</label>
+                <div class="form-input extended" v-for="attr in attributes" :key="attr.id">
+                    <p>{{attr.title}}</p>
+                    <span id="delete" @click="removeAttribute(attr.id)">+</span>
+                </div>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showAttributes=!showAttributes"
+                        />
+                        <FormDropdownSelect
+                            v-if="showAttributes"
+                            :options="getAttributes"
+                            @select-option="setNewAttribute"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <AddIcon @click.native="addAttribute" />
+                        <p class="control-text">Добавить атрибут</p>
+                    </div>
+                </div>
+                <input
+                    class="form-input"
+                    type="text"
+                    name="order-comment"
+                    v-model="orderComment"
+                    placeholder="Комментари к заказу"
+                />
+            </div>
+            <div class="form-section">
+                <label for="crew-group" class="form-label primary">Группа экипажа</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showCrewGroups=!showCrewGroups"
+                        />
+                        <FormDropdownSelect
+                            v-if="showCrewGroups"
+                            :options="getCrewGroups"
+                            @select-option="setCrewGroup"
+                        />
+                    </div>
+                </div>
+                <label for="crew" class="form-label primary">Экипаж</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{crew.id? crew.title: "Выберите экипаж"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showCrews=!showCrews"
+                        />
+                        <FormDropdownSelect
+                            v-if="showCrews"
+                            :options="getCrews"
+                            @select-option="setCrew"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox :checked="autoMatch" @click.native="toggleCheckBox('autoMatch')" />
+                        <p class="control-text">Автоподбор</p>
+                    </div>
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Время подачи авто</label>
                     <input
-                        type="text"
-                        name="destitation"
-                        v-model="destination"
-                        placeholder="Адрес назначения"
+                        type="number"
+                        v-model="serveTime"
+                        class="form-input"
+                        id="serve-time"
+                        placeholder="мин"
                     />
-                    <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="form-label primary" for="tarrif">Тариф</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showTarrifs=!showTarrifs"
+                        />
+                        <FormDropdownSelect
+                            v-if="showTarrifs"
+                            :options="getTarrifs"
+                            @select-option="setTarrif"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox
+                            :checked="hourlyPayment"
+                            @click.native="toggleCheckBox('hourlyPayment')"
+                        />
+                        <p class="control-text">Почасовой</p>
+                    </div>
                 </div>
             </div>
         </simplebar>
@@ -119,19 +243,34 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
+import FormDropdownSelect from "./UI/FormDropdownSelect.vue";
 import Checkbox from "@/components/UI/Checkbox.vue";
+import AddIcon from "@/components/UI/AddIcon.vue";
 
 export default {
     name: "CreateOrder",
     components: {
         simplebar,
-        Checkbox
+        Checkbox,
+        AddIcon,
+        FormDropdownSelect
     },
     computed: {
-        tarrifs: () => this.$store.orderDetails.tarrifs,
-        crewGroups: () => this.$store.orderDetails.crewGroups,
-        crews: () => this.$store.state.orderDetails.crews,
-        orderStates: () => this.$store.state.orderDetails.orderStates
+        getTarrifs() {
+            return this.$store.state.orderDetails.tarrifs;
+        },
+        getAttributes() {
+            return this.$store.state.orderDetails.attributes;
+        },
+        getCrewGroups() {
+            return this.$store.state.orderDetails.crewGroups;
+        },
+        getCrews() {
+            return this.$store.state.orderDetails.crews;
+        },
+        getOrderStates() {
+            return this.$store.state.orderDetails.orderStates;
+        }
     },
     data() {
         return {
@@ -139,19 +278,39 @@ export default {
             clientName: "",
             clientGroup: "",
             saveClientName: false,
-            origin: "",
-            stops: [],
-            destination: "",
-            twoWayRide: false,
-            attributes: {
-                childSeat: false
+            origin: {
+                address: "",
+                lat: null,
+                lon: null
             },
+            stops: [],
+            destination: {
+                address: "",
+                lat: null,
+                lon: null
+            },
+            twoWayRide: false,
+            newAttribute: null,
+            attributes: [],
+            showAttributes: false,
             orderComment: "",
-            crewGroupId: 1,
-            crewId: 1,
+            crewGroup: {
+                title: "",
+                id: null
+            },
+            showCrewGroups: false,
+            crew: {
+                title: "",
+                id: null
+            },
+            showCrews: false,
             autoMatch: false,
             serveTime: null,
-            tarrifId: 1,
+            tarrif: {
+                title: "",
+                id: null
+            },
+            showTarrifs: false,
             hourlyPayment: false,
             orderStateId: 1,
             timestamp: {
@@ -160,7 +319,7 @@ export default {
             },
             preOrder: false,
             travelCost: {
-                total: 215,
+                total: 600,
                 cash: null,
                 card: null
             }
@@ -169,6 +328,80 @@ export default {
     methods: {
         toggleCheckBox(fieldName) {
             this[fieldName] = !this[fieldName];
+        },
+        setNewOrigin({ target }) {
+            this.origin = {
+                address: target.value,
+                lat: this.getRandomCoord(),
+                lon: this.getRandomCoord()
+            };
+        },
+        setNewDestination({ target }) {
+            this.destination = {
+                address: target.value,
+                lat: this.getRandomCoord(),
+                lon: this.getRandomCoord()
+            };
+        },
+        addStop() {
+            this.stops = [
+                ...this.stops,
+                {
+                    address: "",
+                    lat: null,
+                    lon: null,
+                    id: this.stops.length
+                }
+            ];
+        },
+        updateStop({ target }) {
+            const stop = this.stops.find(s => s.id === +target.parentNode.id);
+            stop.address = target.value;
+            stop.lat = this.getRandomCoord();
+            stop.lon = this.getRandomCoord();
+        },
+        removeStop(id) {
+            this.stops = this.stops.filter(s => s.id !== id);
+        },
+        setNewAttribute($event) {
+            if (
+                ((this.attributes.length &&
+                    !this.attributes.find(attr => attr.id === $event.id)) ||
+                    !this.attributes.length) &&
+                $event
+            ) {
+                this.newAttribute = { id: $event.id, title: $event.title };
+                this.showAttributes = false;
+                console.log("added new attr");
+            } else {
+                this.newAttribute = null;
+                this.showAttributes = false;
+            }
+        },
+        addAttribute() {
+            if (this.newAttribute) {
+                this.attributes = [...this.attributes, this.newAttribute];
+                this.newAttribute = null;
+            }
+        },
+        removeAttribute(id) {
+            this.attributes = this.attributes.filter(attr => attr.id !== id);
+        },
+        setCrewGroup(crewGroup) {
+            this.crewGroup = { ...crewGroup };
+            this.showCrewGroups = false;
+        },
+        setCrew(crew) {
+            this.crew = { ...crew };
+            this.showCrews = false;
+        },
+        setTarrif(tarrif) {
+            this.tarrif = { ...tarrif };
+            this.showTarrifs = false;
+        },
+        // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
+        getRandomCoord() {
+            return +(40 + Math.random() * 20).toFixed(6);
         }
     }
 };
@@ -194,7 +427,7 @@ export default {
     margin: 0;
     line-height: 45px;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 14px;
     color: #181c21;
 }
 
@@ -210,6 +443,16 @@ export default {
     margin-top: 15px;
     margin-bottom: 5px;
 }
+.form-section > .form-input:last-child {
+    margin-bottom: 0;
+}
+
+.form-field.inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .form-label {
     display: block;
@@ -221,13 +464,16 @@ export default {
     font-size: 14px;
     margin-bottom: 3px;
 }
+
 .form-label.inline {
-    display: inline-block;
+    flex: 1;
+    white-space: nowrap;
 }
+
 .form-input {
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin: 5px 0;
     width: 100%;
+    height: 37px;
     padding: 10px;
     background: #ececec;
     border-radius: 5px;
@@ -237,12 +483,28 @@ export default {
     outline: none;
 }
 
+.form-input#serve-time {
+    color: #181c21;
+    font-size: 11px;
+    text-align: center;
+    width: 75px;
+    -moz-appearance: textfield;
+}
+
+.form-input#serve-time::-webkit-outer-spin-button,
+.form-input#serve-time::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .form-input.extended {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.form-input.extended input {
+.form-input.extended input,
+p {
     flex-grow: 1;
     background-color: transparent;
     outline: none;
@@ -253,6 +515,7 @@ export default {
 
 .form-input.extended img {
     margin: 0 7px;
+    cursor: pointer;
 }
 
 .form-input.extended img#pinpoint {
@@ -266,10 +529,24 @@ export default {
     margin: 0 5px;
 }
 
+.form-input.extended span#delete {
+    font-size: 23px;
+    line-height: 90%;
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    top: -8px;
+    right: -4px;
+
+    transform: rotate(45deg);
+}
+
 .form-section-controls {
     width: 100%;
+    margin: 7px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .control-wrapper {

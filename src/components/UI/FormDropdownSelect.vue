@@ -1,5 +1,8 @@
 <template>
     <div class="select-options-wrapper">
+        <div class="select-option" @click="$emit('select-option', null)">
+            <p class="option-title">Не выбрано</p>
+        </div>
         <div
             class="select-option"
             v-for="option in options"
@@ -23,6 +26,7 @@ export default {
 <style scoped>
 .select-options-wrapper {
     position: absolute;
+    z-index: 3;
     top: 100%;
     width: 100%;
     left: 0;

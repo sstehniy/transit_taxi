@@ -32,7 +32,7 @@
                         class="form-input"
                         v-model="clientGroup"
                         name="client-group"
-                        placeholder="Введите группы"
+                        placeholder="Введите группу"
                     />
                 </div>
                 <div class="form-section-controls">
@@ -52,7 +52,8 @@
                         <input
                             type="text"
                             name="origin"
-                            v-model="origin.adress"
+                            :value="origin.address"
+                            @input="setNewOrigin"
                             placeholder="Адрес подачи"
                         />
                         <img
@@ -62,11 +63,17 @@
                         />
                         <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     </div>
-                    <div class="form-input extended" v-for="stop in stops" :key="stop.id">
+                    <div
+                        class="form-input extended"
+                        v-for="stop in stops"
+                        :key="stop.id"
+                        :id="stop.id"
+                    >
                         <input
                             type="text"
                             name="new-stop"
-                            v-model="stop.adress"
+                            :value="stop.address"
+                            @input="updateStop"
                             placeholder="Новый адрес"
                         />
                         <img
@@ -81,7 +88,8 @@
                         <input
                             type="text"
                             name="destitation"
-                            v-model="destination.adress"
+                            :value="destination.address"
+                            @input="setNewDestination"
                             placeholder="Адрес назначения"
                         />
                         <img
@@ -107,7 +115,7 @@
                 </div>
             </div>
             <div class="form-section">
-                <label for="client" class="form-label primary">Клиент</label>
+                <label for="attributes" class="form-label primary">Атрибуты</label>
                 <div class="form-input extended" v-for="attr in attributes" :key="attr.id">
                     <p>{{attr.title}}</p>
                     <span id="delete" @click="removeAttribute(attr.id)">+</span>
@@ -141,6 +149,86 @@
                     v-model="orderComment"
                     placeholder="Комментари к заказу"
                 />
+            </div>
+            <div class="form-section">
+                <label for="crew-group" class="form-label primary">Группа экипажа</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showCrewGroups=!showCrewGroups"
+                        />
+                        <FormDropdownSelect
+                            v-if="showCrewGroups"
+                            :options="getCrewGroups"
+                            @select-option="setCrewGroup"
+                        />
+                    </div>
+                </div>
+                <label for="crew" class="form-label primary">Экипаж</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{crew.id? crew.title: "Выберите экипаж"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showCrews=!showCrews"
+                        />
+                        <FormDropdownSelect
+                            v-if="showCrews"
+                            :options="getCrews"
+                            @select-option="setCrew"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox :checked="autoMatch" @click.native="toggleCheckBox('autoMatch')" />
+                        <p class="control-text">Автоподбор</p>
+                    </div>
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Время подачи авто</label>
+                    <input
+                        type="number"
+                        v-model="serveTime"
+                        class="form-input"
+                        id="serve-time"
+                        placeholder="мин"
+                    />
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="form-label primary" for="tarrif">Тариф</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p>{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showTarrifs=!showTarrifs"
+                        />
+                        <FormDropdownSelect
+                            v-if="showTarrifs"
+                            :options="getTarrifs"
+                            @select-option="setTarrif"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox
+                            :checked="hourlyPayment"
+                            @click.native="toggleCheckBox('hourlyPayment')"
+                        />
+                        <p class="control-text">Почасовой</p>
+                    </div>
+                </div>
             </div>
         </simplebar>
         <div class="create-order-footer">
@@ -191,13 +279,13 @@ export default {
             clientGroup: "",
             saveClientName: false,
             origin: {
-                adress: "",
+                address: "",
                 lat: null,
                 lon: null
             },
             stops: [],
             destination: {
-                adress: "",
+                address: "",
                 lat: null,
                 lon: null
             },
@@ -206,11 +294,23 @@ export default {
             attributes: [],
             showAttributes: false,
             orderComment: "",
-            crewGroupId: 1,
-            crewId: 1,
+            crewGroup: {
+                title: "",
+                id: null
+            },
+            showCrewGroups: false,
+            crew: {
+                title: "",
+                id: null
+            },
+            showCrews: false,
             autoMatch: false,
             serveTime: null,
-            tarrifId: 1,
+            tarrif: {
+                title: "",
+                id: null
+            },
+            showTarrifs: false,
             hourlyPayment: false,
             orderStateId: 1,
             timestamp: {
@@ -219,7 +319,7 @@ export default {
             },
             preOrder: false,
             travelCost: {
-                total: 215,
+                total: 600,
                 cash: null,
                 card: null
             }
@@ -229,31 +329,53 @@ export default {
         toggleCheckBox(fieldName) {
             this[fieldName] = !this[fieldName];
         },
+        setNewOrigin({ target }) {
+            this.origin = {
+                address: target.value,
+                lat: this.getRandomCoord(),
+                lon: this.getRandomCoord()
+            };
+        },
+        setNewDestination({ target }) {
+            this.destination = {
+                address: target.value,
+                lat: this.getRandomCoord(),
+                lon: this.getRandomCoord()
+            };
+        },
         addStop() {
             this.stops = [
                 ...this.stops,
                 {
                     address: "",
-                    lat: this.getRandomCoord(),
-                    lon: this.getRandomCoord(),
+                    lat: null,
+                    lon: null,
                     id: this.stops.length
                 }
             ];
+        },
+        updateStop({ target }) {
+            const stop = this.stops.find(s => s.id === +target.parentNode.id);
+            stop.address = target.value;
+            stop.lat = this.getRandomCoord();
+            stop.lon = this.getRandomCoord();
         },
         removeStop(id) {
             this.stops = this.stops.filter(s => s.id !== id);
         },
         setNewAttribute($event) {
             if (
-                (this.attributes.length &&
+                ((this.attributes.length &&
                     !this.attributes.find(attr => attr.id === $event.id)) ||
-                !this.attributes.length
+                    !this.attributes.length) &&
+                $event
             ) {
                 this.newAttribute = { id: $event.id, title: $event.title };
                 this.showAttributes = false;
                 console.log("added new attr");
             } else {
-                console.log("did not add new attr");
+                this.newAttribute = null;
+                this.showAttributes = false;
             }
         },
         addAttribute() {
@@ -265,9 +387,21 @@ export default {
         removeAttribute(id) {
             this.attributes = this.attributes.filter(attr => attr.id !== id);
         },
-        // ! method to get pseudo-coordinates while creating adresses(only for testimg purposes)
+        setCrewGroup(crewGroup) {
+            this.crewGroup = { ...crewGroup };
+            this.showCrewGroups = false;
+        },
+        setCrew(crew) {
+            this.crew = { ...crew };
+            this.showCrews = false;
+        },
+        setTarrif(tarrif) {
+            this.tarrif = { ...tarrif };
+            this.showTarrifs = false;
+        },
+        // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
         getRandomCoord() {
-            return 40 + Math.random() * 20;
+            return +(40 + Math.random() * 20).toFixed(6);
         }
     }
 };
@@ -309,6 +443,16 @@ export default {
     margin-top: 15px;
     margin-bottom: 5px;
 }
+.form-section > .form-input:last-child {
+    margin-bottom: 0;
+}
+
+.form-field.inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .form-label {
     display: block;
@@ -320,12 +464,14 @@ export default {
     font-size: 14px;
     margin-bottom: 3px;
 }
+
 .form-label.inline {
-    display: inline-block;
+    flex: 1;
+    white-space: nowrap;
 }
+
 .form-input {
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin: 5px 0;
     width: 100%;
     height: 37px;
     padding: 10px;
@@ -335,6 +481,20 @@ export default {
     font-size: 11px;
     color: #6b6565;
     outline: none;
+}
+
+.form-input#serve-time {
+    color: #181c21;
+    font-size: 11px;
+    text-align: center;
+    width: 75px;
+    -moz-appearance: textfield;
+}
+
+.form-input#serve-time::-webkit-outer-spin-button,
+.form-input#serve-time::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .form-input.extended {
@@ -383,9 +543,10 @@ p {
 
 .form-section-controls {
     width: 100%;
-    margin: 5px 0;
+    margin: 7px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .control-wrapper {

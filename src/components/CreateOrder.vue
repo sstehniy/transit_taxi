@@ -122,7 +122,9 @@
                 </div>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
+                        <p
+                            @click="showAttributes=!showAttributes"
+                        >{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -154,7 +156,9 @@
                 <label for="crew-group" class="form-label primary">Группа экипажа</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
+                        <p
+                            @click="showCrewGroups=!showCrewGroups"
+                        >{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -171,7 +175,7 @@
                 <label for="crew" class="form-label primary">Экипаж</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{crew.id? crew.title: "Выберите экипаж"}}</p>
+                        <p @click="showCrews=!showCrews">{{crew.id? crew.title: "Выберите экипаж"}}</p>
                         <img
                             alt="drop"
                             id="drop"
@@ -196,27 +200,29 @@
                     <input
                         type="number"
                         v-model="serveTime"
-                        class="form-input"
+                        class="form-input number"
                         id="serve-time"
                         placeholder="мин"
                     />
                 </div>
             </div>
             <div class="form-section">
-                <label class="form-label primary" for="tarrif">Тариф</label>
+                <label class="form-label primary" for="tariff">Тариф</label>
                 <div class="form-field">
                     <div class="form-input extended">
-                        <p>{{tarrif.id? tarrif.title: "Выберите тариф"}}</p>
+                        <p
+                            @click="showTarifsf=!showTariffs"
+                        >{{tariff.id? tariff.title: "Выберите тариф"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showTarrifs=!showTarrifs"
+                            @click="showTariffs=!showTariffs"
                         />
                         <FormDropdownSelect
-                            v-if="showTarrifs"
-                            :options="getTarrifs"
-                            @select-option="setTarrif"
+                            v-if="showTariffs"
+                            :options="getTariffs"
+                            @select-option="setTariff"
                         />
                     </div>
                 </div>
@@ -230,10 +236,101 @@
                     </div>
                 </div>
             </div>
+            <div class="form-section">
+                <label for="state" class="form-label primary">Состояние</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p
+                            @click="showOrderStates=!showOrderStates"
+                        >{{orderState.id? orderState.title: "Выберите состояние"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showOrderStates=!showOrderStates"
+                        />
+                        <FormDropdownSelect
+                            v-if="showOrderStates"
+                            :options="getOrderStates"
+                            @select-option="setOrderState"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="state" class="form-label primary">Время</label>
+                <div class="inline-fields-container">
+                    <div class="form-field inline">
+                        <img alt="clock-icon" id="clock" :src="require('@/assets/time-icon.svg')" />
+                        <input
+                            type="number"
+                            v-model="timestamp.minutes"
+                            class="form-input number"
+                            id="state-minutes"
+                            placeholder="мин"
+                        />
+                    </div>
+                    <div class="form-field inline">
+                        <img
+                            alt="calender-icon"
+                            id="calender"
+                            :src="require('@/assets/calender-icon.svg')"
+                        />
+                        <input
+                            type="text"
+                            :value="timestamp.date | formatDate"
+                            @input="setDate"
+                            class="form-input"
+                            id="state-date"
+                            placeholder="12/05/2020"
+                            maxlength="10"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox :checked="preOrder" @click.native="toggleCheckBox('preOrder')" />
+                        <p class="control-text">Предварительный</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="form-label primary">Стоимость поездки</label>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Сумма</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.total"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Наличные</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.cash"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Карта</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.card"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
+                </div>
+            </div>
         </simplebar>
         <div class="create-order-footer">
             <button class="footer-btn total">
-                <span id="total-num">{{travelCost.total}}</span> Р
+                <span id="total-num">{{travelCost.total? travelCost.total: "0"}}</span> Р
             </button>
             <button class="footer-btn save">Сохранить</button>
         </div>
@@ -256,8 +353,8 @@ export default {
         FormDropdownSelect
     },
     computed: {
-        getTarrifs() {
-            return this.$store.state.orderDetails.tarrifs;
+        getTariffs() {
+            return this.$store.state.orderDetails.tariffs;
         },
         getAttributes() {
             return this.$store.state.orderDetails.attributes;
@@ -306,13 +403,17 @@ export default {
             showCrews: false,
             autoMatch: false,
             serveTime: null,
-            tarrif: {
+            tariff: {
                 title: "",
                 id: null
             },
-            showTarrifs: false,
+            showTariffs: false,
             hourlyPayment: false,
-            orderStateId: 1,
+            orderState: {
+                title: "",
+                id: null
+            },
+            showOrderStates: false,
             timestamp: {
                 minutes: null,
                 date: null
@@ -395,13 +496,73 @@ export default {
             this.crew = { ...crew };
             this.showCrews = false;
         },
-        setTarrif(tarrif) {
-            this.tarrif = { ...tarrif };
-            this.showTarrifs = false;
+        setTariff(tariff) {
+            this.tariff = { ...tariff };
+            this.showTariffs = false;
+        },
+        setOrderState(orderState) {
+            this.orderState = { ...orderState };
+            this.showOrderStates = false;
+        },
+        setDate({ target }) {
+            this.timestamp.date = target.value;
+        },
+        submit() {
+            // const newOrder = {
+            //     // this example id will be replaced by id created in db
+            //     id: Math.random() * 1000,
+            //     state_id: this.orderState.id,
+            //     state_kind: this.orderState.title
+            //         .toLowerCase()
+            //         .split(" ")
+            //         .join("_"),
+            //     server_time_offset: 0,
+            //     start_time: "20130204181111",
+            //     source_time: "20130204181111",
+            //     source: this.origin.address,
+            //     source_lat: this.origin.lat,
+            //     source_lon: this.origin.lon,
+            //     destination: this.destination.address,
+            //     destination_lat: this.destination.lat,
+            //     destination_lon: this.destination.lon,
+            //     stops: [...this.stops],
+            //     customer: this.clientName,
+            //     passanger: this.clientName,
+            //     crew_id: this.crew.id,
+            //     prior_crew_id: 0,
+            //     driver_id: 0,
+            //     car_id: 0,
+            //     phone: this.clientNumber,
+            //     client_id: 140,
+            //     tariff_id: this.tariff.id,
+            //     order_crew_group_id: this.crewGroup.id,
+            //     creation_way: "operator",
+            //     client_employee_id: 1,
+            //     is_prior: false,
+            //     is_really_prior: false,
+            //     email: "mail@mail.ru",
+            //     prior_to_current_before_minutes: 30,
+            //     flight_number: "123/123123-0"
+            // };
         },
         // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
         getRandomCoord() {
             return +(40 + Math.random() * 20).toFixed(6);
+        }
+    },
+    filters: {
+        formatDate(value) {
+            if (!value) return;
+            const valueArr = value.split("");
+            if (valueArr.length === 2) {
+                valueArr.push("/");
+                return valueArr.join("");
+            }
+            if (valueArr.length === 5) {
+                valueArr.push("/");
+                return valueArr.join("");
+            }
+            return valueArr.join("");
         }
     }
 };
@@ -443,20 +604,33 @@ export default {
     margin-top: 15px;
     margin-bottom: 5px;
 }
+.form-section:last-child {
+    margin-bottom: 0;
+}
 .form-section > .form-input:last-child {
     margin-bottom: 0;
 }
 
-.form-field.inline {
+.form-field.inline,
+.inline-fields-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+.form-field.inline img#clock {
+    height: 15px;
+    width: 15px;
+}
+.form-field.inline img#calender {
+    height: 13px;
+    width: 15px;
+}
+
 .form-label {
     display: block;
-    font-size: 11px;
+    font-size: 11.5px;
     color: #181c21;
 }
 
@@ -479,20 +653,34 @@ export default {
     border-radius: 5px;
     border: none;
     font-size: 11px;
-    color: #6b6565;
+    color: #181c21;
     outline: none;
 }
+.form-input::placeholder {
+    color: #6b6565;
+}
 
-.form-input#serve-time {
-    color: #181c21;
+.form-input#state-minutes {
+    width: 50px;
+    margin-left: 10px;
+}
+
+.form-input#state-date {
+    width: 75px;
+    margin-left: 10px;
+}
+.form-input#travel-cost {
+    width: 120px;
+}
+.form-input.number {
     font-size: 11px;
     text-align: center;
     width: 75px;
     -moz-appearance: textfield;
 }
 
-.form-input#serve-time::-webkit-outer-spin-button,
-.form-input#serve-time::-webkit-inner-spin-button {
+.form-input.number::-webkit-outer-spin-button,
+.form-input.number::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -501,11 +689,13 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .form-input.extended input,
 p {
     flex-grow: 1;
+    line-height: 37px;
     background-color: transparent;
     outline: none;
     font-size: 11px;

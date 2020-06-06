@@ -37,7 +37,11 @@
             class="status-settings"
             @close-settings="updateStatus"
         />
-        <CreateOrder v-if="this.createOrder" @close-create-order="toggleCreateOrder(false)" />
+        <CreateOrder
+            v-if="this.showCreateOrder"
+            @close-create-order="toggleCreateOrder(false)"
+            @create-order="createOrder"
+        />
     </div>
 </template>
 
@@ -56,79 +60,16 @@ export default {
         StatusSettings,
         CreateOrder
     },
+    computed: {
+        orders() {
+            return this.$store.state.orders;
+        }
+    },
     data() {
         return {
             numberOfOrders: 0,
-            orders: [
-                {
-                    id: 1,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 2,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 3,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 4,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 5,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                },
-                {
-                    id: 6,
-                    number: 3453,
-                    status: "Принят",
-                    origin: "ул. Дальняя, д.35(Шахты)",
-                    destination: "ул. Левобережная, д. 67, п.#1 (Шахты)",
-                    timestamp: "13:42",
-                    date: "12:05:2020",
-                    driverNumber: 110,
-                    driverName: "Водитель 7"
-                }
-            ],
             settings: false,
-            createOrder: false,
+            showCreateOrder: false,
             orderIdWaitingForChange: null
         };
     },
@@ -144,12 +85,15 @@ export default {
         },
         toggleCreateOrder(value) {
             if (value === this.createOrder) return;
-            this.createOrder = value;
+            this.showCreateOrder = value;
         },
         updateStatus(status) {
             this.orders[this.orderIdWaitingForChange - 1].status = status;
             this.settings = false;
             this.orderIdWaitingForChange = null;
+        },
+        createOrder($event) {
+            console.log($event);
         }
     }
 };

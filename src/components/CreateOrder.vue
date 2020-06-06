@@ -330,7 +330,7 @@
         </simplebar>
         <div class="create-order-footer">
             <button class="footer-btn total">
-                <span id="total-num">{{travelCost.total}}</span> Р
+                <span id="total-num">{{travelCost.total? travelCost.total: "0"}}</span> Р
             </button>
             <button class="footer-btn save">Сохранить</button>
         </div>
@@ -502,6 +502,7 @@ export default {
         },
         setOrderState(orderState) {
             this.orderState = { ...orderState };
+            this.showOrderStates = false;
         },
         setDate({ target }) {
             this.timestamp.date = target.value;

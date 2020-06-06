@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 { id: 3, title: "Экипаж 3" }
             ],
             orderStates: [
-                { id: 1, title: "Статус 1" },
+                { id: 1, title: "Отправлено водителю" },
                 { id: 2, title: "Статус 2" },
                 { id: 3, title: "Статус 3" }
             ]

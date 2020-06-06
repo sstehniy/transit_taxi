@@ -200,7 +200,7 @@
                     <input
                         type="number"
                         v-model="serveTime"
-                        class="form-input"
+                        class="form-input number"
                         id="serve-time"
                         placeholder="мин"
                     />
@@ -234,6 +234,97 @@
                         />
                         <p class="control-text">Почасовой</p>
                     </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="state" class="form-label primary">Состояние</label>
+                <div class="form-field">
+                    <div class="form-input extended">
+                        <p
+                            @click="showOrderStates=!showOrderStates"
+                        >{{orderState.id? orderState.title: "Выберите состояние"}}</p>
+                        <img
+                            alt="drop"
+                            id="drop"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="showOrderStates=!showOrderStates"
+                        />
+                        <FormDropdownSelect
+                            v-if="showOrderStates"
+                            :options="getOrderStates"
+                            @select-option="setOrderState"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label for="state" class="form-label primary">Время</label>
+                <div class="inline-fields-container">
+                    <div class="form-field inline">
+                        <img alt="clock-icon" id="clock" :src="require('@/assets/time-icon.svg')" />
+                        <input
+                            type="number"
+                            v-model="timestamp.minutes"
+                            class="form-input number"
+                            id="state-minutes"
+                            placeholder="мин"
+                        />
+                    </div>
+                    <div class="form-field inline">
+                        <img
+                            alt="calender-icon"
+                            id="calender"
+                            :src="require('@/assets/calender-icon.svg')"
+                        />
+                        <input
+                            type="text"
+                            :value="timestamp.date | formatDate"
+                            @input="setDate"
+                            class="form-input"
+                            id="state-date"
+                            placeholder="12/05/2020"
+                            maxlength="10"
+                        />
+                    </div>
+                </div>
+                <div class="form-section-controls">
+                    <div class="control-wrapper">
+                        <Checkbox :checked="preOrder" @click.native="toggleCheckBox('preOrder')" />
+                        <p class="control-text">Предварительный</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-section">
+                <label class="form-label primary">Стоимость поездки</label>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Сумма</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.total"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Наличные</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.cash"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
+                </div>
+                <div class="form-field inline">
+                    <label for="serve-time" class="form-label">Карта</label>
+                    <input
+                        type="number"
+                        v-model="travelCost.card"
+                        class="form-input number"
+                        id="travel-cost"
+                        placeholder="ххх Р"
+                    />
                 </div>
             </div>
         </simplebar>
@@ -318,7 +409,11 @@ export default {
             },
             showTarrifs: false,
             hourlyPayment: false,
-            orderStateId: 1,
+            orderState: {
+                title: "",
+                id: null
+            },
+            showOrderStates: false,
             timestamp: {
                 minutes: null,
                 date: null
@@ -405,9 +500,30 @@ export default {
             this.tarrif = { ...tarrif };
             this.showTarrifs = false;
         },
+        setOrderState(orderState) {
+            this.orderState = { ...orderState };
+        },
+        setDate({ target }) {
+            this.timestamp.date = target.value;
+        },
         // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
         getRandomCoord() {
             return +(40 + Math.random() * 20).toFixed(6);
+        }
+    },
+    filters: {
+        formatDate(value) {
+            if (!value) return;
+            const valueArr = value.split("");
+            if (valueArr.length === 2) {
+                valueArr.push("/");
+                return valueArr.join("");
+            }
+            if (valueArr.length === 5) {
+                valueArr.push("/");
+                return valueArr.join("");
+            }
+            return valueArr.join("");
         }
     }
 };
@@ -449,20 +565,33 @@ export default {
     margin-top: 15px;
     margin-bottom: 5px;
 }
+.form-section:last-child {
+    margin-bottom: 0;
+}
 .form-section > .form-input:last-child {
     margin-bottom: 0;
 }
 
-.form-field.inline {
+.form-field.inline,
+.inline-fields-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+.form-field.inline img#clock {
+    height: 15px;
+    width: 15px;
+}
+.form-field.inline img#calender {
+    height: 13px;
+    width: 15px;
+}
+
 .form-label {
     display: block;
-    font-size: 11px;
+    font-size: 11.5px;
     color: #181c21;
 }
 
@@ -485,20 +614,34 @@ export default {
     border-radius: 5px;
     border: none;
     font-size: 11px;
-    color: #6b6565;
+    color: #181c21;
     outline: none;
 }
+.form-input::placeholder {
+    color: #6b6565;
+}
 
-.form-input#serve-time {
-    color: #181c21;
+.form-input#state-minutes {
+    width: 50px;
+    margin-left: 10px;
+}
+
+.form-input#state-date {
+    width: 75px;
+    margin-left: 10px;
+}
+.form-input#travel-cost {
+    width: 120px;
+}
+.form-input.number {
     font-size: 11px;
     text-align: center;
     width: 75px;
     -moz-appearance: textfield;
 }
 
-.form-input#serve-time::-webkit-outer-spin-button,
-.form-input#serve-time::-webkit-inner-spin-button {
+.form-input.number::-webkit-outer-spin-button,
+.form-input.number::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }

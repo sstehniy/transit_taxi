@@ -18,5 +18,7 @@ svg {
     cursor: pointer;
     height: 15px;
     width: 15px;
+    padding-left: 1px;
+    padding-bottom: 1px;
 }
 </style>

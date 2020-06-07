@@ -1,7 +1,8 @@
 <template>
     <div class="create-order-container">
         <div class="create-order-header">
-            <h3 class="header" @click="$emit('close-create-order')">Заказ</h3>
+            <h3 class="header">Заказ</h3>
+            <div class="close-order" @click="$emit('close-create-order')">+</div>
         </div>
         <simplebar class="scrollable-form" data-simplebar-auto-hide="false">
             <div class="form-section">
@@ -583,6 +584,9 @@ export default {
     height: 45px;
     background: #ececec;
     border-radius: 8px 8px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .create-order-header .header {
     margin: 0;
@@ -591,7 +595,14 @@ export default {
     font-size: 14px;
     color: #181c21;
 }
-
+.create-order-header .close-order {
+    font-size: 25px;
+    line-height: 47px;
+    color: #181c21;
+    opacity: 50%;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
 .scrollable-form {
     width: 100%;
     height: 448px;
@@ -630,7 +641,7 @@ export default {
 
 .form-label {
     display: block;
-    font-size: 11.5px;
+    font-size: 11px;
     color: #181c21;
 }
 
@@ -648,6 +659,7 @@ export default {
     margin: 5px 0;
     width: 100%;
     height: 37px;
+    line-height: 17px;
     padding: 10px;
     background: #ececec;
     border-radius: 5px;
@@ -677,6 +689,7 @@ export default {
     text-align: center;
     width: 75px;
     -moz-appearance: textfield;
+    line-height: 37px;
 }
 
 .form-input.number::-webkit-outer-spin-button,
@@ -690,12 +703,12 @@ export default {
     align-items: center;
     position: relative;
     cursor: pointer;
+    line-height: 20px;
 }
 
 .form-input.extended input,
 p {
     flex-grow: 1;
-    line-height: 37px;
     background-color: transparent;
     outline: none;
     font-size: 11px;
@@ -745,7 +758,7 @@ p {
 }
 
 .control-text {
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: normal;
     white-space: nowrap;
@@ -793,5 +806,9 @@ p {
 .footer-btn.save {
     width: 120px;
     background-color: #fdbf5a;
+    transition: color 0.2s ease-in-out;
+}
+.footer-btn.save:hover {
+    color: #6b6565;
 }
 </style>

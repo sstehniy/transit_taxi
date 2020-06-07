@@ -26,5 +26,7 @@ svg {
     cursor: pointer;
     height: 15px;
     width: 15px;
+    padding-bottom: 1px;
+    padding-left: 1px;
 }
 </style>

@@ -571,7 +571,7 @@ export default {
             const newOrder = {
                 comment: this.orderComment,
                 // this example id will be replaced by id created in db
-                id: Math.random() * 1000,
+                id: Math.floor(Math.random() * 100000),
                 state_id: this.orderState.id,
                 state_kind: this.orderState.kind,
                 server_time_offset: 0,
@@ -602,7 +602,6 @@ export default {
                 attributes: [...this.attributes, this.newAttribute].filter(attr => attr !== null),
                 total_cost: this.travelCost.total,
                 cashless_sum: this.travelCost.card,
-                preorder: this.preorder,
                 cash_sum: this.travelCost.cash,
                 timestamp: this.timestamp
             };

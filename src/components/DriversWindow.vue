@@ -24,7 +24,10 @@
             </simplebar>
             <div class="operations">
                 <div class="operations-buttons">
-                    <div class="operations-button all-drivers">+ Водитель</div>
+                    <div
+                        class="operations-button all-drivers"
+                        @click="toggleCreateDriver(true)"
+                    >+ Водитель</div>
                     <div class="operations-button photo">Фотоосмотр</div>
                 </div>
                 <div class="driver-counter">{{ this.drivers.length }}/100</div>
@@ -35,6 +38,7 @@
             class="status-settings"
             @close-settings="updateStatus"
         />
+        <CreateDriver v-if="showCreateDriver" @close-create-driver="toggleCreateDriver(false)" />
     </div>
 </template>
 
@@ -44,12 +48,14 @@ import "simplebar/dist/simplebar.min.css";
 
 import Driver from "./Driver.vue";
 import StatusSettings from "./StatusSettings.vue";
+import CreateDriver from "./CreateDriver.vue";
 
 export default {
     components: {
         simplebar,
         Driver,
-        StatusSettings
+        StatusSettings,
+        CreateDriver
     },
     data() {
         return {
@@ -108,6 +114,7 @@ export default {
                 }
             ],
             settings: false,
+            showCreateDriver: false,
             driverIdWaitingForChange: null
         };
     },
@@ -121,6 +128,10 @@ export default {
                 this.settings = true;
             }
         },
+        toggleCreateDriver(value) {
+            if (this.showCreateDriver === value) return;
+            this.showCreateDriver = value;
+        },
         updateStatus(status) {
             this.orders[this.orderIdWaitingForChange - 1].status = status;
             this.settings = false;
@@ -129,12 +140,6 @@ export default {
         handleScroll() {
             console.log("scroll");
         }
-    },
-    mounted() {
-        this.$refs.scroll.scrollElement.addEventListener(
-            "scroll",
-            this.handleScroll
-        );
     }
 };
 </script>
@@ -186,14 +191,11 @@ export default {
 .control {
     width: 50%;
     height: 100%;
-
     text-align: center;
     line-height: 45px;
     font-size: 14px;
     position: relative;
-
-    background-color: #ececec;
-
+    background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
 }
@@ -239,7 +241,7 @@ export default {
     height: 80px;
     position: absolute;
     bottom: 0px;
-    background-color: #ececec;
+    background-color: #e5e5e5;
 
     display: flex;
     flex-direction: column;

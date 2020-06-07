@@ -93,10 +93,7 @@ export default {
             ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
             console.log(this.orderIdWaitingForChange);
             console.log(status_id);
-            this.$store.dispatch("updateStatus", {
-                order_id: this.orderIdWaitingForChange,
-                status_id
-            });
+            this.$store.dispatch("updateStatus", this.orderIdWaitingForChange, status_id);
             this.settings = false;
             this.orderIdWaitingForChange = null;
         },
@@ -201,9 +198,7 @@ export default {
     line-height: 45px;
     font-size: 14px;
     position: relative;
-
     background-color: #ececec;
-
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
 }

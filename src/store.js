@@ -94,7 +94,7 @@ export default new Vuex.Store({
                 { id: 11, title: "Клиент в машине", kind: "client_seated" },
                 { id: 12, title: "Клиент не вышел", kind: "client_late" },
                 { id: 13, title: "Заказ отправлен водителю", kind: "sent_to_driver" },
-                { id: 14, title: "Заказ получен водителем", kind: "driver_received" },
+                { id: 14, title: "Заказ получен водителем", kind: "driver_received" }
             ]
         }
     },
@@ -115,9 +115,16 @@ export default new Vuex.Store({
                 }
             }
         },
-        changeStatus(state, order_id, status) {
-            state.orders[order_id - 1].state_kind = state.orderDetails.orderStates[status - 1].kind;
-            state.orders[order_id - 1].state_id = status;
+        changeStatus(state, { order_id, status_id }) {
+            // state.orders[order_id - 1].state_kind = state.orderDetails.orderStates[status - 1].kind;
+            // state.orders[order_id - 1].state_id = status;
+
+            const stateStatus = state.orderDetails.orderStates.find(s => s.id === status_id);
+            state.orders = state.orders.map(o =>
+                +o.id === +order_id
+                    ? { ...o, state_kind: stateStatus.kind, state_id: stateStatus.id }
+                    : o
+            );
         },
         addOrder(state, order) {
             state.orders = [...state.orders, { ...order }];
@@ -129,9 +136,9 @@ export default new Vuex.Store({
                 commit("addOrder", order);
             }, 2000);
         },
-        updateStatus({ commit }, order_id, status) {
+        updateStatus({ commit }, payload) {
             setTimeout(() => {
-                commit("changeStatus", order_id, status);
+                commit("changeStatus", payload);
             }, 2000);
         }
     }

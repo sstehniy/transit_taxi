@@ -86,13 +86,17 @@ export default {
             if (value === this.createOrder) return;
             this.showCreateOrder = value;
         },
-        updateStatus(status) {
+        updateStatus(status_id) {
             /*this.$store.state.orders[this.orderIdWaitingForChange - 1].state_id = status;
             this.$store.state.orders[
                 this.orderIdWaitingForChange - 1
             ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
             console.log(this.orderIdWaitingForChange);
-            this.$store.dispatch("updateStatus", this.orderIdWaitingForChange, status);
+            console.log(status_id);
+            this.$store.dispatch("updateStatus", {
+                order_id: this.orderIdWaitingForChange,
+                status_id
+            });
             this.settings = false;
             this.orderIdWaitingForChange = null;
         },

@@ -57,6 +57,7 @@ export default {
 }
 
 .select-option p {
+    user-select: none;
     background-color: transparent;
     outline: none;
     font-size: 11px;

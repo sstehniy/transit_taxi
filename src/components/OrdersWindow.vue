@@ -87,7 +87,12 @@ export default {
             this.showCreateOrder = value;
         },
         updateStatus(status) {
-            this.orders[this.orderIdWaitingForChange - 1].status = status;
+            /*this.$store.state.orders[this.orderIdWaitingForChange - 1].state_id = status;
+            this.$store.state.orders[
+                this.orderIdWaitingForChange - 1
+            ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
+            console.log(this.orderIdWaitingForChange);
+            this.$store.dispatch("updateStatus", this.orderIdWaitingForChange, status);
             this.settings = false;
             this.orderIdWaitingForChange = null;
         },

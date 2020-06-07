@@ -35,13 +35,7 @@
             </div>
             <div class="form-field">
                 <label class="field-label">Автомобиль</label>
-                <button
-                    class="field-input"
-                    type="text"
-                    @click="currentForm='sub'"
-                    :driverAuto="driver_auto"
-                    @update-auto-info="updateAutoInfo"
-                >Добавить</button>
+                <button class="field-input" type="text" @click="currentForm='sub'">Добавить</button>
             </div>
             <div class="form-field large">
                 <label class="field-label">Комментарии</label>

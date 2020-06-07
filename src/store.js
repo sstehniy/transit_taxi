@@ -117,7 +117,7 @@ export default new Vuex.Store({
                 total_cost: "550",
                 cashless_sum: "322",
                 cash_sum: "228",
-                timestamp: { minutes: "322", date: "14/88/1939" }
+                timestamp: { minutes: "322", date: "14/04/2020" }
             }
         ],
         orderDetails: {

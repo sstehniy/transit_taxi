@@ -11,8 +11,11 @@
                     <input
                         type="text"
                         name="client-number"
-                        v-model="clientNumber"
+                        :value="clientNumber"
+                        @keydown="setClientNumber"
+                        maxlength="14"
                         class="form-input"
+                        :class="{'invalid': validationErrors.clientNumber}"
                         placeholder="x-xxx-xxx-xx-x"
                     />
                 </div>
@@ -23,6 +26,7 @@
                         name="client-name"
                         v-model="clientName"
                         class="form-input"
+                        :class="{'invalid': validationErrors.clientName}"
                         placeholder="Введите имя"
                     />
                 </div>
@@ -33,6 +37,7 @@
                         class="form-input"
                         v-model="clientGroup"
                         name="client-group"
+                        :class="{'invalid': validationErrors.clientGroup}"
                         placeholder="Введите группу"
                     />
                 </div>
@@ -49,7 +54,7 @@
             <div class="form-section">
                 <label for="route" class="form-label primary">Маршрут</label>
                 <div class="form-field">
-                    <div class="form-input extended">
+                    <div class="form-input extended" :class="{'invalid': validationErrors.origin}">
                         <input
                             type="text"
                             name="origin"
@@ -65,8 +70,9 @@
                         <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     </div>
                     <div
+                        v-for="(stop, i) in stops"
                         class="form-input extended"
-                        v-for="stop in stops"
+                        :class="{'invalid': validationErrors.stops&& validationErrors.stops[i]}"
                         :key="stop.id"
                         :id="stop.id"
                     >
@@ -85,7 +91,10 @@
                         <img alt="drop" id="drop" :src="require('@/assets/drop-icon.svg')" />
                         <span id="delete" @click="removeStop(stop.id)">+</span>
                     </div>
-                    <div class="form-input extended">
+                    <div
+                        class="form-input extended"
+                        :class="{'invalid': validationErrors.destination}"
+                    >
                         <input
                             type="text"
                             name="destitation"
@@ -156,7 +165,10 @@
             <div class="form-section">
                 <label for="crew-group" class="form-label primary">Группа экипажа</label>
                 <div class="form-field">
-                    <div class="form-input extended">
+                    <div
+                        class="form-input extended"
+                        :class="{'invalid': validationErrors.crewGroup}"
+                    >
                         <p
                             @click="showCrewGroups=!showCrewGroups"
                         >{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
@@ -175,7 +187,7 @@
                 </div>
                 <label for="crew" class="form-label primary">Экипаж</label>
                 <div class="form-field">
-                    <div class="form-input extended">
+                    <div class="form-input extended" :class="{'invalid': validationErrors.crew}">
                         <p @click="showCrews=!showCrews">{{crew.id? crew.title: "Выберите экипаж"}}</p>
                         <img
                             alt="drop"
@@ -202,6 +214,7 @@
                         type="number"
                         v-model="serveTime"
                         class="form-input number"
+                        :class="{'invalid': validationErrors.serveTime}"
                         id="serve-time"
                         placeholder="мин"
                     />
@@ -210,9 +223,9 @@
             <div class="form-section">
                 <label class="form-label primary" for="tariff">Тариф</label>
                 <div class="form-field">
-                    <div class="form-input extended">
+                    <div class="form-input extended" :class="{'invalid': validationErrors.tariff}">
                         <p
-                            @click="showTarifsf=!showTariffs"
+                            @click="showTariffs=!showTariffs"
                         >{{tariff.id? tariff.title: "Выберите тариф"}}</p>
                         <img
                             alt="drop"
@@ -240,7 +253,10 @@
             <div class="form-section">
                 <label for="state" class="form-label primary">Состояние</label>
                 <div class="form-field">
-                    <div class="form-input extended">
+                    <div
+                        class="form-input extended"
+                        :class="{'invalid': validationErrors.orderState}"
+                    >
                         <p
                             @click="showOrderStates=!showOrderStates"
                         >{{orderState.id? orderState.title: "Выберите состояние"}}</p>
@@ -267,6 +283,7 @@
                             type="number"
                             v-model="timestamp.minutes"
                             class="form-input number"
+                            :class="{'invalid': validationErrors.timestamp && validationErrors.timestamp.minutes}"
                             id="state-minutes"
                             placeholder="мин"
                         />
@@ -279,9 +296,10 @@
                         />
                         <input
                             type="text"
-                            :value="timestamp.date | formatDate"
-                            @input="setDate"
+                            :value="timestamp.date"
+                            @keyup="setDate"
                             class="form-input"
+                            :class="{'invalid': validationErrors.timestamp && validationErrors.timestamp.date}"
                             id="state-date"
                             placeholder="12/05/2020"
                             maxlength="10"
@@ -303,6 +321,7 @@
                         type="number"
                         v-model="travelCost.total"
                         class="form-input number"
+                        :class="{'invalid': validationErrors.travelCost && validationErrors.travelCost.total}"
                         id="travel-cost"
                         placeholder="ххх Р"
                     />
@@ -333,7 +352,7 @@
             <button class="footer-btn total">
                 <span id="total-num">{{travelCost.total? travelCost.total: "0"}}</span> Р
             </button>
-            <button class="footer-btn save">Сохранить</button>
+            <button class="footer-btn save" @click="submit">Сохранить</button>
         </div>
     </div>
 </template>
@@ -421,10 +440,11 @@ export default {
             },
             preOrder: false,
             travelCost: {
-                total: 600,
+                total: null,
                 cash: null,
                 card: null
-            }
+            },
+            validationErrors: {}
         };
     },
     methods: {
@@ -467,8 +487,7 @@ export default {
         },
         setNewAttribute($event) {
             if (
-                ((this.attributes.length &&
-                    !this.attributes.find(attr => attr.id === $event.id)) ||
+                ((this.attributes.length && !this.attributes.find(attr => attr.id === $event.id)) ||
                     !this.attributes.length) &&
                 $event
             ) {
@@ -505,65 +524,135 @@ export default {
             this.orderState = { ...orderState };
             this.showOrderStates = false;
         },
-        setDate({ target }) {
-            this.timestamp.date = target.value;
+        setClientNumber(e) {
+            if (e.keyCode !== 8) {
+                const valueArr = e.target.value.split("");
+                if (
+                    valueArr.length === 1 ||
+                    valueArr.length === 5 ||
+                    valueArr.length === 9 ||
+                    valueArr.length === 12
+                ) {
+                    valueArr.push("-");
+                }
+                this.clientNumber = valueArr.join("");
+            } else this.clientNumber = "";
         },
+        setDate(e) {
+            if (e.keyCode !== 8) {
+                const valueArr = e.target.value.split("");
+                if (valueArr.length === 2 || valueArr.length === 5) {
+                    valueArr.push("/");
+                }
+                this.timestamp.date = valueArr.join("");
+            } else this.timestamp.date = "";
+        },
+
         submit() {
-            // const newOrder = {
-            //     // this example id will be replaced by id created in db
-            //     id: Math.random() * 1000,
-            //     state_id: this.orderState.id,
-            //     state_kind: this.orderState.title
-            //         .toLowerCase()
-            //         .split(" ")
-            //         .join("_"),
-            //     server_time_offset: 0,
-            //     start_time: "20130204181111",
-            //     source_time: "20130204181111",
-            //     source: this.origin.address,
-            //     source_lat: this.origin.lat,
-            //     source_lon: this.origin.lon,
-            //     destination: this.destination.address,
-            //     destination_lat: this.destination.lat,
-            //     destination_lon: this.destination.lon,
-            //     stops: [...this.stops],
-            //     customer: this.clientName,
-            //     passanger: this.clientName,
-            //     crew_id: this.crew.id,
-            //     prior_crew_id: 0,
-            //     driver_id: 0,
-            //     car_id: 0,
-            //     phone: this.clientNumber,
-            //     client_id: 140,
-            //     tariff_id: this.tariff.id,
-            //     order_crew_group_id: this.crewGroup.id,
-            //     creation_way: "operator",
-            //     client_employee_id: 1,
-            //     is_prior: false,
-            //     is_really_prior: false,
-            //     email: "mail@mail.ru",
-            //     prior_to_current_before_minutes: 30,
-            //     flight_number: "123/123123-0"
-            // };
+            const fieldsToValidate = [
+                "clientNumber",
+                "clientName",
+                "clientGroup",
+                ["origin", "address"],
+                ["stops", "address"],
+                ["destination", "address"],
+                ["crewGroup", "id"],
+                ["crew", "id"],
+                "serveTime",
+                ["tariff", "id"],
+                ["orderState", "id"],
+                ["timestamp", "minutes", "date"],
+                ["travelCost", "total"]
+            ];
+            this.validateFields(fieldsToValidate);
+            if (Object.keys(this.validationErrors).length) {
+                return;
+            }
+            const newOrder = {
+                comment: this.orderComment,
+                // this example id will be replaced by id created in db
+                id: Math.random() * 1000,
+                state_id: this.orderState.id,
+                state_kind: this.orderState.kind,
+                server_time_offset: 0,
+                start_time: "20130204181111",
+                source_time: "20130204181111",
+                source: this.origin.address,
+                source_lat: this.origin.lat,
+                source_lon: this.origin.lon,
+                destination: this.destination.address,
+                destination_lat: this.destination.lat,
+                destination_lon: this.destination.lon,
+                stops: [...this.stops],
+                customer: this.clientName,
+                passanger: this.clientName,
+                crew_id: this.crew.id,
+                order_crew_group_id: this.crewGroup.id,
+                is_prior: this.preOrder,
+                driver_id: 0,
+                car_id: 0,
+                auto_search_driver: this.autoMatch,
+                name: this.clientName,
+                phone: this.clientNumber,
+                client_id: 140,
+                save_client: this.saveClientName,
+                tariff_id: this.tariff.id,
+                hourly_payment: this.hourlyPayment,
+                two_way_ride: this.twoWayRide,
+                attributes: [...this.attributes, this.newAttribute].filter(attr => attr !== null),
+                total_cost: this.travelCost.total,
+                cashless_sum: this.travelCost.card,
+                preorder: this.preorder,
+                cash_sum: this.travelCost.cash,
+                timestamp: this.timestamp
+            };
+            this.$emit("create-order", newOrder);
         },
-        // ! method to get pseudo-coordinates while creating addresses(only for testimg purposes)
+        // ! A method to get pseudo-coordinates while creating addresses(only for testimg purposes)
         getRandomCoord() {
             return +(40 + Math.random() * 20).toFixed(6);
-        }
-    },
-    filters: {
-        formatDate(value) {
-            if (!value) return;
-            const valueArr = value.split("");
-            if (valueArr.length === 2) {
-                valueArr.push("/");
-                return valueArr.join("");
+        },
+        validateFields(fields) {
+            this.validationErrors = {};
+            for (const field of fields) {
+                if (Array.isArray(field)) {
+                    const [fieldName, ...properties] = field;
+                    if (Array.isArray(this[fieldName]) && this[fieldName].length) {
+                        this[fieldName].forEach((item, i) => {
+                            for (const prop of properties) {
+                                console.log(this[fieldName][i][prop]);
+                                if (!this[fieldName][i][prop]) {
+                                    if (
+                                        this.validationErrors[fieldName] &&
+                                        this.validationErrors[fieldName][i]
+                                    ) {
+                                        this.validationErrors[fieldName][i] = [
+                                            ...this.validationErrors[fieldName][i],
+                                            { [prop]: true }
+                                        ];
+                                    } else {
+                                        this.validationErrors[fieldName] = [];
+                                        this.validationErrors[fieldName][i] = { [prop]: true };
+                                    }
+                                }
+                            }
+                        });
+                    } else if (!Array.isArray(this[fieldName])) {
+                        for (const prop of properties) {
+                            if (!this[fieldName][prop]) {
+                                this.validationErrors[fieldName] = {
+                                    ...this.validationErrors[fieldName],
+                                    [prop]: true
+                                };
+                            }
+                        }
+                    }
+                } else {
+                    if (!this[field]) {
+                        this.validationErrors[field] = true;
+                    }
+                }
             }
-            if (valueArr.length === 5) {
-                valueArr.push("/");
-                return valueArr.join("");
-            }
-            return valueArr.join("");
         }
     }
 };
@@ -571,6 +660,11 @@ export default {
 
 <style scoped>
 .create-order-container {
+    --font-size-s: 8px;
+    --font-size-m: 11px;
+    --font-size-l: 13px;
+    --font-size-xl: 15px;
+    --font-size-footer: 14px;
     position: absolute;
     top: 0;
     left: calc(100% + 20px);
@@ -592,7 +686,7 @@ export default {
     margin: 0;
     line-height: 45px;
     font-weight: normal;
-    font-size: 14px;
+    font-size: var(--font-size-l);
     color: #181c21;
 }
 .create-order-header .close-order {
@@ -641,12 +735,13 @@ export default {
 
 .form-label {
     display: block;
-    font-size: 11px;
+    user-select: none;
+    font-size: var(--font-size-l);
     color: #181c21;
 }
 
 .form-label.primary {
-    font-size: 14px;
+    font-size: var(--font-size-xl);
     margin-bottom: 3px;
 }
 
@@ -659,14 +754,17 @@ export default {
     margin: 5px 0;
     width: 100%;
     height: 37px;
-    line-height: 17px;
     padding: 10px;
     background: #ececec;
     border-radius: 5px;
     border: none;
-    font-size: 11px;
+    font-size: var(--font-size-m);
     color: #181c21;
     outline: none;
+}
+
+.form-input.invalid {
+    border: 1px solid rgba(255, 0, 0, 0.7);
 }
 .form-input::placeholder {
     color: #6b6565;
@@ -685,11 +783,10 @@ export default {
     width: 120px;
 }
 .form-input.number {
-    font-size: 11px;
+    font-size: var(--font-size-l);
     text-align: center;
     width: 75px;
     -moz-appearance: textfield;
-    line-height: 37px;
 }
 
 .form-input.number::-webkit-outer-spin-button,
@@ -703,20 +800,22 @@ export default {
     align-items: center;
     position: relative;
     cursor: pointer;
-    line-height: 20px;
 }
 
 .form-input.extended input,
 p {
+    user-select: none;
     flex-grow: 1;
     background-color: transparent;
     outline: none;
-    font-size: 11px;
+    font-size: var(--font-size-l);
     border: none;
     width: 70%;
+    line-height: 37px;
 }
 
 .form-input.extended img {
+    user-select: none;
     margin: 0 7px;
     cursor: pointer;
 }
@@ -729,18 +828,17 @@ p {
 .form-input.extended img#drop {
     height: 6px;
     width: 8px;
-    margin: 0 5px;
+    margin: 5px 5px;
 }
 
 .form-input.extended span#delete {
-    font-size: 23px;
+    font-size: 25px;
     line-height: 90%;
-    color: red;
+    color: rgba(222, 29, 29, 0.776);
     cursor: pointer;
     position: absolute;
-    top: -8px;
+    top: -7px;
     right: -4px;
-
     transform: rotate(45deg);
 }
 
@@ -762,7 +860,7 @@ p {
     font-style: normal;
     font-weight: normal;
     white-space: nowrap;
-    font-size: 11px;
+    font-size: var(--font-size-m);
     line-height: 15px;
     margin-left: 2px;
     color: #181c21;
@@ -780,11 +878,10 @@ p {
 }
 .footer-btn {
     height: 100%;
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 13px;
-    line-height: 15px;
+    font-size: var(--font-size-footer);
     text-align: center;
     color: #000;
     outline: none;

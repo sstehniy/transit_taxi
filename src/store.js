@@ -103,9 +103,9 @@ export default new Vuex.Store({
                 { id: 3, title: "Экипаж 3" }
             ],
             orderStates: [
-                { id: 1, title: "Отправлено водителю" },
-                { id: 2, title: "Статус 2" },
-                { id: 3, title: "Статус 3" }
+                { id: 1, title: "Отправлено водителю", kind: "sent_to_driver" },
+                { id: 2, title: "Статус 2", kind: "status_2" },
+                { id: 3, title: "Статус 3", kind: "status_3" }
             ]
         }
     },

@@ -48,7 +48,6 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
-
 import OrderMin from "./OrderMin.vue";
 import StatusSettings from "./StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
@@ -93,7 +92,8 @@ export default {
             this.orderIdWaitingForChange = null;
         },
         createOrder($event) {
-            console.log($event);
+            this.$store.dispatch("createOrder", $event);
+            this.showCreateOrder = false;
         }
     }
 };

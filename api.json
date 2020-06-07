@@ -32,7 +32,26 @@
     "client_employee_id": 1,
     "is_prior": false,
     "is_really_prior": false,
-    "email": "mail@mail.ru",
+    "phone_to_dial": "654321",
+    "comment": "COMMENT",
+    "crew_group_id": 1,
+    "uds_id": 1,
+
+    "addresses": [
+        { "address": "SOURCE", "lat": 56.896817, "lon": 53.14783, "zone_id": 1, "parking_id": 1 },
+        { "address": "STOP1", "lat": 56.845452, "lon": 53.226775, "zone_id": 2, "parking_id": 2 },
+        { "address": "STOP2" },
+        { "address": "DESTINATION", "lat": 56.86123, "lon": 53.24187 }
+    ],
+    "services": [1, 2],
+    "crew_props": [1],
+    "order_params": [3, 4],
+    "total_cost": 370,
+    "use_cashless": false,
+    "use_bonus": false,
+    "cashless_sum": 700,
+    "bonus_sum": 350,
+    "email": "email@gmail.com",
     "prior_to_current_before_minutes": 30,
-    "flight_number": "123/123123-0"
+    "flight_number": "130-qwe2"
 }

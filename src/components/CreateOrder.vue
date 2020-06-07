@@ -5,7 +5,7 @@
             <div class="close-order" @click="$emit('close-create-order')">+</div>
         </div>
         <simplebar class="scrollable-form" data-simplebar-auto-hide="false">
-            <div class="form-section">
+            <div class="form-section" style="margin-top: 10px">
                 <label for="client" class="form-label primary">Клиент</label>
                 <div class="form-field">
                     <input

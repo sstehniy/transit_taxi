@@ -96,6 +96,132 @@ export default new Vuex.Store({
                 { id: 13, title: "Заказ отправлен водителю", kind: "sent_to_driver" },
                 { id: 14, title: "Заказ получен водителем", kind: "driver_received" }
             ]
+        },
+        drivers: [
+            {
+                driver_id: 1,
+                name: "DRIVER_NAME1",
+                balance: 100.0,
+                birthday: "01.01.1980",
+                car_id: 1,
+                license: "1234567890",
+                home_phone: "123456",
+                mobile_phone: "+79123456788",
+                is_locked: false,
+                is_dismissed: false,
+                order_params: [3, 4],
+                phones: [
+                    {
+                        phone: "79999999999",
+                        is_default: true,
+                        use_for_call: true
+                    },
+                    {
+                        phone: "79999999999",
+                        is_default: false,
+                        use_for_call: true
+                    }
+                ],
+                term_account: "00008"
+            },
+            {
+                driver_id: 2,
+                name: "DRIVER_NAME2",
+                balance: -50.0,
+                birthday: "01.01.1980",
+                car_id: 2,
+                license: "1234567899",
+                home_phone: "123457",
+                mobile_phone: "+79123456789",
+                is_locked: true,
+                is_dismissed: true,
+                order_params: [5, 6],
+                phones: [
+                    {
+                        phone: "79999999999",
+                        is_default: true,
+                        use_for_call: true
+                    },
+                    {
+                        phone: "79999999999",
+                        is_default: false,
+                        use_for_call: false
+                    }
+                ],
+                term_account: "00009"
+            },
+            {
+                full_name: "Залупаев Гандон Гнидович",
+                driver_id: "228322",
+                call: "heypidor",
+                driver_phone: "8-800-555-35-35",
+                comments: "нехуй делать",
+                password: "guyfoxrulit",
+                auto_model: "Corito",
+                auto_color: "govno",
+                auto_number: "so1488si",
+                auto_attributes: [
+                    { id: 1, title: 'Кузов "универсал"', kind: "estate_wagon" },
+                    { id: 7, title: "+ 50", kind: "plus_50" },
+                    { id: 3, title: "Дети 0 до 12", kind: "children_012" },
+                    { id: 9, title: "+ 500", kind: "plus_500" },
+                    { id: 5, title: "Вместительный багажник", kind: "big_trunk" }
+                ]
+            }
+        ],
+        driverAutoDetails: {
+            attributes: [
+                {
+                    id: 1,
+                    title: 'Кузов "универсал"',
+                    kind: "estate_wagon"
+                },
+                {
+                    id: 2,
+                    title: "Дети 0 до 7",
+                    kind: "children_07"
+                },
+                {
+                    id: 3,
+                    title: "Дети 0 до 12",
+                    kind: "children_012"
+                },
+                {
+                    id: 4,
+                    title: "Пустой багажник",
+                    kind: "empty_trunk"
+                },
+                {
+                    id: 5,
+                    title: "Вместительный багажник",
+                    kind: "big_trunk"
+                },
+                {
+                    id: 6,
+                    title: "+ 10",
+                    kind: "plus_10"
+                },
+                {
+                    id: 7,
+                    title: "+ 50",
+                    kind: "plus_50"
+                },
+                {
+                    id: 8,
+                    title: "+ 100",
+                    kind: "plus_100"
+                },
+                {
+                    id: 9,
+                    title: "+ 500",
+                    kind: "plus_500"
+                },
+                {
+                    id: 10,
+                    title: "Работа по запланированной смене",
+                    kind: "planned_shift"
+                }
+            ]
         }
     },
     mutations: {
@@ -128,6 +254,9 @@ export default new Vuex.Store({
         },
         addOrder(state, order) {
             state.orders = [...state.orders, { ...order }];
+        },
+        addDriver(state, order) {
+            state.drivers = [...state.drivers, { ...order }];
         }
     },
     actions: {
@@ -135,6 +264,9 @@ export default new Vuex.Store({
             setTimeout(() => {
                 commit("addOrder", order);
             }, 2000);
+        },
+        createDriver({ commit }, driver) {
+            setTimeout(() => commit("addDriver", driver), 2000);
         },
         updateStatus({ commit }, payload) {
             setTimeout(() => {

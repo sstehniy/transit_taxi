@@ -198,7 +198,7 @@ export default {
     line-height: 45px;
     font-size: 14px;
     position: relative;
-    background-color: #ececec;
+    background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
 }

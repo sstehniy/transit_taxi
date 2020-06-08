@@ -24,16 +24,24 @@
             </simplebar>
             <div class="operations">
                 <div class="operations-buttons">
-                    <div class="operations-button all-drivers">+ Водитель</div>
+                    <div
+                        class="operations-button all-drivers"
+                        @click="toggleCreateDriver(true)"
+                    >+ Водитель</div>
                     <div class="operations-button photo">Фотоосмотр</div>
                 </div>
                 <div class="driver-counter">{{ this.drivers.length }}/100</div>
             </div>
         </div>
         <StatusSettings
-            v-if="this.settings"
+            v-if="this.showSettings"
             class="status-settings"
             @close-settings="updateStatus"
+        />
+        <CreateDriver
+            v-if="showCreateDriver"
+            @close-create-driver="toggleCreateDriver(false)"
+            @create-driver="createDriver"
         />
     </div>
 </template>
@@ -44,97 +52,52 @@ import "simplebar/dist/simplebar.min.css";
 
 import Driver from "./Driver.vue";
 import StatusSettings from "./StatusSettings.vue";
+import CreateDriver from "./CreateDriver.vue";
 
 export default {
     components: {
         simplebar,
         Driver,
-        StatusSettings
+        StatusSettings,
+        CreateDriver
+    },
+    computed: {
+        drivers() {
+            return this.$store.state.drivers;
+        }
     },
     data() {
         return {
-            drivers: [
-                {
-                    driver_id: 1,
-                    name: "DRIVER_NAME1",
-                    balance: 100.0,
-                    birthday: "01.01.1980",
-                    car_id: 1,
-                    license: "1234567890",
-                    home_phone: "123456",
-                    mobile_phone: "+79123456788",
-                    is_locked: false,
-                    is_dismissed: false,
-                    order_params: [3, 4],
-                    phones: [
-                        {
-                            phone: "79999999999",
-                            is_default: true,
-                            use_for_call: true
-                        },
-                        {
-                            phone: "79999999999",
-                            is_default: false,
-                            use_for_call: true
-                        }
-                    ],
-                    term_account: "00008"
-                },
-                {
-                    driver_id: 2,
-                    name: "DRIVER_NAME2",
-                    balance: -50.0,
-                    birthday: "01.01.1980",
-                    car_id: 2,
-                    license: "1234567899",
-                    home_phone: "123457",
-                    mobile_phone: "+79123456789",
-                    is_locked: true,
-                    is_dismissed: true,
-                    order_params: [5, 6],
-                    phones: [
-                        {
-                            phone: "79999999999",
-                            is_default: true,
-                            use_for_call: true
-                        },
-                        {
-                            phone: "79999999999",
-                            is_default: false,
-                            use_for_call: false
-                        }
-                    ],
-                    term_account: "00009"
-                }
-            ],
-            settings: false,
+            showSettings: false,
+            showCreateDriver: false,
             driverIdWaitingForChange: null
         };
     },
     methods: {
         toggleSettings(orderId) {
             if (this.orderIdWaitingForChange === orderId) {
-                this.settings = false;
+                this.showSettings = false;
                 this.orderIdWaitingForChange = null;
             } else {
                 this.orderIdWaitingForChange = orderId;
-                this.settings = true;
+                this.showSettings = true;
             }
+        },
+        toggleCreateDriver(value) {
+            if (this.showCreateDriver === value) return;
+            this.showCreateDriver = value;
         },
         updateStatus(status) {
             this.orders[this.orderIdWaitingForChange - 1].status = status;
-            this.settings = false;
+            this.showSettings = false;
             this.orderIdWaitingForChange = null;
+        },
+        createDriver($event) {
+            this.$store.dispatch("createDriver", $event);
         },
         handleScroll() {
             console.log("scroll");
         }
-    },
-    mounted() {
-        this.$refs.scroll.scrollElement.addEventListener(
-            "scroll",
-            this.handleScroll
-        );
     }
 };
 </script>
@@ -186,14 +149,11 @@ export default {
 .control {
     width: 50%;
     height: 100%;
-
     text-align: center;
     line-height: 45px;
     font-size: 14px;
     position: relative;
-
-    background-color: #ececec;
-
+    background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
 }
@@ -239,7 +199,7 @@ export default {
     height: 80px;
     position: absolute;
     bottom: 0px;
-    background-color: #ececec;
+    background-color: #e5e5e5;
 
     display: flex;
     flex-direction: column;

@@ -52,7 +52,7 @@ export default {
 }
 
 .select-option:hover {
-    background-color: #554f4f;
+    background-color: #3e3939;
     color: #ececec;
 }
 

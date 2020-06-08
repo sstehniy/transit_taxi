@@ -86,8 +86,14 @@ export default {
             if (value === this.createOrder) return;
             this.showCreateOrder = value;
         },
-        updateStatus(status) {
-            this.orders[this.orderIdWaitingForChange - 1].status = status;
+        updateStatus(status_id) {
+            /*this.$store.state.orders[this.orderIdWaitingForChange - 1].state_id = status;
+            this.$store.state.orders[
+                this.orderIdWaitingForChange - 1
+            ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
+            console.log(this.orderIdWaitingForChange);
+            console.log(status_id);
+            this.$store.dispatch("updateStatus", this.orderIdWaitingForChange, status_id);
             this.settings = false;
             this.orderIdWaitingForChange = null;
         },
@@ -192,9 +198,7 @@ export default {
     line-height: 45px;
     font-size: 14px;
     position: relative;
-
-    background-color: #ececec;
-
+    background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
     cursor: pointer;
 }

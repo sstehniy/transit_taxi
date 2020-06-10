@@ -91,8 +91,6 @@ export default {
             this.$store.state.orders[
                 this.orderIdWaitingForChange - 1
             ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
-            console.log(this.orderIdWaitingForChange);
-            console.log(status_id);
             this.$store.dispatch("updateStatus", {
                 order_id: this.orderIdWaitingForChange,
                 status_id

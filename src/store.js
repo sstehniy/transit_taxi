@@ -281,7 +281,7 @@ export default new Vuex.Store({
         },
         setDriver(state, driver) {
             state.drivers = state.drivers.map(d => {
-                return +d.id === +driver.id ? { ...driver } : d;
+                return d.id === driver.id ? driver : d;
             });
         }
     },
@@ -295,6 +295,7 @@ export default new Vuex.Store({
             setTimeout(() => commit("addDriver", driver), 2000);
         },
         editDriver({ commit }, driver) {
+            console.log(driver);
             setTimeout(() => commit("setDriver", driver), 2000);
         },
         updateStatus({ commit }, payload) {

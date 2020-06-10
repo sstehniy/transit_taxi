@@ -15,9 +15,9 @@
             <simplebar class="scrollable-drivers" data-simplebar-auto-hide="false" ref="scroll">
                 <Driver
                     v-for="driver in drivers"
-                    :key="driver.driver_id"
+                    :key="driver.id"
                     :driverInfo="driver"
-                    @open-edit-driver="toggleEditDriver(true, driver.driver_id)"
+                    @open-edit-driver="toggleEditDriver(true, driver.id)"
                 />
 
                 <div class="blank-separator"></div>
@@ -45,7 +45,7 @@
         />
         <EditDriver
             v-if="showEditDriver"
-            :driverInfo="drivers.find(d=>d.driver_id === driverIdWaitingForChange)"
+            :driverInfo="drivers.find(d=>d.id === driverIdWaitingForChange)"
             @close-edit-driver="toggleEditDriver(false)"
             @edit-driver="editDriver"
         />
@@ -110,8 +110,6 @@ export default {
             this.$store.dispatch("createDriver", $event);
         },
         editDriver($event) {
-            this.showEditDriver = false;
-            this.driverIdWaitingForChange = null;
             this.$store.dispatch("editDriver", $event);
         },
         handleScroll() {

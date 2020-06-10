@@ -259,6 +259,7 @@ export default {
             showActionSelect: false,
             actionValue: null,
             balanceAction: "charge",
+            id: this.driverInfo.id,
             name: this.driverInfo.name,
             balance: this.driverInfo.balance,
             driver_id: this.driverInfo.driver_id,
@@ -319,7 +320,6 @@ export default {
             } else this.phones[0].phone = "";
         },
         submitChanges() {
-            console.log("hello");
             const fieldsToValidate = [
                 "name",
                 "driver_id",
@@ -332,6 +332,7 @@ export default {
             this.validateFields(fieldsToValidate);
             if (!Object.keys(this.validationErrors).length) {
                 const newDriver = {
+                    id: this.id,
                     name: this.name,
                     driver_id: this.driver_id,
                     name_for_taxophone: this.name_for_taxophone,
@@ -344,6 +345,7 @@ export default {
                     auto_attributes: this.auto_attributes
                 };
                 this.$emit("edit-driver", newDriver);
+                this.toggleCurrentView("overview");
             }
         },
         validateFields(fields) {

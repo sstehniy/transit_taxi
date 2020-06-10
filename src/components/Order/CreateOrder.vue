@@ -361,7 +361,7 @@
 <script>
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
-import FormDropdownSelect from "./UI/FormDropdownSelect.vue";
+import FormDropdownSelect from "@/components/UI/FormDropdownSelect.vue";
 import Checkbox from "@/components/UI/Checkbox.vue";
 import AddIcon from "@/components/UI/AddIcon.vue";
 

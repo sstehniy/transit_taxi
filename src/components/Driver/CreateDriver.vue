@@ -57,13 +57,13 @@
         <div v-if="currentForm==='main'" class="create-driver-body">
             <p class="form-title primary">Добавить водителя</p>
             <div class="form-field">
-                <label for="full_name" class="field-label">Ф.И.О</label>
+                <label for="name" class="field-label">Ф.И.О</label>
                 <input
-                    name="full_name"
+                    name="name"
                     class="field-input"
-                    :class="{invalid: validationErrors.full_name}"
+                    :class="{invalid: validationErrors.name}"
                     type="text"
-                    v-model="full_name"
+                    v-model="name"
                 />
             </div>
             <div class="form-field">
@@ -77,13 +77,13 @@
                 />
             </div>
             <div class="form-field">
-                <label for="call" class="field-label">Позывной</label>
+                <label for="name_for_taxophone" class="field-label">Позывной</label>
                 <input
-                    name="call"
+                    name="name_for_taxophone"
                     class="field-input"
-                    :class="{invalid: validationErrors.call}"
+                    :class="{invalid: validationErrors.name_for_taxophone}"
                     type="text"
-                    v-model="call"
+                    v-model="name_for_taxophone"
                 />
             </div>
             <div class="form-field">
@@ -119,8 +119,8 @@
                 >Добавить</button>
             </div>
             <div class="form-field large">
-                <label for="comments" class="field-label">Комментарии</label>
-                <textarea name="comments" class="field-input" type="text" v-model="comments" />
+                <label for="comment" class="field-label">Комментарии</label>
+                <textarea name="comment" class="field-input" type="text" v-model="comment" />
             </div>
         </div>
         <div v-else-if="currentForm==='sub'" class="create-driver-body">
@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import Checkbox from "./UI/Checkbox.vue";
+import Checkbox from "@/components/UI/Checkbox.vue";
 export default {
     name: "CreateDriver",
     components: { Checkbox },
@@ -187,12 +187,13 @@ export default {
             showBalance: false,
             showActionSelect: false,
             balanceAction: "charge",
+            balance: 0,
             actionValue: null,
-            full_name: "",
+            name: "",
             driver_id: "",
-            call: "",
+            name_for_taxophone: "",
             driver_phone: "",
-            comments: "",
+            comment: "",
             password: "",
             driver_auto: {
                 auto_model: null,
@@ -263,9 +264,9 @@ export default {
         },
         submit() {
             const fieldsToValidate = [
-                "full_name",
+                "name",
                 "driver_id",
-                "call",
+                "name_for_taxophone",
                 "driver_phone",
                 "password",
                 ["driver_auto", "auto_model", "auto_color", "auto_number"]
@@ -273,11 +274,11 @@ export default {
             this.validateFields(fieldsToValidate);
             if (!Object.keys(this.validationErrors).length) {
                 const newDriver = {
-                    full_name: this.full_name,
+                    name: this.name,
                     driver_id: this.driver_id,
-                    call: this.call,
-                    driver_phone: this.driver_phone,
-                    comments: this.comments,
+                    name_for_taxophone: this.name_for_taxophone,
+                    phones: [{ phone: this.driver_phone, is_default: true, use_for_call: true }],
+                    comment: this.comment,
                     password: this.password,
                     auto_model: this.driver_auto.auto_model,
                     auto_color: this.driver_auto.auto_color,

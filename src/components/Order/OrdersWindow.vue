@@ -49,7 +49,7 @@
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 import OrderMin from "./OrderMin.vue";
-import StatusSettings from "./StatusSettings.vue";
+import StatusSettings from "../StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
 
 export default {
@@ -87,13 +87,10 @@ export default {
             this.showCreateOrder = value;
         },
         updateStatus(status_id) {
-            /*this.$store.state.orders[this.orderIdWaitingForChange - 1].state_id = status;
-            this.$store.state.orders[
-                this.orderIdWaitingForChange - 1
-            ].state_kind = this.$store.state.orderDetails.orderStates[status - 1].kind;*/
-            console.log(this.orderIdWaitingForChange);
-            console.log(status_id);
-            this.$store.dispatch("updateStatus", this.orderIdWaitingForChange, status_id);
+            this.$store.dispatch("updateStatus", {
+                order_id: this.orderIdWaitingForChange,
+                status_id
+            });
             this.settings = false;
             this.orderIdWaitingForChange = null;
         },

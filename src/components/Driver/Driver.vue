@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div v-else class="settings-lite">
-                <div class="setting-button">Изменить</div>
+                <div class="setting-button" @click="$emit('open-edit-driver')">Изменить</div>
                 <div class="setting-button" @click="toggleDelete">Удалить</div>
             </div>
         </div>

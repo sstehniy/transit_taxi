@@ -99,6 +99,7 @@ export default new Vuex.Store({
         },
         drivers: [
             {
+                id: 2,
                 driver_id: 1,
                 name: "DRIVER_NAME1",
                 balance: 100.0,
@@ -122,9 +123,20 @@ export default new Vuex.Store({
                         use_for_call: true
                     }
                 ],
-                term_account: "00008"
+                term_account: "00008",
+                auto_model: "Corito",
+                auto_color: "govno",
+                auto_number: "so1488si",
+                auto_attributes: [
+                    { id: 1, title: 'Кузов "универсал"', kind: "estate_wagon" },
+                    { id: 7, title: "+ 50", kind: "plus_50" },
+                    { id: 3, title: "Дети 0 до 12", kind: "children_012" },
+                    { id: 9, title: "+ 500", kind: "plus_500" },
+                    { id: 5, title: "Вместительный багажник", kind: "big_trunk" }
+                ]
             },
             {
+                id: 3,
                 driver_id: 2,
                 name: "DRIVER_NAME2",
                 balance: -50.0,
@@ -148,14 +160,26 @@ export default new Vuex.Store({
                         use_for_call: false
                     }
                 ],
-                term_account: "00009"
+                term_account: "00009",
+                auto_model: "Corito",
+                auto_color: "govno",
+                auto_number: "so1488si",
+                auto_attributes: [
+                    { id: 1, title: 'Кузов "универсал"', kind: "estate_wagon" },
+                    { id: 7, title: "+ 50", kind: "plus_50" },
+                    { id: 3, title: "Дети 0 до 12", kind: "children_012" },
+                    { id: 9, title: "+ 500", kind: "plus_500" },
+                    { id: 5, title: "Вместительный багажник", kind: "big_trunk" }
+                ]
             },
             {
-                full_name: "Залупаев Гандон Гнидович",
+                id: 5,
+                name: "Залупаев Гандон Гнидович",
                 driver_id: "228322",
-                call: "heypidor",
-                driver_phone: "8-800-555-35-35",
-                comments: "нехуй делать",
+                balance: 200,
+                name_for_taxophone: "heypidor",
+                phones: [{ phone: "8-800-555-35-35", is_default: true, use_for_call: true }],
+                comment: "нехуй делать",
                 password: "guyfoxrulit",
                 auto_model: "Corito",
                 auto_color: "govno",
@@ -242,9 +266,6 @@ export default new Vuex.Store({
             }
         },
         changeStatus(state, { order_id, status_id }) {
-            // state.orders[order_id - 1].state_kind = state.orderDetails.orderStates[status - 1].kind;
-            // state.orders[order_id - 1].state_id = status;
-
             const stateStatus = state.orderDetails.orderStates.find(s => s.id === status_id);
             state.orders = state.orders.map(o =>
                 +o.id === +order_id
@@ -257,6 +278,11 @@ export default new Vuex.Store({
         },
         addDriver(state, order) {
             state.drivers = [...state.drivers, { ...order }];
+        },
+        setDriver(state, driver) {
+            state.drivers = state.drivers.map(d => {
+                return +d.id === +driver.id ? { ...driver } : d;
+            });
         }
     },
     actions: {
@@ -267,6 +293,9 @@ export default new Vuex.Store({
         },
         createDriver({ commit }, driver) {
             setTimeout(() => commit("addDriver", driver), 2000);
+        },
+        editDriver({ commit }, driver) {
+            setTimeout(() => commit("setDriver", driver), 2000);
         },
         updateStatus({ commit }, payload) {
             setTimeout(() => {

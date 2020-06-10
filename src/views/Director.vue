@@ -11,8 +11,8 @@
 <script>
 import Header from "@/components/Header.vue";
 import MenuControls from "@/components/MenuControls.vue";
-import OrdersWindow from "@/components/OrdersWindow.vue";
-import DriversWindow from "@/components/DriversWindow.vue";
+import OrdersWindow from "@/components/Order/OrdersWindow.vue";
+import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
 
 export default {

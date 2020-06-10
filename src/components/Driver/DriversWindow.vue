@@ -13,13 +13,13 @@
                 <div class="separator"></div>
             </div>
             <simplebar class="scrollable-drivers" data-simplebar-auto-hide="false" ref="scroll">
-                <Driver v-for="driver in drivers" :key="driver.driver_id" :driverInfo="driver" />
-                <!--<OrderMin
-                    v-for="order in orders"
-                    :key="order.id"
-                    :orderInfo="order"
-                    @change-status="toggleSettings"
-                />-->
+                <Driver
+                    v-for="driver in drivers"
+                    :key="driver.driver_id"
+                    :driverInfo="driver"
+                    @open-edit-driver="toggleEditDriver(true, driver.driver_id)"
+                />
+
                 <div class="blank-separator"></div>
             </simplebar>
             <div class="operations">
@@ -43,6 +43,12 @@
             @close-create-driver="toggleCreateDriver(false)"
             @create-driver="createDriver"
         />
+        <EditDriver
+            v-if="showEditDriver"
+            :driverInfo="drivers.find(d=>d.driver_id === driverIdWaitingForChange)"
+            @close-edit-driver="toggleEditDriver(false)"
+            @edit-driver="editDriver"
+        />
     </div>
 </template>
 
@@ -51,15 +57,17 @@ import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
 import Driver from "./Driver.vue";
-import StatusSettings from "./StatusSettings.vue";
+import StatusSettings from "../StatusSettings.vue";
 import CreateDriver from "./CreateDriver.vue";
+import EditDriver from "./EditDriver.vue";
 
 export default {
     components: {
         simplebar,
         Driver,
         StatusSettings,
-        CreateDriver
+        CreateDriver,
+        EditDriver
     },
     computed: {
         drivers() {
@@ -70,30 +78,41 @@ export default {
         return {
             showSettings: false,
             showCreateDriver: false,
+            showEditDriver: false,
             driverIdWaitingForChange: null
         };
     },
     methods: {
-        toggleSettings(orderId) {
-            if (this.orderIdWaitingForChange === orderId) {
-                this.showSettings = false;
-                this.orderIdWaitingForChange = null;
-            } else {
-                this.orderIdWaitingForChange = orderId;
-                this.showSettings = true;
-            }
-        },
         toggleCreateDriver(value) {
+            if (this.showEditDriver) {
+                this.showEditDriver = false;
+                this.driverIdWaitingForChange = false;
+            }
             if (this.showCreateDriver === value) return;
             this.showCreateDriver = value;
         },
-        updateStatus(status) {
-            this.orders[this.orderIdWaitingForChange - 1].status = status;
-            this.showSettings = false;
-            this.orderIdWaitingForChange = null;
+        toggleEditDriver(value, driver_id = null) {
+            if (value === false) {
+                this.showEditDriver = value;
+                this.driverIdWaitingForChange = driver_id;
+                return;
+            }
+            if (this.showCreateDriver) {
+                this.showCreateDriver = false;
+            }
+            this.showEditDriver = false;
+            this.driverIdWaitingForChange = driver_id;
+            setTimeout(() => {
+                this.showEditDriver = true;
+            }, 0);
         },
         createDriver($event) {
             this.$store.dispatch("createDriver", $event);
+        },
+        editDriver($event) {
+            this.showEditDriver = false;
+            this.driverIdWaitingForChange = null;
+            this.$store.dispatch("editDriver", $event);
         },
         handleScroll() {
             console.log("scroll");

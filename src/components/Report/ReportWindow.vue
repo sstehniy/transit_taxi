@@ -90,7 +90,7 @@
                 <div class="separator sm"></div>
                 <div class="header-btn">
                     <img alt="drop-icon" id="drop" :src="require('@/assets/drop-icon.svg')" />
-                    <p class="btn-text" @click="showExpotGroups = !showExportGroups">Группа вывоза</p>
+                    <p class="btn-text" @click="showExportGroups = !showExportGroups">Группа вывоза</p>
                     <div v-if="showExportGroups" class="dropdown-container">
                         <div
                             v-for="group in exportGroups"

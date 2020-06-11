@@ -22,7 +22,7 @@
                 <div class="delete-confirm">Удалить водителя №{{ this.driverInfo.driver_id }}?</div>
                 <div class="delete-options">
                     <div class="setting-button option" @click="toggleDelete">Отмена</div>
-                    <div class="setting-button option confirm">Да</div>
+                    <div class="setting-button option confirm" @click="$emit('delete-driver')">Да</div>
                 </div>
             </div>
             <div v-else class="settings-lite">

@@ -298,7 +298,7 @@
                         <input
                             type="text"
                             :value="timestamp.date"
-                            @keyup="setDate"
+                            @keyup="setFormattedDate"
                             class="form-input"
                             :class="{'invalid': validationErrors.timestamp && validationErrors.timestamp.date}"
                             id="state-date"
@@ -539,7 +539,7 @@ export default {
                 this.clientNumber = valueArr.join("");
             } else this.clientNumber = "";
         },
-        setDate(e) {
+        setFormattedDate(e) {
             if (e.keyCode !== 8) {
                 const valueArr = e.target.value.split("");
                 if (valueArr.length === 2 || valueArr.length === 5) {

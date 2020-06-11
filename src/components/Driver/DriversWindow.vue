@@ -15,9 +15,10 @@
             <simplebar class="scrollable-drivers" data-simplebar-auto-hide="false" ref="scroll">
                 <Driver
                     v-for="driver in drivers"
-                    :key="driver.driver_id"
+                    :key="driver.id"
                     :driverInfo="driver"
-                    @open-edit-driver="toggleEditDriver(true, driver.driver_id)"
+                    @open-edit-driver="toggleEditDriver(true, driver.id)"
+                    @delete-driver="deleteDriver(driver.id)"
                 />
 
                 <div class="blank-separator"></div>
@@ -45,10 +46,11 @@
         />
         <EditDriver
             v-if="showEditDriver"
-            :driverInfo="drivers.find(d=>d.driver_id === driverIdWaitingForChange)"
+            :driverInfo="drivers.find(d=>d.id === driverIdWaitingForChange)"
             @close-edit-driver="toggleEditDriver(false)"
             @edit-driver="editDriver"
         />
+        <PhotoReview v-if="showPhotoReview" />
     </div>
 </template>
 
@@ -60,6 +62,7 @@ import Driver from "./Driver.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateDriver from "./CreateDriver.vue";
 import EditDriver from "./EditDriver.vue";
+import PhotoReview from "./PhotoReviw.vue";
 
 export default {
     components: {
@@ -67,7 +70,8 @@ export default {
         Driver,
         StatusSettings,
         CreateDriver,
-        EditDriver
+        EditDriver,
+        PhotoReview
     },
     computed: {
         drivers() {
@@ -79,10 +83,14 @@ export default {
             showSettings: false,
             showCreateDriver: false,
             showEditDriver: false,
+            showPhotoReview: false,
             driverIdWaitingForChange: null
         };
     },
     methods: {
+        deleteDriver(driverId) {
+            this.$store.dispatch("deleteDriver", driverId);
+        },
         toggleCreateDriver(value) {
             if (this.showEditDriver) {
                 this.showEditDriver = false;
@@ -110,8 +118,6 @@ export default {
             this.$store.dispatch("createDriver", $event);
         },
         editDriver($event) {
-            this.showEditDriver = false;
-            this.driverIdWaitingForChange = null;
             this.$store.dispatch("editDriver", $event);
         },
         handleScroll() {

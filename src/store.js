@@ -246,6 +246,126 @@ export default new Vuex.Store({
                     kind: "planned_shift"
                 }
             ]
+        },
+        reportDetails: {
+            orders: {
+                orderGroups: [
+                    {
+                        id: 0,
+                        kind: "all",
+                        title: "Все"
+                    },
+                    {
+                        id: 1,
+                        kind: "group_1",
+                        title: "Группа 1"
+                    },
+                    {
+                        id: 2,
+                        kind: "group_2",
+                        title: "Группа 2"
+                    },
+                    {
+                        id: 3,
+                        kind: "group_3",
+                        title: "Группа 3"
+                    },
+                    {
+                        id: 4,
+                        kind: "group_4",
+                        title: "Группа 4"
+                    }
+                ],
+                exportGroups: [
+                    {
+                        id: 0,
+                        kind: "all",
+                        title: "Все"
+                    },
+                    {
+                        id: 1,
+                        kind: "group_1",
+                        title: "Группа 1"
+                    },
+                    {
+                        id: 2,
+                        kind: "group_2",
+                        title: "Группа 2"
+                    },
+                    {
+                        id: 3,
+                        kind: "group_3",
+                        title: "Группа 3"
+                    },
+                    {
+                        id: 4,
+                        kind: "group_4",
+                        title: "Группа 4"
+                    }
+                ]
+            },
+            drivers: {
+                crewGroups: [
+                    {
+                        id: 0,
+                        kind: "all",
+                        title: "Все"
+                    },
+                    {
+                        id: 1,
+                        kind: "crew_1",
+                        title: "Экипаж 1"
+                    },
+                    {
+                        id: 2,
+                        kind: "crew_2",
+                        title: "Экипаж 2"
+                    },
+                    {
+                        id: 3,
+                        kind: "crew_3",
+                        title: "Экипаж 3"
+                    },
+                    {
+                        id: 4,
+                        kind: "crew_4",
+                        title: "Экипаж 4"
+                    }
+                ],
+                crewMembers: [
+                    {
+                        id: 0,
+                        kind: "all",
+                        title: "Все"
+                    },
+                    {
+                        id: 1,
+                        kind: "member_1",
+                        title: "Фамилия И.О"
+                    },
+                    {
+                        id: 2,
+                        kind: "member_2",
+                        title: "Фамилия И.О"
+                    },
+                    {
+                        id: 3,
+                        kind: "member_3",
+                        title: "Фамилия И.О"
+                    },
+                    {
+                        id: 4,
+                        kind: "member_4",
+                        title: "Фамилия И.О"
+                    }
+                ]
+            },
+            datePeriods: [
+                { id: 0, kind: "today", title: "Сегодня" },
+                { id: 1, kind: "yesterday", title: "Вчера" },
+                { id: 2, kind: "week", title: "Неделя" },
+                { id: 3, kind: "month", title: "Месяц" }
+            ]
         }
     },
     mutations: {
@@ -281,7 +401,7 @@ export default new Vuex.Store({
         },
         setDriver(state, driver) {
             state.drivers = state.drivers.map(d => {
-                return +d.id === +driver.id ? { ...driver } : d;
+                return d.id === driver.id ? driver : d;
             });
         }
     },
@@ -294,7 +414,7 @@ export default new Vuex.Store({
         createDriver({ commit }, driver) {
             setTimeout(() => commit("addDriver", driver), 2000);
         },
-        editDriver({ commit }, driver) {
+        async editDriver({ commit }, driver) {
             setTimeout(() => commit("setDriver", driver), 2000);
         },
         updateStatus({ commit }, payload) {

@@ -215,7 +215,7 @@ export default {
         return {
             activeTab: "drivers",
             //top header row
-            showDateFilter: true,
+            showDateFilter: false,
             showPeriodDropdown: false,
             currentDatePeriodId: 0,
             dateFilterInput: `${new Date().getDate()}/${new Date().getMonth() +

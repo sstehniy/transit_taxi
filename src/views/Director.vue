@@ -5,6 +5,7 @@
         <OrdersWindow v-if="this.$store.state.windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="this.$store.state.windows['drivers']" class="dialogue-window" />
         <ReportsWindow v-if="this.$store.state.windows['reports']" class="dialogue-window" />
+        <ChatsWindow v-if="this.$store.state.windows['chat']" class="dialogue-window" />
         <MapFilters class="map-settings" />
     </div>
 </template>
@@ -15,6 +16,7 @@ import MenuControls from "@/components/MenuControls.vue";
 import OrdersWindow from "@/components/Order/OrdersWindow.vue";
 import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import ReportsWindow from "@/components/Report/ReportWindow.vue";
+import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
 
 export default {
@@ -25,6 +27,7 @@ export default {
         OrdersWindow,
         DriversWindow,
         ReportsWindow,
+        ChatsWindow,
         MapFilters
     }
 };

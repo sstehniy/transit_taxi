@@ -29,16 +29,14 @@ export default {
     flex-direction: row;
 }
 .control-button {
+    user-select: none;
     background-color: #ececec;
-
     width: 9vw;
     min-width: 50px;
     height: 50px;
     line-height: 50px;
     border-radius: 8px;
-
     cursor: pointer;
-
     transition: background-color 0.2s ease-in-out;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
 }
@@ -49,8 +47,7 @@ export default {
     background-color: #fdbf5a;
 }
 .control-button:hover .button-icon {
-    filter: invert(42%) sepia(7%) saturate(238%) hue-rotate(314deg)
-        brightness(92%) contrast(92%);
+    filter: invert(42%) sepia(7%) saturate(238%) hue-rotate(314deg) brightness(92%) contrast(92%);
 }
 .control-button:hover .button-name {
     color: #6b6565;
@@ -62,8 +59,7 @@ export default {
     transition: filter 0.2s ease-in-out;
 }
 .activeButtonIcon {
-    filter: invert(42%) sepia(7%) saturate(238%) hue-rotate(314deg)
-        brightness(92%) contrast(92%);
+    filter: invert(42%) sepia(7%) saturate(238%) hue-rotate(314deg) brightness(92%) contrast(92%);
 }
 .button-misc-wrapper {
     margin: 0 auto;

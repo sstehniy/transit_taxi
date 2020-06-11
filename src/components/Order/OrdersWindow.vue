@@ -130,9 +130,7 @@ export default {
     height: 45px;
     display: flex;
     flex-direction: row;
-
     border-radius: 8px 8px 0 0;
-
     position: relative;
 }
 .separator {

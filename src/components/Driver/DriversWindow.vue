@@ -18,6 +18,7 @@
                     :key="driver.id"
                     :driverInfo="driver"
                     @open-edit-driver="toggleEditDriver(true, driver.id)"
+                    @delete-driver="deleteDriver(driver.id)"
                 />
 
                 <div class="blank-separator"></div>
@@ -49,6 +50,7 @@
             @close-edit-driver="toggleEditDriver(false)"
             @edit-driver="editDriver"
         />
+        <PhotoReview v-if="showPhotoReview" />
     </div>
 </template>
 
@@ -60,6 +62,7 @@ import Driver from "./Driver.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateDriver from "./CreateDriver.vue";
 import EditDriver from "./EditDriver.vue";
+import PhotoReview from "./PhotoReviw.vue";
 
 export default {
     components: {
@@ -67,7 +70,8 @@ export default {
         Driver,
         StatusSettings,
         CreateDriver,
-        EditDriver
+        EditDriver,
+        PhotoReview
     },
     computed: {
         drivers() {
@@ -79,10 +83,14 @@ export default {
             showSettings: false,
             showCreateDriver: false,
             showEditDriver: false,
+            showPhotoReview: false,
             driverIdWaitingForChange: null
         };
     },
     methods: {
+        deleteDriver(driverId) {
+            this.$store.dispatch("deleteDriver", driverId);
+        },
         toggleCreateDriver(value) {
             if (this.showEditDriver) {
                 this.showEditDriver = false;

@@ -319,7 +319,7 @@ export default {
                 this.phones[0].phone = valueArr.join("");
             } else this.phones[0].phone = "";
         },
-        submitChanges() {
+        async submitChanges() {
             const fieldsToValidate = [
                 "name",
                 "driver_id",

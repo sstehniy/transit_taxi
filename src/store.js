@@ -366,6 +366,103 @@ export default new Vuex.Store({
                 { id: 2, kind: "week", title: "Неделя" },
                 { id: 3, kind: "month", title: "Месяц" }
             ]
+        },
+        chats: {
+            chatPreviews: [
+                {
+                    id: 0,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 1,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 2,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 3,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 4,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 5,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                }
+            ],
+            chatFilters: {
+                groups: [
+                    {
+                        id: 0,
+                        kind: "all",
+                        title: "Все"
+                    },
+                    {
+                        id: 1,
+                        kind: "group_1",
+                        title: "Группа 1"
+                    },
+                    {
+                        id: 2,
+                        kind: "group_2",
+                        title: "Группа 2"
+                    },
+                    {
+                        id: 3,
+                        kind: "group_3",
+                        title: "Группа 3"
+                    }
+                ],
+                operators: [
+                    {
+                        id: 0,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 1,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 2,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 3,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 4,
+                        name: "Фамилия И.О"
+                    }
+                ],
+                status: [
+                    {
+                        id: 0,
+                        kind: "online",
+                        title: "Онлайн"
+                    },
+                    {
+                        id: 1,
+                        kind: "offline",
+                        title: "Не в сети"
+                    },
+                    {
+                        id: 2,
+                        kind: "all",
+                        title: "Все"
+                    }
+                ]
+            }
         }
     },
     mutations: {

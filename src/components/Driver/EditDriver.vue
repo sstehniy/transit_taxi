@@ -291,6 +291,7 @@ export default {
                         this.balance -= this.actionValue;
                         break;
                     case "fund":
+                        console.log(this.actionValue);
                         this.balance += this.actionValue;
                         break;
                 }

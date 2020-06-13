@@ -23,9 +23,8 @@ export default {
 
 <style scoped>
 svg {
-    cursor: pointer;
-    height: 17px;
-    width: 17px;
+    height: 18px;
+    width: 18px;
     flex-shrink: 0;
     padding-bottom: 1px;
     padding-left: 1px;

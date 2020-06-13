@@ -211,7 +211,7 @@ export default {
     },
     methods: {
         returnToMain() {
-            if (this.currentForm === "main") return;
+            if (this.currentForm === "main") this.$emit("close-create-driver");
             this.currentForm = "main";
         },
         toggleShowBalance() {
@@ -335,9 +335,12 @@ export default {
 
     position: absolute;
     top: 0;
-    left: calc(100% + 20px);
-    width: 360px;
-    height: 585px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    resize: vertical;
+    overflow: auto;
+    z-index: 100;
 }
 
 .create-driver-header {
@@ -407,7 +410,11 @@ export default {
 
 .create-driver-body {
     width: 100%;
-    height: 467px;
+    height: calc(100% - 125px);
+    max-height: calc(100% - 125px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
     padding: 20px 30px 0 20px;
     background-color: var(--light-grey-bg);
     display: flex;
@@ -534,7 +541,7 @@ button.primary:hover {
     position: absolute;
     top: 100%;
     left: -100%;
-    width: 360px;
+    right: 0;
     height: 130px;
     z-index: 5;
     padding: 20px;

@@ -376,7 +376,7 @@ export default new Vuex.Store({
                 },
                 {
                     id: 1,
-                    name: "Иванов И.И",
+                    name: "Стегний С.Б",
                     lastMessage: "This is a message"
                 },
                 {
@@ -396,6 +396,16 @@ export default new Vuex.Store({
                 },
                 {
                     id: 5,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 6,
+                    name: "Иванов И.И",
+                    lastMessage: "This is a message"
+                },
+                {
+                    id: 7,
                     name: "Иванов И.И",
                     lastMessage: "This is a message"
                 }
@@ -466,17 +476,10 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        toggleOrders(state) {
-            state.ordersOpen = !state.ordersOpen;
-        },
         toggleWindow(state, window) {
             for (var key in state.windows) {
                 if (key === window) {
-                    if (state.windows[key] === false) {
-                        state.windows[key] = true;
-                    } else {
-                        state.windows[key] = false;
-                    }
+                    state.windows[key] = !state.windows[key];
                 } else {
                     state.windows[key] = false;
                 }

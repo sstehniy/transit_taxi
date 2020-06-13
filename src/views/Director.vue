@@ -1,12 +1,13 @@
 <template>
     <div class="director">
-        <Header />
+        <Header class="header" />
         <MenuControls class="menu-controls" />
-        <OrdersWindow v-if="this.$store.state.windows['orders']" class="dialogue-window" />
-        <DriversWindow v-if="this.$store.state.windows['drivers']" class="dialogue-window" />
-        <ReportsWindow v-if="this.$store.state.windows['reports']" class="dialogue-window" />
-        <ChatsWindow v-if="this.$store.state.windows['chat']" class="dialogue-window" />
+        <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
+        <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
+        <ReportsWindow v-if="windows['reports']" class="dialogue-window" />
+        <ChatsWindow v-if="windows['chat']" class="dialogue-window" />
         <MapFilters class="map-settings" />
+        <div class="map" @click="closeOpenedTabs"></div>
     </div>
 </template>
 
@@ -29,6 +30,19 @@ export default {
         ReportsWindow,
         ChatsWindow,
         MapFilters
+    },
+    computed: {
+        windows() {
+            return this.$store.state.windows;
+        }
+    },
+    methods: {
+        closeOpenedTabs() {
+            for (const window in this.windows) {
+                if (!this.windows[window]) continue;
+                this.$store.commit("toggleWindow", window);
+            }
+        }
     }
 };
 </script>
@@ -36,9 +50,12 @@ export default {
 <style scoped>
 .director {
     position: relative;
+    min-height: 100vh;
+    min-width: 100vw;
 }
 .director > * {
     position: absolute;
+    z-index: 1;
 }
 .menu-controls {
     top: 78px;
@@ -51,6 +68,16 @@ export default {
 .map-settings {
     top: 78px;
     right: 3vw;
+}
+
+.map {
+    background-color: lightseagreen;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 @media only screen and (max-width: 1280px) {
     .menu-controls,

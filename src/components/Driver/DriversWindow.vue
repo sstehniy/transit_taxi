@@ -65,7 +65,7 @@ import Driver from "./Driver.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateDriver from "./CreateDriver.vue";
 import EditDriver from "./EditDriver.vue";
-import PhotoReviews from "./PhotoReviws.vue";
+import PhotoReviews from "./PhotoReviews.vue";
 
 export default {
     components: {

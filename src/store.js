@@ -258,11 +258,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 1,
@@ -273,11 +299,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 2,
@@ -288,11 +340,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 3,
@@ -303,11 +381,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 4,
@@ -318,11 +422,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 5,
@@ -333,11 +463,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 },
                 {
                     id: 6,
@@ -348,11 +504,37 @@ export default new Vuex.Store({
                         time: "13:35",
                         date: "12/05/2020"
                     },
-                    recieveTime: {
+                    recieveDate: {
                         time: "13:42",
                         date: "12/05/2020"
                     },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg"
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
                 }
             ],
             reviewFilters: {

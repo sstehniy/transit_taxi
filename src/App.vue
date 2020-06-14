@@ -7,6 +7,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap"); /* Poppins font import from GFonts */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"); /* Roboto font import from GFonts */
+
 * {
     margin: 0;
     padding: 0;

@@ -324,6 +324,13 @@ export default {
 
     width: 365px;
     height: 585px;
+    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    background-color: transparent;
+    border-radius: 8px;
+    resize: vertical;
+    overflow-y: auto;
+    min-height: 215px;
+    max-height: 585px;
 }
 
 .btn {

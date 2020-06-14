@@ -4,8 +4,8 @@
         <MenuControls class="menu-controls" />
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
-        <ReportsWindow v-if="windows['reports']" class="dialogue-window" />
-        <ChatsWindow v-if="windows['chat']" class="dialogue-window" />
+        <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
+        <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
         <div class="map" @click="closeOpenedTabs"></div>
     </div>
@@ -64,6 +64,11 @@ export default {
 .dialogue-window {
     top: 138px;
     left: 3vw;
+}
+
+.chat,
+.reports {
+    left: 33.3vw;
 }
 .map-settings {
     top: 78px;

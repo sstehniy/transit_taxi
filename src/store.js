@@ -247,6 +247,345 @@ export default new Vuex.Store({
                 }
             ]
         },
+        photoReviews: {
+            reviews: [
+                {
+                    id: 0,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 1,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 5,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                },
+                {
+                    id: 6,
+                    auto_model: "Лада Гранта",
+                    auto_color: "Белая",
+                    auto_number: "960",
+                    startDate: {
+                        time: "13:35",
+                        date: "12/05/2020"
+                    },
+                    recieveDate: {
+                        time: "13:42",
+                        date: "12/05/2020"
+                    },
+                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
+                    photos: [
+                        {
+                            id: 0,
+                            kind: "car_front",
+                            title: "Спереди",
+                            src: "car_front"
+                        },
+                        {
+                            id: 1,
+                            kind: "car_left",
+                            title: "Слева",
+                            src: "car_left"
+                        },
+                        {
+                            id: 2,
+                            kind: "car_right",
+                            title: "Справа",
+                            src: "car_right"
+                        },
+                        {
+                            id: 3,
+                            kind: "car_back",
+                            title: "Сзади",
+                            src: "car_back"
+                        }
+                    ]
+                }
+            ],
+            reviewFilters: {
+                status: [
+                    {
+                        id: 0,
+                        kind: "new",
+                        title: "Новые"
+                    },
+                    {
+                        id: 1,
+                        kind: "on_inspection",
+                        title: "На проверке"
+                    },
+                    {
+                        id: 2,
+                        kind: "inspected",
+                        title: "Готовые"
+                    }
+                ],
+                date: [
+                    {
+                        id: 0,
+                        kind: "today",
+                        title: "Сегодня"
+                    },
+                    {
+                        id: 1,
+                        kind: "yesterday",
+                        title: "Вчера"
+                    },
+                    {
+                        id: 2,
+                        kind: "week",
+                        title: "Неделя"
+                    }
+                ],
+                sortBy: [
+                    {
+                        id: 0,
+                        kind: "crew",
+                        title: "Экипаж"
+                    },
+                    {
+                        id: 1,
+                        kind: "name_for_taxofone",
+                        title: "Позывной"
+                    }
+                ]
+            }
+        },
         reportDetails: {
             orders: {
                 orderGroups: [

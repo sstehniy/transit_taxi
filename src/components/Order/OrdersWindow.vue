@@ -242,7 +242,6 @@ export default {
     position: absolute;
     bottom: 0px;
     background-color: #ececec;
-
     display: flex;
     flex-direction: column;
 }

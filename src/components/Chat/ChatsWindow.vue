@@ -42,8 +42,10 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!showChat" class="list-wrapper">
-                <div class="blank-separator"></div>
+            <div class="list-wrapper">
+                <div class="chats-label">
+                    <p class="header-name">Все чаты</p>
+                </div>
                 <simplebar class="scrollable-chats" data-simplebar-auto-hide="false" ref="scroll">
                     <div v-for="chat in chats" :key="chat.id" class="chat-preview">
                         <img
@@ -180,6 +182,7 @@ export default {
             this.chatOptionsTopStyleProp = null;
         }
     },
+
     mounted() {
         this.$refs.scroll.scrollElement.addEventListener("scroll", this.handleScroll);
     },
@@ -212,14 +215,17 @@ export default {
     --btn-primary-bg: #fdbf5a;
     --btn-normal-bg: #f4f4f4;
     --btn-normal-selected-bg: #d8d8d8;
-    position: relative;
+
+    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    background-color: transparent;
+    border-radius: 8px;
 }
 .chats-manage {
     position: relative;
-    width: 240px;
-    height: 505px;
+    width: 365px;
+    height: 585px;
     z-index: 0;
-    max-height: 505px;
+    max-height: 585px;
     min-height: 350px;
     resize: vertical;
     overflow-y: scroll;
@@ -321,10 +327,15 @@ export default {
     background-color: #fdbf5a;
 }
 
-.blank-separator {
+.chats-label {
     width: 100%;
     height: 28px;
     background-color: var(--btn-primary-selected);
+    position: relative;
+    background-color: var(--btn-normal-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .list-wrapper {
@@ -385,7 +396,7 @@ export default {
 .chat-preview .footer-line {
     position: absolute;
     bottom: 5px;
-    width: 210px;
+    width: 95.5%;
     left: 50%;
     transform: translateX(-50%);
     height: 2px;
@@ -433,7 +444,6 @@ export default {
     width: 100%;
     line-height: 25px;
     text-align: center;
-    margin-bottom: 6px;
     cursor: pointer;
     font-size: var(--text-middle);
     transition: background-color 0.2s ease-in-out;
@@ -450,6 +460,11 @@ export default {
 /* Chat view related styles */
 
 .chat-view {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    right: 0;
+    z-index: 50000000;
     height: calc(100% - 103px);
 }
 

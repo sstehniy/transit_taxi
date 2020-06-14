@@ -43,11 +43,8 @@
                     />
                 </div>
                 <div class="form-section-controls">
-                    <div class="control-wrapper">
-                        <Checkbox
-                            :checked="saveClientName"
-                            @click.native="toggleCheckBox('saveClientName')"
-                        />
+                    <div class="control-wrapper" @click="toggleCheckBox('saveClientName')">
+                        <Checkbox :checked="saveClientName" />
                         <p class="control-text">Сохранить</p>
                     </div>
                 </div>
@@ -112,11 +109,8 @@
                     </div>
                 </div>
                 <div class="form-section-controls">
-                    <div class="control-wrapper">
-                        <Checkbox
-                            :checked="twoWayRide"
-                            @click.native="toggleCheckBox('twoWayRide')"
-                        />
+                    <div class="control-wrapper" @click="toggleCheckBox('twoWayRide')">
+                        <Checkbox :checked="twoWayRide" />
                         <p class="control-text">Обратно</p>
                     </div>
                     <div class="control-wrapper">
@@ -204,8 +198,8 @@
                     </div>
                 </div>
                 <div class="form-section-controls">
-                    <div class="control-wrapper">
-                        <Checkbox :checked="autoMatch" @click.native="toggleCheckBox('autoMatch')" />
+                    <div class="control-wrapper" @click="toggleCheckBox('autoMatch')">
+                        <Checkbox :checked="autoMatch" />
                         <p class="control-text">Автоподбор</p>
                     </div>
                 </div>
@@ -242,11 +236,8 @@
                     </div>
                 </div>
                 <div class="form-section-controls">
-                    <div class="control-wrapper">
-                        <Checkbox
-                            :checked="hourlyPayment"
-                            @click.native="toggleCheckBox('hourlyPayment')"
-                        />
+                    <div class="control-wrapper" @click="toggleCheckBox('hourlyPayment')">
+                        <Checkbox :checked="hourlyPayment" />
                         <p class="control-text">Почасовой</p>
                     </div>
                 </div>
@@ -308,8 +299,8 @@
                     </div>
                 </div>
                 <div class="form-section-controls">
-                    <div class="control-wrapper">
-                        <Checkbox :checked="preOrder" @click.native="toggleCheckBox('preOrder')" />
+                    <div class="control-wrapper" @click="toggleCheckBox('preOrder')">
+                        <Checkbox :checked="preOrder" />
                         <p class="control-text">Предварительный</p>
                     </div>
                 </div>
@@ -661,9 +652,9 @@ export default {
     --font-size-footer: 14px;
     position: absolute;
     top: 0;
-    left: calc(100% + 20px);
-    width: 240px;
-    height: 551px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .create-order-header {
     padding: 10px;
@@ -693,7 +684,8 @@ export default {
 }
 .scrollable-form {
     width: 100%;
-    height: 448px;
+    height: calc(100% - 125px);
+    max-height: calc(100% - 125px);
     padding: 0 25px 25px 15px;
     overflow-y: scroll;
     background: #fafafa;
@@ -847,6 +839,7 @@ p {
 .control-wrapper {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .control-text {
@@ -862,7 +855,7 @@ p {
 
 .create-order-footer {
     width: 100%;
-    height: 65px;
+    height: 80px;
     padding: 15px;
     background: #e5e5e5;
     border-radius: 0px 0px 8px 8px;
@@ -871,7 +864,7 @@ p {
     justify-content: space-between;
 }
 .footer-btn {
-    height: 100%;
+    height: 35px;
     font-family: "Roboto", sans-serif;
     font-style: normal;
     font-weight: normal;

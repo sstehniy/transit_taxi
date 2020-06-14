@@ -29,7 +29,10 @@
                         class="operations-button all-drivers"
                         @click="toggleCreateDriver(true)"
                     >+ Водитель</div>
-                    <div class="operations-button photo">Фотоосмотр</div>
+                    <div
+                        class="operations-button photo"
+                        @click="showPhotoReview = !showPhotoReview"
+                    >Фотоосмотр</div>
                 </div>
                 <div class="driver-counter">{{ this.drivers.length }}/100</div>
             </div>
@@ -50,7 +53,7 @@
             @close-edit-driver="toggleEditDriver(false)"
             @edit-driver="editDriver"
         />
-        <PhotoReview v-if="showPhotoReview" />
+        <PhotoReviews v-if="showPhotoReview" />
     </div>
 </template>
 
@@ -62,7 +65,7 @@ import Driver from "./Driver.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateDriver from "./CreateDriver.vue";
 import EditDriver from "./EditDriver.vue";
-import PhotoReview from "./PhotoReviw.vue";
+import PhotoReviews from "./PhotoReviews.vue";
 
 export default {
     components: {
@@ -71,7 +74,7 @@ export default {
         StatusSettings,
         CreateDriver,
         EditDriver,
-        PhotoReview
+        PhotoReviews
     },
     computed: {
         drivers() {
@@ -110,9 +113,9 @@ export default {
             }
             this.showEditDriver = false;
             this.driverIdWaitingForChange = driver_id;
-            setTimeout(() => {
+            setImmediate(() => {
                 this.showEditDriver = true;
-            }, 0);
+            });
         },
         createDriver($event) {
             this.$store.dispatch("createDriver", $event);

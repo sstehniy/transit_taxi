@@ -7,7 +7,16 @@
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
         <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
-        <div class="map" @click="closeOpenedTabs"></div>
+        <div
+            id="map"
+            @click="closeOpenedTabs"
+            style=" position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;"
+        ></div>
     </div>
 </template>
 
@@ -19,6 +28,9 @@ import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import ReportsWindow from "@/components/Report/ReportWindow.vue";
 import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
+
+//eslint-disable-next-line
+let map;
 
 export default {
     name: "director",
@@ -43,6 +55,57 @@ export default {
                 this.$store.commit("toggleWindow", window);
             }
         }
+    },
+    created() {
+        // eslint-disable-next-line
+        ymaps.ready(() => {
+            // eslint-disable-next-line
+            map = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                controls: [],
+                zoom: 15
+            });
+            // eslint-disable-next-line
+            var zoomControl = new ymaps.control.ZoomControl({
+                options: {
+                    size: "small",
+                    position: {
+                        top: "300px",
+                        right: "10px"
+                    }
+                }
+            });
+            // eslint-disable-next-line
+            const geolocationControl = new ymaps.control.GeolocationControl({
+                options: {
+                    noPlacemark: true,
+                    position: {
+                        top: "375px",
+                        right: "10px"
+                    }
+                }
+            });
+            geolocationControl.events.add("locationchange", function(event) {
+                const position = event.get("position"),
+                    // eslint-disable-next-line
+                    locationPlacemark = new ymaps.Placemark(position);
+                map.geoObjects.add(locationPlacemark);
+                map.panTo(position);
+            });
+            // eslint-disable-next-line
+            const multiRoute = new ymaps.multiRouter.MultiRoute(
+                {
+                    referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
+                },
+                {
+                    boundsAutoApply: true
+                }
+            );
+
+            map.geoObjects.add(multiRoute);
+            map.controls.add(geolocationControl);
+            map.controls.add(zoomControl);
+        });
     }
 };
 </script>
@@ -76,10 +139,9 @@ export default {
 }
 
 .map {
-    background-color: lightseagreen;
     position: absolute;
     z-index: 0;
-    top: 0;
+    top: 55px;
     right: 0;
     bottom: 0;
     left: 0;

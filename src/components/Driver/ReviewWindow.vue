@@ -25,7 +25,7 @@
                         @input="$emit('update-comments', $event)"
                     />
                     <div class="send-btn">
-                        <p class="btn-text">Отправить</p>
+                        <p class="btn-text" @click="$emit('close-review')">Отправить</p>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="review-footer">
             <div class="footer-btn primary">
-                <p class="btn-text">Готово</p>
+                <p class="btn-text" @click="$emit('close-review')">Готово</p>
             </div>
             <div class="footer-btn">
                 <p class="btn-text" @click="$emit('close-review')">Отменить</p>

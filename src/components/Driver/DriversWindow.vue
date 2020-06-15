@@ -126,6 +126,11 @@ export default {
         handleScroll() {
             console.log("scroll");
         }
+    },
+    mounted() {
+        document
+            .querySelector(".container-manage")
+            .addEventListener("resize", () => console.log("resize"));
     }
 };
 </script>

@@ -80,6 +80,11 @@ export default new Vuex.Store({
                 { id: 2, title: "Экипаж 2" },
                 { id: 3, title: "Экипаж 3" }
             ],
+            status: [
+                { id: 1, title: "Текущие" },
+                { id: 2, title: "Предварительные" },
+                { id: 3, title: "Завершённые" }
+            ],
             orderStates: [
                 { id: 1, title: "Принят", kind: "accepted" },
                 { id: 2, title: "В работе", kind: "working" },

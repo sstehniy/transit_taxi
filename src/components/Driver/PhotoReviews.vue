@@ -1,6 +1,6 @@
 <template>
     <div class="main-reviews-container">
-        <div class="photo-reviews-conteiner" ref="container">
+        <div class="photo-reviews-conteiner">
             <div class="reviews-header">
                 <div class="header-top">
                     <div
@@ -188,11 +188,13 @@ export default {
     },
     mounted() {
         this.$refs.scroll.scrollElement.addEventListener("scroll", this.handleScroll);
-        this.$refs.container.addEventListener("resize", this.handleScroll);
+        document.querySelector(".container-manage").addEventListener("resize", this.handleScroll);
     },
     beforeDestroy() {
         this.$refs.scroll.scrollElement.removeEventListener("scroll", this.handleScroll);
-        this.$refs.container.removeEventListener("resize", this.handleScroll);
+        document
+            .querySelector(".container-manage")
+            .removeEventListener("resize", this.handleScroll);
     }
 };
 </script>

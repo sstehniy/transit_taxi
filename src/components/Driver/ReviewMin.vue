@@ -27,13 +27,8 @@
             </span>
         </p>
         <div v-if="showMore" class="review-comments">
-            <p for="comments">Комментарии:</p>
-            <input
-                type="text"
-                placeholder="xxxxxxxxxxxxxxxxx"
-                :value="reviewInfo.comments"
-                @input="$emit('update-comments')"
-            />
+            <p>Комментарии:</p>
+            <p>{{reviewInfo.comments}}</p>
         </div>
         <img
             :src="require('@/assets/status-changer-icon.svg')"
@@ -118,8 +113,8 @@ img#more {
     font-size: 13px;
 }
 
-.review-comments input {
-    height: 28px;
+.review-comments p:last-child {
+    line-height: 28px;
     width: 100%;
     padding: 0 5px;
     background-color: #ececec;

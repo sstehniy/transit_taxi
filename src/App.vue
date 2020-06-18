@@ -12,7 +12,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: 0;
 }
+
 body {
     box-sizing: border-box;
     padding: 0;

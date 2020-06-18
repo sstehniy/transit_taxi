@@ -6,7 +6,7 @@
             :buttonInfo="button"
             class="menu-button"
             @click.native="$store.commit('toggleWindow', button.window)"
-        ></MenuButton>
+        />
     </div>
 </template>
 

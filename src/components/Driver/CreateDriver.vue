@@ -522,8 +522,10 @@ export default {
 }
 
 .footer-btn {
-    width: 130px;
+    width: 38%;
     height: 35px;
+    font-size: var(--text-small);
+    line-height: 35px;
     border: none;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);

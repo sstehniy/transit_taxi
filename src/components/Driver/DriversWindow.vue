@@ -3,12 +3,37 @@
         <div class="container-manage">
             <div class="controls">
                 <div class="control filters">
-                    <div class="control-name">Водитель</div>
+                    <div class="control-name" @click="toggleStatusFilter">Водитель</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
+                    <div v-if="showStatusFilters" class="filter-dropdown">
+                        <div
+                            v-for="status in statusFilters"
+                            :key="status.id"
+                            class="dropdown-item"
+                            :class="{selected: status.id === selectedStatusFilterId}"
+                            @click="selectStatusFilter(status.id)"
+                        >
+                            <p class="filter-text">{{status.title}}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="control currents">
-                    <div class="control-name">Группа 1</div>
+                    <div
+                        class="control-name"
+                        @click="toggleGroupFilter"
+                    >{{groupFilters.find(g=>g.id===selectedGroupFilterId).title}}</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
+                    <div v-if="showGroupFilters" class="filter-dropdown">
+                        <div
+                            v-for="group in groupFilters"
+                            :key="group.id"
+                            class="dropdown-item"
+                            :class="{selected: group.id === selectedGroupFilterId}"
+                            @click="selectGroupFilter(group.id)"
+                        >
+                            <p class="filter-text">{{group.title}}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="separator"></div>
             </div>
@@ -79,6 +104,12 @@ export default {
     computed: {
         drivers() {
             return this.$store.state.drivers;
+        },
+        statusFilters() {
+            return this.$store.state.driverFilters.status;
+        },
+        groupFilters() {
+            return this.$store.state.driverFilters.group;
         }
     },
     data() {
@@ -87,7 +118,11 @@ export default {
             showCreateDriver: false,
             showEditDriver: false,
             showPhotoReview: false,
-            driverIdWaitingForChange: null
+            showStatusFilters: false,
+            showGroupFilters: false,
+            driverIdWaitingForChange: null,
+            selectedStatusFilterId: 0,
+            selectedGroupFilterId: 0
         };
     },
     methods: {
@@ -116,6 +151,22 @@ export default {
             setImmediate(() => {
                 this.showEditDriver = true;
             });
+        },
+        toggleStatusFilter() {
+            this.showGroupFilters = false;
+            this.showStatusFilters = true;
+        },
+        toggleGroupFilter() {
+            this.showStatusFilters = false;
+            this.showGroupFilters = true;
+        },
+        selectStatusFilter(id) {
+            this.selectedStatusFilterId = id;
+            this.showStatusFilters = false;
+        },
+        selectGroupFilter(id) {
+            this.selectedGroupFilterId = id;
+            this.showGroupFilters = false;
         },
         createDriver($event) {
             this.$store.dispatch("createDriver", $event);
@@ -165,9 +216,7 @@ export default {
     height: 45px;
     display: flex;
     flex-direction: row;
-
     border-radius: 8px 8px 0 0;
-
     position: relative;
 }
 .separator {
@@ -182,23 +231,61 @@ export default {
 .control {
     width: 50%;
     height: 100%;
-    text-align: center;
-    line-height: 45px;
     font-size: 14px;
     position: relative;
     background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
-    cursor: pointer;
 }
 .control:hover {
     background-color: #d8d8d8;
 }
+.control-name {
+    line-height: 45px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
 .dropdown-icon {
     height: 4px;
-
     position: absolute;
     top: 21px;
     right: 10%;
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 5px 10px;
+    background: #d8d8d8;
+    border-radius: 0px 5px 5px 5px;
+}
+
+.dropdown-item {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-item:not(:last-child) {
+    margin-bottom: 5px;
+}
+.dropdown-item:hover {
+    background-color: #fafafa;
+}
+
+.dropdown-item.selected {
+    background-color: #fafafa;
+}
+
+.item-text {
+    font-size: 14px;
 }
 
 .scrollable-drivers {
@@ -208,7 +295,6 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
-    z-index: 10;
 }
 .orders {
     width: 100%;
@@ -233,7 +319,6 @@ export default {
     position: absolute;
     bottom: 0px;
     background-color: #e5e5e5;
-
     display: flex;
     flex-direction: column;
 }
@@ -248,16 +333,11 @@ export default {
     width: 38%;
     height: 35px;
     border-radius: 5px;
-
     line-height: 35px;
     text-align: center;
-
     margin-top: 14px;
-
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
-
     cursor: pointer;
-
     transition: color 0.2s ease-in-out;
 }
 .operations-button:hover {

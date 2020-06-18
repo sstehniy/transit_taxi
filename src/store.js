@@ -198,6 +198,36 @@ export default new Vuex.Store({
                 ]
             }
         ],
+        driverFilters: {
+            status: [
+                {
+                    id: 0,
+                    kind: "online",
+                    title: "Онлайн"
+                },
+                {
+                    id: 1,
+                    kind: "free",
+                    title: "Свободный"
+                },
+                {
+                    id: 2,
+                    kind: "on_order",
+                    title: "На заказе"
+                },
+                {
+                    id: 3,
+                    kind: "all",
+                    title: "Все"
+                }
+            ],
+            group: [
+                { id: 0, kind: "group_1", title: "Группа 1" },
+                { id: 1, kind: "group_2", title: "Группа 2" },
+                { id: 2, kind: "group_3", title: "Группа 3" },
+                { id: 3, kind: "all", title: "Все" }
+            ]
+        },
         driverAutoDetails: {
             attributes: [
                 {
@@ -338,170 +368,6 @@ export default new Vuex.Store({
                 },
                 {
                     id: 2,
-                    auto_model: "Лада Гранта",
-                    auto_color: "Белая",
-                    auto_number: "960",
-                    startDate: {
-                        time: "13:35",
-                        date: "12/05/2020"
-                    },
-                    recieveDate: {
-                        time: "13:42",
-                        date: "12/05/2020"
-                    },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
-                    photos: [
-                        {
-                            id: 0,
-                            kind: "car_front",
-                            title: "Спереди",
-                            src: "car_front"
-                        },
-                        {
-                            id: 1,
-                            kind: "car_left",
-                            title: "Слева",
-                            src: "car_left"
-                        },
-                        {
-                            id: 2,
-                            kind: "car_right",
-                            title: "Справа",
-                            src: "car_right"
-                        },
-                        {
-                            id: 3,
-                            kind: "car_back",
-                            title: "Сзади",
-                            src: "car_back"
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    auto_model: "Лада Гранта",
-                    auto_color: "Белая",
-                    auto_number: "960",
-                    startDate: {
-                        time: "13:35",
-                        date: "12/05/2020"
-                    },
-                    recieveDate: {
-                        time: "13:42",
-                        date: "12/05/2020"
-                    },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
-                    photos: [
-                        {
-                            id: 0,
-                            kind: "car_front",
-                            title: "Спереди",
-                            src: "car_front"
-                        },
-                        {
-                            id: 1,
-                            kind: "car_left",
-                            title: "Слева",
-                            src: "car_left"
-                        },
-                        {
-                            id: 2,
-                            kind: "car_right",
-                            title: "Справа",
-                            src: "car_right"
-                        },
-                        {
-                            id: 3,
-                            kind: "car_back",
-                            title: "Сзади",
-                            src: "car_back"
-                        }
-                    ]
-                },
-                {
-                    id: 4,
-                    auto_model: "Лада Гранта",
-                    auto_color: "Белая",
-                    auto_number: "960",
-                    startDate: {
-                        time: "13:35",
-                        date: "12/05/2020"
-                    },
-                    recieveDate: {
-                        time: "13:42",
-                        date: "12/05/2020"
-                    },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
-                    photos: [
-                        {
-                            id: 0,
-                            kind: "car_front",
-                            title: "Спереди",
-                            src: "car_front"
-                        },
-                        {
-                            id: 1,
-                            kind: "car_left",
-                            title: "Слева",
-                            src: "car_left"
-                        },
-                        {
-                            id: 2,
-                            kind: "car_right",
-                            title: "Справа",
-                            src: "car_right"
-                        },
-                        {
-                            id: 3,
-                            kind: "car_back",
-                            title: "Сзади",
-                            src: "car_back"
-                        }
-                    ]
-                },
-                {
-                    id: 5,
-                    auto_model: "Лада Гранта",
-                    auto_color: "Белая",
-                    auto_number: "960",
-                    startDate: {
-                        time: "13:35",
-                        date: "12/05/2020"
-                    },
-                    recieveDate: {
-                        time: "13:42",
-                        date: "12/05/2020"
-                    },
-                    comments: "kjdsghjadshgjkdsghkjldsahgjkldhasjg",
-                    photos: [
-                        {
-                            id: 0,
-                            kind: "car_front",
-                            title: "Спереди",
-                            src: "car_front"
-                        },
-                        {
-                            id: 1,
-                            kind: "car_left",
-                            title: "Слева",
-                            src: "car_left"
-                        },
-                        {
-                            id: 2,
-                            kind: "car_right",
-                            title: "Справа",
-                            src: "car_right"
-                        },
-                        {
-                            id: 3,
-                            kind: "car_back",
-                            title: "Сзади",
-                            src: "car_back"
-                        }
-                    ]
-                },
-                {
-                    id: 6,
                     auto_model: "Лада Гранта",
                     auto_color: "Белая",
                     auto_number: "960",
@@ -709,6 +575,34 @@ export default new Vuex.Store({
                 { id: 1, kind: "yesterday", title: "Вчера" },
                 { id: 2, kind: "week", title: "Неделя" },
                 { id: 3, kind: "month", title: "Месяц" }
+            ]
+        },
+        infos: {
+            messages: [
+                {
+                    id: 0,
+                    text:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta fringilla nunc, ac rhoncus turpis. Sed vel nunc luctus, placerat ligula et, porttitor dui.",
+                    time: "12:35"
+                },
+                {
+                    id: 1,
+                    text:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta fringilla nunc, ac rhoncus turpis. Sed vel nunc luctus, placerat ligula et, porttitor dui.",
+                    time: "12:35"
+                }
+            ],
+            cities: [
+                { id: 0, title: "Все" },
+                { id: 1, title: "Город 1" },
+                { id: 2, title: "Город 2" },
+                { id: 3, title: "Город 3" }
+            ],
+            groups: [
+                { id: 0, title: "Все" },
+                { id: 1, title: "Группа 1" },
+                { id: 2, title: "Группа 2" },
+                { id: 3, title: "Город 3" }
             ]
         },
         chats: {

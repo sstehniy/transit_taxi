@@ -138,7 +138,7 @@
                 </div>
             </div>
         </div>
-        <div class="reports-body">
+        <simplebar data-simplebar-auto-hide="false" class="reports-body">
             <div class="header">Статистика за: {{dateFilter.date}}</div>
             <div v-if="activeTab==='orders'" class="reports">
                 <div class="report">
@@ -176,7 +176,7 @@
                     <p>0 Евро</p>
                 </div>
             </div>
-        </div>
+        </simplebar>
 
         <div class="reports-footer">
             <div class="btn primary">Скачать</div>
@@ -185,9 +185,13 @@
 </template>
 
 <script>
-// ! stopped on formatting date value for date filter
+import simplebar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 export default {
     name: "ReportWindow",
+    components: {
+        simplebar
+    },
     computed: {
         drivers() {
             return this.$store.state.drivers;
@@ -322,15 +326,19 @@ export default {
     --btn-normal-bg: #f4f4f4;
     --btn-normal-selected-bg: #d8d8d8;
 
-    width: 365px;
-    height: 585px;
+    /* width: 365px;
+    height: 585px; */
+    max-width: calc(15px + 27vw);
+    min-width: 300px;
+    width: calc(15px + 20vw);
+    min-height: 215px;
+    height: 80vh;
+    max-height: 80vh;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
     background-color: transparent;
     border-radius: 8px;
     resize: vertical;
     overflow-y: auto;
-    min-height: 215px;
-    max-height: 585px;
 }
 
 .btn {
@@ -552,7 +560,7 @@ export default {
 .reports-body {
     background-color: var(--light-grey-bg);
     width: 100%;
-    height: 447px;
+    height: calc(100% - 138px);
     padding: 20px 15px;
     display: flex;
     flex-direction: column;

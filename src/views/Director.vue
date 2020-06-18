@@ -5,6 +5,7 @@
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
+        <InfoWindow v-if="windows['info']" class="dialogue-window" />
         <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
         <div
@@ -26,6 +27,7 @@ import MenuControls from "@/components/MenuControls.vue";
 import OrdersWindow from "@/components/Order/OrdersWindow.vue";
 import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import ReportsWindow from "@/components/Report/ReportWindow.vue";
+import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
 import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
 
@@ -40,6 +42,7 @@ export default {
         OrdersWindow,
         DriversWindow,
         ReportsWindow,
+        InfoWindow,
         ChatsWindow,
         MapFilters
     },
@@ -55,58 +58,58 @@ export default {
                 this.$store.commit("toggleWindow", window);
             }
         }
-    },
-    created() {
-        // eslint-disable-next-line
-        ymaps.ready(() => {
-            // eslint-disable-next-line
-            map = new ymaps.Map("map", {
-                center: [55.76, 37.64],
-                controls: [],
-                zoom: 15
-            });
-            // eslint-disable-next-line
-            var zoomControl = new ymaps.control.ZoomControl({
-                options: {
-                    size: "small",
-                    position: {
-                        top: "300px",
-                        right: "10px"
-                    }
-                }
-            });
-            // eslint-disable-next-line
-            const geolocationControl = new ymaps.control.GeolocationControl({
-                options: {
-                    noPlacemark: true,
-                    position: {
-                        top: "375px",
-                        right: "10px"
-                    }
-                }
-            });
-            geolocationControl.events.add("locationchange", function(event) {
-                const position = event.get("position"),
-                    // eslint-disable-next-line
-                    locationPlacemark = new ymaps.Placemark(position);
-                map.geoObjects.add(locationPlacemark);
-                map.panTo(position);
-            });
-            // eslint-disable-next-line
-            const multiRoute = new ymaps.multiRouter.MultiRoute(
-                {
-                    referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
-                },
-                {
-                    boundsAutoApply: true
-                }
-            );
-
-            map.geoObjects.add(multiRoute);
-            map.controls.add(geolocationControl);
-            map.controls.add(zoomControl);
-        });
     }
+    // created() {
+    //     // eslint-disable-next-line
+    //     ymaps.ready(() => {
+    //         // eslint-disable-next-line
+    //         map = new ymaps.Map("map", {
+    //             center: [55.76, 37.64],
+    //             controls: [],
+    //             zoom: 15
+    //         });
+    //         // eslint-disable-next-line
+    //         var zoomControl = new ymaps.control.ZoomControl({
+    //             options: {
+    //                 size: "small",
+    //                 position: {
+    //                     top: "300px",
+    //                     right: "10px"
+    //                 }
+    //             }
+    //         });
+    //         // eslint-disable-next-line
+    //         const geolocationControl = new ymaps.control.GeolocationControl({
+    //             options: {
+    //                 noPlacemark: true,
+    //                 position: {
+    //                     top: "375px",
+    //                     right: "10px"
+    //                 }
+    //             }
+    //         });
+    //         geolocationControl.events.add("locationchange", function(event) {
+    //             const position = event.get("position"),
+    //                 // eslint-disable-next-line
+    //                 locationPlacemark = new ymaps.Placemark(position);
+    //             map.geoObjects.add(locationPlacemark);
+    //             map.panTo(position);
+    //         });
+    //         // eslint-disable-next-line
+    //         const multiRoute = new ymaps.multiRouter.MultiRoute(
+    //             {
+    //                 referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
+    //             },
+    //             {
+    //                 boundsAutoApply: true
+    //             }
+    //         );
+
+    //         map.geoObjects.add(multiRoute);
+    //         map.controls.add(geolocationControl);
+    //         map.controls.add(zoomControl);
+    //     });
+    // }
 };
 </script>
 
@@ -127,6 +130,7 @@ export default {
 .dialogue-window {
     top: 138px;
     left: 3vw;
+    overflow: hidden;
 }
 
 .chat,
@@ -153,6 +157,16 @@ export default {
     }
     .dialogue-window {
         top: 123px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .menu-controls,
+    .map-settings {
+        top: 103px;
+    }
+    .dialogue-window {
+        top: 163px;
     }
 }
 </style>

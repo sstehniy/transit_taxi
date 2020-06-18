@@ -227,7 +227,7 @@
                 class="footer-btn primary"
                 @click="submitChanges"
             >Сохранить</button>
-            <button class="footer-btn" @click="$emit('close-edit-driver')">Отменить</button>
+            <button class="footer-btn" @click="returnToMain">Отменить</button>
         </div>
     </div>
 </template>
@@ -277,7 +277,18 @@ export default {
 
     methods: {
         returnToMain() {
-            if (this.currentView === "editSub") this.currentView = "editMain";
+            if (this.currentView === "editSub") {
+                this.currentView = "editMain";
+                return;
+            }
+            if (this.currentView === "editMain") {
+                this.currentView = "overview";
+                return;
+            }
+            if (this.currentView === "overview") {
+                this.$emit("close-edit-driver");
+                return;
+            }
         },
         selectAction(value) {
             this.balanceAction = value;
@@ -421,9 +432,9 @@ export default {
 
     position: absolute;
     top: 0;
-    left: calc(100% + 20px);
-    width: 360px;
-    height: 585px;
+    left: 0;
+    right: 0;
+    height: 100%;
 }
 .edit-driver-header {
     position: relative;
@@ -492,7 +503,9 @@ export default {
 
 .edit-driver-body {
     width: 100%;
-    height: 467px;
+    height: calc(100% - 125px);
+    max-height: calc(100% - 125px);
+    overflow-y: scroll;
     padding: 20px 30px 0 20px;
     background-color: var(--light-grey-bg);
     display: flex;

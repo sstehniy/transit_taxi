@@ -219,16 +219,19 @@ export default {
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
     background-color: transparent;
     border-radius: 8px;
+    max-width: calc(15px + 27vw);
+    min-width: 300px;
+    width: calc(15px + 25vw);
+    min-height: 215px;
+    resize: vertical;
+    overflow-y: scroll;
+    max-height: 80vh;
 }
 .chats-manage {
     position: relative;
-    width: 365px;
-    height: 585px;
+    width: 100%;
+    height: 100%;
     z-index: 0;
-    max-height: 585px;
-    min-height: 350px;
-    resize: vertical;
-    overflow-y: scroll;
 }
 
 .chats-header {

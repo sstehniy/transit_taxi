@@ -3,6 +3,7 @@
         <Header class="header" />
         <MenuControls class="menu-controls" />
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
+        <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
     </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Header from "@/components/Header.vue";
 import MenuControls from "@/components/MenuControls.vue";
 import OrdersWindow from "@/components/Order/OrdersWindow.vue";
+import DriversWindow from "@/components/Driver/DriversWindow.vue";
 
 /* this.$route.name */
 export default {
@@ -17,7 +19,8 @@ export default {
     components: {
         Header,
         MenuControls,
-        OrdersWindow
+        OrdersWindow,
+        DriversWindow
     },
     computed: {
         windows() {

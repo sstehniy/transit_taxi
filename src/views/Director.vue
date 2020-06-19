@@ -8,6 +8,7 @@
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
         <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
+        <Statistics />
         <div id="map" @click="closeOpenedTabs"></div>
     </div>
 </template>
@@ -21,6 +22,7 @@ import ReportsWindow from "@/components/Report/ReportWindow.vue";
 import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
 import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
+import Statistics from "@/components/Statistics.vue";
 
 export default {
     name: "director",
@@ -32,7 +34,8 @@ export default {
         ReportsWindow,
         InfoWindow,
         ChatsWindow,
-        MapFilters
+        MapFilters,
+        Statistics
     },
     computed: {
         windows() {

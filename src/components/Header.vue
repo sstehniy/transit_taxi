@@ -2,9 +2,10 @@
     <div class="header-container">
         <img class="logo" src="@/assets/logo.svg" />
         <div class="user-container">
-            <div class="director">
-                <img class="director-icon" src="@/assets/user-icon.svg" />
-                <div class="director-name">Director</div>
+            <div class="user">
+                <img class="user-icon" src="@/assets/user-icon.svg" />
+                <div v-if="this.$route.name === 'director'" class="user-name">Director</div>
+                <div v-else class="user-name">Operator</div>
             </div>
             <div class="wallet">-150 000Р</div>
 
@@ -47,11 +48,11 @@ export default {
     margin-right: 50px;
 }
 
-.director {
+.user {
     height: 100%;
     margin-right: 120px;
 }
-.director-name {
+.user-name {
     margin-left: 8px;
 
     font-size: 12px;
@@ -76,10 +77,10 @@ export default {
     .user-container {
         margin-right: 18px;
     }
-    .director {
+    .user {
         margin-right: 87px;
     }
-    .director-name {
+    .user-name {
         margin-left: 5px;
         font-size: 10px;
     }

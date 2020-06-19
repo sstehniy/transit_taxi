@@ -226,7 +226,6 @@ export default {
     --btn-primary-bg: #fdbf5a;
     --btn-normal-bg: #f4f4f4;
     --btn-normal-selected-bg: #d8d8d8;
-
     position: relative;
 }
 

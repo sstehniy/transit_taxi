@@ -649,7 +649,7 @@ button.primary:hover {
     position: absolute;
     top: 100%;
     left: -100%;
-    width: 360px;
+    width: 200%;
     height: 130px;
     z-index: 5;
     padding: 20px;

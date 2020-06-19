@@ -88,35 +88,4 @@ export default {
         margin-right: 48px;
     }
 }
-@media only screen and (min-width: 1920px) {
-    .header-container {
-        height: 80px;
-        line-height: 80px;
-    }
-    .logo {
-        margin-left: 70px;
-        width: 50px;
-    }
-    .user-container {
-        margin-right: 50px;
-    }
-    .director {
-        margin-right: 150px;
-    }
-    .director-icon {
-        width: 25px;
-    }
-    .director-name {
-        font-size: 18px;
-        margin-left: 10px;
-    }
-    .wallet {
-        font-size: 20px;
-        margin-right: 80px;
-    }
-    .logout {
-        cursor: pointer;
-        width: 22px;
-    }
-}
 </style>

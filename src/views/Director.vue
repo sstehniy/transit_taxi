@@ -8,16 +8,7 @@
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
         <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
-        <div
-            id="map"
-            @click="closeOpenedTabs"
-            style=" position: absolute;
-    z-index: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;"
-        ></div>
+        <div id="map" @click="closeOpenedTabs"></div>
     </div>
 </template>
 
@@ -139,13 +130,18 @@ export default {
     right: 3vw;
 }
 
-.map {
+#map {
     position: absolute;
     z-index: 0;
-    top: 55px;
+    top: 45px;
     right: 0;
     bottom: 0;
     left: 0;
+}
+@media only screen and (min-width: 451px) and (max-width: 1280px) {
+    #map {
+        top: 45px;
+    }
 }
 @media only screen and (max-width: 1280px) {
     .menu-controls,

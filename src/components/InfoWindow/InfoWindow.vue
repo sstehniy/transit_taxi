@@ -46,13 +46,13 @@
                     <span id="created-time">{{message.time}}</span>
                 </div>
             </simplebar>
-            <div class="input-wrapper">
+            <div v-if="this.$route.name==='director'" class="input-wrapper">
                 <input type="text" v-model="newMessage" placeholder="Ввод сообщения" />
                 <div class="underline"></div>
             </div>
         </div>
         <div class="info-footer">
-            <div class="footer-btn" @click="createMessage">
+            <div v-if="this.$route.name==='director'" class="footer-btn" @click="createMessage">
                 <p class="btn-text">Отправить</p>
             </div>
         </div>

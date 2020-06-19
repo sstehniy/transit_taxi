@@ -1,6 +1,6 @@
 <template>
     <div
-        v-if="buttonInfo.window !== 'call'"
+        v-if="buttonInfo.name !== 'Вызов'"
         class="control-button"
         :class="{ active : this.$store.state.windows[buttonInfo.window] }"
     >

@@ -54,6 +54,7 @@ export default {
                     name: "Водители"
                 },
                 { id: 3, window: "info", src: "info-icon", name: "Инфо. блок" },
+                { id: 4, window: "call", src: "info-icon", name: "Вызов" },
                 { id: 5, window: "chat", src: "chats-icon", name: "Чат" }
             ]
         };
@@ -72,7 +73,6 @@ export default {
 .menu-button:nth-child(3) {
     margin-right: calc(5px + 2vw);
 }
-
 .menu-button:last-child {
     margin-right: 0px;
 }

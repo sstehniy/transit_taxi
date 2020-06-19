@@ -1,5 +1,9 @@
 <template>
-    <div class="control-button" :class="{ active : this.$store.state.windows[buttonInfo.window] }">
+    <div
+        v-if="buttonInfo.window !== 'call'"
+        class="control-button"
+        :class="{ active : this.$store.state.windows[buttonInfo.window] }"
+    >
         <div class="button-misc-wrapper">
             <img
                 class="button-icon"
@@ -11,6 +15,11 @@
                 :class="{ activeButtonName: buttonInfo.active }"
             >{{ buttonInfo.name }}</div>
         </div>
+    </div>
+    <div v-else class="call-button">
+        <img src="@/assets/endcall-icon.svg" />
+        <p>x-xxx-xxx-xx-xx</p>
+        <img src="@/assets/acceptcall-icon.svg" />
     </div>
 </template>
 
@@ -39,6 +48,25 @@ export default {
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+}
+.call-button {
+    user-select: none;
+    background: #ececec;
+    width: 18vw;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.call-button p {
+    font-size: 14px;
+}
+.call-button img {
+    cursor: pointer;
 }
 .active {
     background-color: #fdbf5a;

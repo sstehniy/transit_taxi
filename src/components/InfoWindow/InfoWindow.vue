@@ -19,7 +19,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="header-btn">
                 <p
                     class="btn-text"
@@ -31,7 +30,7 @@
                         v-for="group in groupFilters"
                         :key="group.id"
                         class="dropdown-item"
-                        :class="{selected: group.id===selectedGroupFilter}"
+                        :class="{selected: group.id===selectedGroupFilterId}"
                         @click="selectGroupFilter(group.id)"
                     >
                         <p class="item-text">{{group.title}}</p>
@@ -41,14 +40,21 @@
             <div class="separator"></div>
         </div>
         <div class="info-body">
-            <simplebar class="info-list" data-simplebar-auto-hide="false"></simplebar>
+            <simplebar class="info-list" data-simplebar-auto-hide="false">
+                <div v-for="message in infoMessages" :key="message.id" class="message-container">
+                    <p class="message-text">{{message.text}}</p>
+                    <span id="created-time">{{message.time}}</span>
+                </div>
+            </simplebar>
             <div class="input-wrapper">
-                <input type="text" v-model="newInfoMessage" />
+                <input type="text" v-model="newMessage" placeholder="Ввод сообщения" />
                 <div class="underline"></div>
             </div>
         </div>
         <div class="info-footer">
-            <div class="footer-btn" @click="sendMessage">Отправить</div>
+            <div class="footer-btn" @click="createMessage">
+                <p class="btn-text">Отправить</p>
+            </div>
         </div>
     </div>
 </template>
@@ -81,6 +87,27 @@ export default {
             selectedGroupFilterId: 0,
             newMessage: ""
         };
+    },
+    methods: {
+        toggleCityFilters() {
+            this.showGroupFilters = false;
+            this.showCityFilters = !this.showCityFilters;
+        },
+        toggleGroupFilters() {
+            this.showCityFilters = false;
+            this.showGroupFilters = !this.showGroupFilters;
+        },
+        selectCityFilter(id) {
+            this.selectedCityFilterId = id;
+            this.showCityFilters = false;
+        },
+        selectGroupFilter(id) {
+            this.selectedGroupFilterId = id;
+            this.showGroupFilters = false;
+        },
+        createMessage() {
+            console.log("sendind message");
+        }
     }
 };
 </script>
@@ -114,6 +141,8 @@ export default {
     align-items: center;
     justify-content: center;
     background-color: #e5e5e5;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .header-btn img#drop {
@@ -131,8 +160,44 @@ export default {
     border-radius: 0px 5px 0px 0px;
 }
 
+.header-btn:hover {
+    background-color: #d8d8d8;
+}
+
 .btn-text {
     font-size: 14px;
+    width: 100%;
+    line-height: 38px;
+    text-align: center;
+}
+
+.dropdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 5px 10px 0px 10px;
+    background-color: #d8d8d8;
+}
+
+.dropdown-item {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-item:hover {
+    background-color: #fafafa;
+}
+
+.dropdown-item.selected {
+    background-color: #fafafa;
 }
 
 .separator {
@@ -152,16 +217,64 @@ export default {
 .info-list {
     width: 100%;
     height: calc(100% - 45px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 10px 20px 10px 10px;
 }
 
+.message-container {
+    width: 100%;
+    min-height: 85px;
+    position: relative;
+    background-color: #fdbf5a;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 7px 5px;
+}
+
+p.message-text {
+    font-size: 12px;
+}
+
+span#created-time {
+    font-size: 10px;
+    color: #020202;
+    opacity: 0.5;
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
+
 .input-wrapper {
+    position: relative;
     width: 100%;
     height: 45px;
     background-color: #f4f4f4;
+    padding: 10px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    height: 15px;
+    width: 94.5%;
+    border: none;
+    outline: none;
+    border-left: 2px solid #020202;
+    background-color: transparent;
+    padding: 0 5px;
+    color: #020202;
+}
+
+input::placeholder {
+    color: #020202;
+}
+
+.underline {
+    position: absolute;
+    width: 94.5%;
+    height: 1.5px;
+    bottom: 10px;
+    background-color: #020202;
 }
 
 .info-footer {
@@ -170,14 +283,20 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 25px;
     border-radius: 0px 0px 8px 8px;
     background-color: #e5e5e5;
 }
 
 .footer-btn {
-    width: 310px;
+    width: 100%;
     height: 35px;
     border-radius: 5px;
+    text-align: center;
     background-color: #fdbf5a;
+    cursor: pointer;
+}
+.footer-btn .btn-text {
+    line-height: 35px;
 }
 </style>

@@ -1,98 +1,109 @@
 <template>
-    <div class="chats-container">
-        <div class="chats-manage">
-            <div class="chats-header" :class="{disabled: showChat}">
-                <div class="header-btn">
-                    <p
-                        class="btn-text"
-                        @click="showGroupFilters=!showGroupFilters"
-                    >{{groupFilters.find(g=>g.id === currentGroupFilterId).title}}</p>
-                    <div v-if="showGroupFilters" class="dropdown" id="left">
-                        <div
-                            v-for="group in groupFilters"
-                            :key="group.id"
-                            class="dropdown-item"
-                            @click="selectGroupFilter(group.id)"
-                        >
-                            <p
-                                class="dropdown-item-text"
-                                :class="{selected: group.id === currentGroupFilterId}"
-                            >{{group.title}}</p>
+    <div class="chats-window">
+        <div class="chats-container">
+            <div class="chats-manage">
+                <div class="chats-header" :class="{disabled: showChat}">
+                    <div class="header-btn">
+                        <p
+                            class="btn-text"
+                            @click="showGroupFilters=!showGroupFilters"
+                        >{{groupFilters.find(g=>g.id === currentGroupFilterId).title}}</p>
+                        <div v-if="showGroupFilters" class="dropdown" id="left">
+                            <div
+                                v-for="group in groupFilters"
+                                :key="group.id"
+                                class="dropdown-item"
+                                @click="selectGroupFilter(group.id)"
+                            >
+                                <p
+                                    class="dropdown-item-text"
+                                    :class="{selected: group.id === currentGroupFilterId}"
+                                >{{group.title}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="header-btn">
+                        <p
+                            class="btn-text"
+                            @click="showStatusFilters=!showStatusFilters"
+                        >{{statusFilters.find(s=>s.id===currentStatusFilterId).title}}</p>
+                        <div v-if="showStatusFilters" class="dropdown" id="right">
+                            <div
+                                v-for="status in statusFilters"
+                                :key="status.id"
+                                class="dropdown-item"
+                                @click="selectStatusFilter(status.id)"
+                            >
+                                <p
+                                    class="dropdown-item-text"
+                                    :class="{selected: status.id===currentStatusFilterId}"
+                                >{{status.title}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="separator"></div>
-                <div class="header-btn">
-                    <p
-                        class="btn-text"
-                        @click="showStatusFilters=!showStatusFilters"
-                    >{{statusFilters.find(s=>s.id===currentStatusFilterId).title}}</p>
-                    <div v-if="showStatusFilters" class="dropdown" id="right">
-                        <div
-                            v-for="status in statusFilters"
-                            :key="status.id"
-                            class="dropdown-item"
-                            @click="selectStatusFilter(status.id)"
-                        >
-                            <p
-                                class="dropdown-item-text"
-                                :class="{selected: status.id===currentStatusFilterId}"
-                            >{{status.title}}</p>
-                        </div>
+                <div class="list-wrapper">
+                    <div class="chats-label">
+                        <p v-if="currentGroupFilterId === 0" class="header-name">Все чаты</p>
+                        <p
+                            v-else
+                            class="header-name"
+                        >{{groupFilters.find(f=>f.id === currentGroupFilterId).title}}</p>
                     </div>
+                    <simplebar
+                        class="scrollable-chats"
+                        data-simplebar-auto-hide="false"
+                        ref="scroll"
+                    >
+                        <div v-for="chat in chats" :key="chat.id" class="chat-preview">
+                            <img
+                                alt="chat-member-avatar"
+                                :src="require('@/assets/user-icon.svg')"
+                                id="avatar"
+                            />
+                            <div class="info" @click="openChat(chat.id)">
+                                <p class="chat-name">{{chat.name}}</p>
+                                <p class="last-message">{{chat.lastMessage}}</p>
+                            </div>
+                            <img
+                                alt="options-icon"
+                                :src="require('@/assets/status-changer-icon.svg')"
+                                id="options"
+                                @click="toggleChatOptions($event, chat.id)"
+                            />
+                            <div class="footer-line"></div>
+                        </div>
+                    </simplebar>
                 </div>
-            </div>
-            <div class="list-wrapper">
-                <div class="chats-label">
-                    <p class="header-name">Все чаты</p>
-                </div>
-                <simplebar class="scrollable-chats" data-simplebar-auto-hide="false" ref="scroll">
-                    <div v-for="chat in chats" :key="chat.id" class="chat-preview">
+                <div class="chat-view" v-if="showChat">
+                    <div class="chat-header">
                         <img
-                            alt="chat-member-avatar"
-                            :src="require('@/assets/user-icon.svg')"
-                            id="avatar"
+                            alt="back-icon"
+                            :src="require('@/assets/drop-icon.svg')"
+                            @click="closeChat"
+                            id="back"
                         />
-                        <div class="info" @click="openChat(chat.id)">
-                            <p class="chat-name">{{chat.name}}</p>
-                            <p class="last-message">{{chat.lastMessage}}</p>
-                        </div>
-                        <img
-                            alt="options-icon"
-                            :src="require('@/assets/status-changer-icon.svg')"
-                            id="options"
-                            @click="toggleChatOptions($event, chat.id)"
-                        />
-                        <div class="footer-line"></div>
+                        <p class="header-name">{{selectedChatInfo.name}}</p>
                     </div>
-                </simplebar>
-            </div>
-            <div class="chat-view" v-if="showChat">
-                <div class="chat-header">
-                    <img
-                        alt="back-icon"
-                        :src="require('@/assets/drop-icon.svg')"
-                        @click="closeChat"
-                        id="back"
-                    />
-                    <p class="header-name">{{selectedChatInfo.name}}</p>
+                    <div class="scrollable-chat"></div>
+                    <div class="send-message">
+                        <input
+                            type="text"
+                            placeholder="Ввод сообщения"
+                            class="msg-input"
+                            v-model="messageInput"
+                        />
+                        <div class="input-underline"></div>
+                    </div>
                 </div>
-                <div class="scrollable-chat"></div>
-                <div class="send-message">
-                    <input
-                        type="text"
-                        placeholder="Ввод сообщения"
-                        class="msg-input"
-                        v-model="messageInput"
-                    />
-                    <div class="input-underline"></div>
+                <div class="chats-footer">
+                    <div v-if="!showChat" class="footer-btn">Написать всем</div>
+                    <div v-else class="footer-btn">Отправить</div>
                 </div>
-            </div>
-            <div class="chats-footer">
-                <div v-if="!showChat" class="footer-btn">Написать всем</div>
-                <div v-else class="footer-btn">Отправить</div>
             </div>
         </div>
+
         <div
             v-if="showChatOptions"
             :style="{top: `${chatOptionsTopStyleProp}px`}"
@@ -204,7 +215,7 @@ export default {
     user-select: none;
 }
 
-.chats-container {
+.chats-window {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
@@ -216,16 +227,23 @@ export default {
     --btn-normal-bg: #f4f4f4;
     --btn-normal-selected-bg: #d8d8d8;
 
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
-    background-color: transparent;
-    border-radius: 8px;
+    position: relative;
+}
+
+.chats-container {
     max-width: calc(15px + 27vw);
     min-width: 300px;
     width: calc(15px + 25vw);
     min-height: 215px;
     resize: vertical;
     overflow-y: scroll;
+    height: 80vh;
     max-height: 80vh;
+    position: relative;
+
+    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    background-color: transparent;
+    border-radius: 8px;
 }
 .chats-manage {
     position: relative;

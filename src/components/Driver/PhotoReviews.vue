@@ -218,9 +218,9 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
     right: 0;
-    z-index: 10;
+    bottom: 0;
+    z-index: 1000;
 }
 .photo-reviews-conteiner {
     height: 100%;
@@ -414,7 +414,7 @@ img#drop {
 
 .options-dropdown {
     position: absolute;
-    z-index: 2000px;
+    z-index: 15;
     left: calc(100% - 10px);
     width: 135px;
     background-color: var(--dark-grey-bg);

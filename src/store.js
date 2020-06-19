@@ -85,21 +85,51 @@ export default new Vuex.Store({
                 { id: 2, title: "Предварительные" },
                 { id: 3, title: "Завершённые" }
             ],
-            orderStates: [
-                { id: 1, title: "Принят", kind: "accepted" },
-                { id: 2, title: "В работе", kind: "working" },
-                { id: 3, title: "В очереди ", kind: "queued" },
-                { id: 4, title: "Выполнен", kind: "done" },
-                { id: 5, title: "Прекращён", kind: "stoppded" },
-                { id: 6, title: "Нет машин", kind: "nocars" },
-                { id: 7, title: "Водитель принял заказ", kind: "driver_accepted" },
-                { id: 8, title: "Водитель принял заказ по времени", kind: "driver_accpeted_time" },
-                { id: 9, title: "Водитель отказался от заказа", kind: "driver_canceled" },
-                { id: 10, title: "Водитель подъехал на место", kind: "driver_arrived" },
-                { id: 11, title: "Клиент в машине", kind: "client_seated" },
-                { id: 12, title: "Клиент не вышел", kind: "client_late" },
-                { id: 13, title: "Заказ отправлен водителю", kind: "sent_to_driver" },
-                { id: 14, title: "Заказ получен водителем", kind: "driver_received" }
+            orderStatuses: [
+                { id: 1, title: "Принят", kind: "accepted", color: "#019232" },
+                { id: 2, title: "В работе", kind: "working", color: "#019232" },
+                { id: 3, title: "В очереди ", kind: "queued", color: "#019232" },
+                { id: 4, title: "Выполнен", kind: "done", color: "#D8D8D8" },
+                { id: 5, title: "Прекращён", kind: "stoppded", color: "#D8D8D8" },
+                { id: 6, title: "Нет машин", kind: "nocars", color: "#D8D8D8" },
+                {
+                    id: 7,
+                    title: "Водитель принял заказ",
+                    kind: "driver_accepted",
+                    color: "#019232"
+                },
+                {
+                    id: 8,
+                    title: "Водитель принял заказ по времени",
+                    kind: "driver_accpeted_time",
+                    color: "#019232"
+                },
+                {
+                    id: 9,
+                    title: "Водитель отказался от заказа",
+                    kind: "driver_canceled",
+                    color: "#FF3737"
+                },
+                {
+                    id: 10,
+                    title: "Водитель подъехал на место",
+                    kind: "driver_arrived",
+                    color: "#019232"
+                },
+                { id: 11, title: "Клиент в машине", kind: "client_seated", color: "#019232" },
+                { id: 12, title: "Клиент не вышел", kind: "client_late", color: "#FF3737" },
+                {
+                    id: 13,
+                    title: "Заказ отправлен водителю",
+                    kind: "sent_to_driver",
+                    color: "#019232"
+                },
+                {
+                    id: 14,
+                    title: "Заказ получен водителем",
+                    kind: "driver_received",
+                    color: "#019232"
+                }
             ]
         },
         drivers: [
@@ -724,7 +754,7 @@ export default new Vuex.Store({
             }
         },
         changeStatus(state, { order_id, status_id }) {
-            const stateStatus = state.orderDetails.orderStates.find(s => s.id === status_id);
+            const stateStatus = state.orderDetails.orderStatuses.find(s => s.id === status_id);
             state.orders = state.orders.map(o =>
                 +o.id === +order_id
                     ? { ...o, state_kind: stateStatus.kind, state_id: stateStatus.id }

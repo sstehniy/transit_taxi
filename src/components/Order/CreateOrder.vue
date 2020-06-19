@@ -128,13 +128,13 @@
                 <div class="form-field">
                     <div class="form-input extended">
                         <p
-                            @click="showAttributes=!showAttributes"
+                            @click="toggleAttributesDropdown"
                         >{{newAttribute? newAttribute.title: "Выберите атрибут"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showAttributes=!showAttributes"
+                            @click="toggleAttributesDropdown"
                         />
                         <FormDropdownSelect
                             v-if="showAttributes"
@@ -165,13 +165,13 @@
                         :class="{'invalid': validationErrors.crewGroup}"
                     >
                         <p
-                            @click="showCrewGroups=!showCrewGroups"
+                            @click="toggleCrewGroupsDropdown"
                         >{{crewGroup.id? crewGroup.title: "Выберите группу"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showCrewGroups=!showCrewGroups"
+                            @click="toggleCrewGroupsDropdown"
                         />
                         <FormDropdownSelect
                             v-if="showCrewGroups"
@@ -183,12 +183,12 @@
                 <label for="crew" class="form-label primary">Экипаж</label>
                 <div class="form-field">
                     <div class="form-input extended" :class="{'invalid': validationErrors.crew}">
-                        <p @click="showCrews=!showCrews">{{crew.id? crew.title: "Выберите экипаж"}}</p>
+                        <p @click="toggleCrewsDropdown">{{crew.id? crew.title: "Выберите экипаж"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showCrews=!showCrews"
+                            @click="toggleCrewsDropdown"
                         />
                         <FormDropdownSelect
                             v-if="showCrews"
@@ -220,13 +220,13 @@
                 <div class="form-field">
                     <div class="form-input extended" :class="{'invalid': validationErrors.tariff}">
                         <p
-                            @click="showTariffs=!showTariffs"
+                            @click="toggleTariffsDropdown"
                         >{{tariff.id? tariff.title: "Выберите тариф"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showTariffs=!showTariffs"
+                            @click="toggleTariffsDropdown"
                         />
                         <FormDropdownSelect
                             v-if="showTariffs"
@@ -250,13 +250,13 @@
                         :class="{'invalid': validationErrors.orderState}"
                     >
                         <p
-                            @click="showOrderStates=!showOrderStates"
+                            @click="toggleOrderStatesDropdown"
                         >{{orderState.id? orderState.title: "Выберите состояние"}}</p>
                         <img
                             alt="drop"
                             id="drop"
                             :src="require('@/assets/drop-icon.svg')"
-                            @click="showOrderStates=!showOrderStates"
+                            @click="toggleOrderStatesDropdown"
                         />
                         <FormDropdownSelect
                             v-if="showOrderStates"
@@ -378,7 +378,7 @@ export default {
             return this.$store.state.orderDetails.crews;
         },
         getOrderStates() {
-            return this.$store.state.orderDetails.orderStates;
+            return this.$store.state.orderDetails.orderStatuses;
         }
     },
     data() {
@@ -442,6 +442,41 @@ export default {
     methods: {
         toggleCheckBox(fieldName) {
             this[fieldName] = !this[fieldName];
+        },
+        toggleAttributesDropdown() {
+            this.showCrewGroups = false;
+            this.showCrews = false;
+            this.showTariffs = false;
+            this.showOrderStates = false;
+            this.showAttributes = !this.showAttributes;
+        },
+        toggleCrewGroupsDropdown() {
+            this.showCrews = false;
+            this.showTariffs = false;
+            this.showOrderStates = false;
+            this.showAttributes = false;
+            this.showCrewGroups = !this.showCrewGroups;
+        },
+        toggleCrewsDropdown() {
+            this.showCrewGroups = false;
+            this.showTariffs = false;
+            this.showOrderStates = false;
+            this.showAttributes = false;
+            this.showCrews = !this.showCrews;
+        },
+        toggleTariffsDropdown() {
+            this.showCrewGroups = false;
+            this.showOrderStates = false;
+            this.showAttributes = false;
+            this.showCrews = false;
+            this.showTariffs = !this.showTariffs;
+        },
+        toggleOrderStatesDropdown() {
+            this.showCrewGroups = false;
+            this.showTariffs = false;
+            this.showAttributes = false;
+            this.showCrews = false;
+            this.showOrderStates = !this.showOrderStates;
         },
         setNewOrigin({ target }) {
             this.origin = {

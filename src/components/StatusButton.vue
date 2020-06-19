@@ -1,7 +1,7 @@
 <template>
     <div class="container-button" @click="statusPick">
         <div class="color-indicator" :style="{ 'background-color': buttonInfo.color }"></div>
-        <div class="status-indicator">{{ buttonInfo.name }}</div>
+        <div class="status-indicator">{{ buttonInfo.title }}</div>
     </div>
 </template>
 

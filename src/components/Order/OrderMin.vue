@@ -1,13 +1,11 @@
 <template>
     <div class="order-container">
-        <div class="status-line"></div>
+        <div class="status-line" :style="{'background-color': orderState.color}"></div>
         <div class="order-manage-block">
             <div class="order-info">
                 <div class="number-status">
                     <div class="order-number">&#8470;{{ "*api" }}</div>
-                    <div
-                        class="order-status"
-                    >{{ this.$store.state.orderDetails.orderStates[orderInfo.state_id - 1].title }}</div>
+                    <div class="order-status">{{ orderState.title }}</div>
                 </div>
                 <div class="origin">
                     {{ orderInfo.source }}
@@ -38,6 +36,13 @@
 
 <script>
 export default {
+    computed: {
+        orderState() {
+            return this.$store.state.orderDetails.orderStatuses.find(
+                s => s.id === this.orderInfo.state_id
+            );
+        }
+    },
     props: {
         orderInfo: Object
     },
@@ -74,7 +79,6 @@ export default {
     margin-top: 8px;
     margin-left: 5px;
     margin-right: 5px;
-    background-color: #219653;
 }
 .order-manage-block {
     width: calc(100% - 20px);

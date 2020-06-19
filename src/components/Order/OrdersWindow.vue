@@ -112,6 +112,7 @@
         <StatusSettings
             v-if="this.settings"
             class="status-settings"
+            :statuses="orderStatuses"
             @close-settings="updateStatus"
         />
         <CreateOrder
@@ -148,6 +149,9 @@ export default {
         },
         orderStatusFilters() {
             return this.$store.state.orderDetails.status;
+        },
+        orderStatuses() {
+            return this.$store.state.orderDetails.orderStatuses;
         }
     },
     data() {
@@ -183,6 +187,7 @@ export default {
         },
         toggleCreateOrder(value) {
             if (value === this.createOrder) return;
+            this.settings = false;
             this.showCreateOrder = value;
         },
         toggleFilters() {
@@ -263,7 +268,6 @@ export default {
     height: 80vh;
     max-height: 80vh;
     border-radius: 8px;
-
     resize: vertical;
     overflow-y: auto;
     position: relative;
@@ -614,7 +618,7 @@ export default {
 
 .status-settings {
     position: absolute;
-    z-index: 2;
+    z-index: 100000;
     top: 45px;
     left: calc(100% - 13px);
 }

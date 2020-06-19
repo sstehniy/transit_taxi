@@ -130,7 +130,6 @@ export default {
 .dialogue-window {
     top: 138px;
     left: 3vw;
-    overflow: hidden;
 }
 
 .chat,

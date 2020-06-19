@@ -97,7 +97,8 @@ export default {
     position: absolute;
     left: calc(100% + 20px);
     top: 0;
-    height: 600px;
+    min-height: 540px;
+    height: 540px;
     width: 720px;
 }
 .review-header {
@@ -128,7 +129,7 @@ export default {
 
 .inspect-container {
     width: 100%;
-    height: 400px;
+    height: 350px;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
     border-radius: 8px;
 }

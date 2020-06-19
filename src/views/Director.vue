@@ -6,7 +6,7 @@
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
-        <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
+        <DirectorChat v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
         <Statistics class="statistics" />
         <div id="map" @click="closeOpenedTabs"></div>
@@ -20,7 +20,7 @@ import OrdersWindow from "@/components/Order/OrdersWindow.vue";
 import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import ReportsWindow from "@/components/Report/ReportWindow.vue";
 import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
-import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
+import DirectorChat from "@/components/Chat/DirectorChat.vue";
 import MapFilters from "@/components/MapFilters.vue";
 import Statistics from "@/components/Statistics.vue";
 
@@ -33,7 +33,7 @@ export default {
         DriversWindow,
         ReportsWindow,
         InfoWindow,
-        ChatsWindow,
+        DirectorChat,
         MapFilters,
         Statistics
     },

@@ -5,6 +5,7 @@
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
+        <OperatorChat v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
         <div id="map" @click="closeOpenedTabs"></div>
     </div>
@@ -16,6 +17,7 @@ import MenuControls from "@/components/MenuControls.vue";
 import OrdersWindow from "@/components/Order/OrdersWindow.vue";
 import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
+import OperatorChat from "@/components/Chat/OperatorChat.vue";
 import MapFilters from "@/components/MapFilters.vue";
 
 /* this.$route.name */
@@ -26,6 +28,7 @@ export default {
         MenuControls,
         OrdersWindow,
         DriversWindow,
+        OperatorChat,
         InfoWindow,
         MapFilters
     },

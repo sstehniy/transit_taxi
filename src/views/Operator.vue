@@ -5,6 +5,8 @@
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
+        <MapFilters class="map-settings" />
+        <div id="map" @click="closeOpenedTabs"></div>
     </div>
 </template>
 
@@ -14,6 +16,7 @@ import MenuControls from "@/components/MenuControls.vue";
 import OrdersWindow from "@/components/Order/OrdersWindow.vue";
 import DriversWindow from "@/components/Driver/DriversWindow.vue";
 import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
+import MapFilters from "@/components/MapFilters.vue";
 
 /* this.$route.name */
 export default {
@@ -23,12 +26,72 @@ export default {
         MenuControls,
         OrdersWindow,
         DriversWindow,
-        InfoWindow
+        InfoWindow,
+        MapFilters
     },
     computed: {
         windows() {
             return this.$store.state.windows;
         }
+    },
+    methods: {
+        closeOpenedTabs() {
+            for (const window in this.windows) {
+                if (!this.windows[window]) continue;
+                this.$store.commit("toggleWindow", window);
+            }
+        }
+    },
+    created() {
+        // eslint-disable-next-line
+        ymaps.ready(() => {
+            // eslint-disable-next-line
+            const map = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                controls: [],
+                zoom: 15
+            });
+            // eslint-disable-next-line
+            const zoomControl = new ymaps.control.ZoomControl({
+                options: {
+                    size: "small",
+                    position: {
+                        top: "300px",
+                        right: "10px"
+                    }
+                }
+            });
+            // eslint-disable-next-line
+            const geolocationControl = new ymaps.control.GeolocationControl({
+                options: {
+                    noPlacemark: true,
+                    position: {
+                        top: "375px",
+                        right: "10px"
+                    }
+                }
+            });
+            geolocationControl.events.add("locationchange", function(event) {
+                const position = event.get("position"),
+                    // eslint-disable-next-line
+                    locationPlacemark = new ymaps.Placemark(position);
+                map.geoObjects.add(locationPlacemark);
+                map.panTo(position);
+            });
+            // eslint-disable-next-line
+            const multiRoute = new ymaps.multiRouter.MultiRoute(
+                {
+                    referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
+                },
+                {
+                    boundsAutoApply: true
+                }
+            );
+
+            map.geoObjects.add(multiRoute);
+            map.controls.add(geolocationControl);
+            map.controls.add(zoomControl);
+        });
     }
 };
 </script>

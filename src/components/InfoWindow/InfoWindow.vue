@@ -200,6 +200,9 @@ export default {
     background-color: #fafafa;
 }
 
+.item-text {
+    font-size: 14px;
+}
 .separator {
     position: absolute;
     height: 28px;

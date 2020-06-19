@@ -64,6 +64,7 @@ export default {
 }
 .logout {
     width: 14px;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 451px) and (max-width: 1280px) {

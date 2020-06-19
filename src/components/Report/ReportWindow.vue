@@ -329,11 +329,9 @@ export default {
     --btn-normal-bg: #f4f4f4;
     --btn-normal-selected-bg: #d8d8d8;
 
-    /* width: 365px;
-    height: 585px; */
     max-width: calc(15px + 27vw);
     min-width: 300px;
-    width: calc(15px + 20vw);
+    width: calc(15px + 25vw);
     min-height: 215px;
     height: 80vh;
     max-height: 80vh;

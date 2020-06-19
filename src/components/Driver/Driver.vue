@@ -14,7 +14,7 @@
             </div>
         </div>
         <div
-            v-if="this.settings"
+            v-if="this.settings && this.$route.name==='director'"
             class="settings-block"
             :style="this.delete ? { 'background-color': '#fdbf5a' } : { 'background-color': '#ececec' }"
         >
@@ -28,6 +28,17 @@
             <div v-else class="settings-lite">
                 <div class="setting-button" @click="$emit('open-edit-driver')">Изменить</div>
                 <div class="setting-button" @click="toggleDelete">Удалить</div>
+            </div>
+        </div>
+        <div
+            v-if="this.settings && this.$route.name==='operator'"
+            class="settings-block"
+            :style="this.delete ? { 'background-color': '#fdbf5a' } : { 'background-color': '#ececec' }"
+        >
+            <div class="settings-lite">
+                <div class="setting-button">Чат</div>
+                <div class="setting-button">Позвонить</div>
+                <div class="setting-button" @click="$emit('open-edit-driver')">Изменить</div>
             </div>
         </div>
     </div>

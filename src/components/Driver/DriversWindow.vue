@@ -51,6 +51,7 @@
             <div class="operations">
                 <div class="operations-buttons">
                     <div
+                        v-if="this.$route.name==='director'"
                         class="operations-button all-drivers"
                         @click="toggleCreateDriver(true)"
                     >+ Водитель</div>

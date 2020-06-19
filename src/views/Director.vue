@@ -31,9 +31,6 @@ import InfoWindow from "@/components/InfoWindow/InfoWindow.vue";
 import ChatsWindow from "@/components/Chat/ChatsWindow.vue";
 import MapFilters from "@/components/MapFilters.vue";
 
-//eslint-disable-next-line
-let map;
-
 export default {
     name: "director",
     components: {
@@ -58,58 +55,58 @@ export default {
                 this.$store.commit("toggleWindow", window);
             }
         }
-    }
-    // created() {
-    //     // eslint-disable-next-line
-    //     ymaps.ready(() => {
-    //         // eslint-disable-next-line
-    //         map = new ymaps.Map("map", {
-    //             center: [55.76, 37.64],
-    //             controls: [],
-    //             zoom: 15
-    //         });
-    //         // eslint-disable-next-line
-    //         var zoomControl = new ymaps.control.ZoomControl({
-    //             options: {
-    //                 size: "small",
-    //                 position: {
-    //                     top: "300px",
-    //                     right: "10px"
-    //                 }
-    //             }
-    //         });
-    //         // eslint-disable-next-line
-    //         const geolocationControl = new ymaps.control.GeolocationControl({
-    //             options: {
-    //                 noPlacemark: true,
-    //                 position: {
-    //                     top: "375px",
-    //                     right: "10px"
-    //                 }
-    //             }
-    //         });
-    //         geolocationControl.events.add("locationchange", function(event) {
-    //             const position = event.get("position"),
-    //                 // eslint-disable-next-line
-    //                 locationPlacemark = new ymaps.Placemark(position);
-    //             map.geoObjects.add(locationPlacemark);
-    //             map.panTo(position);
-    //         });
-    //         // eslint-disable-next-line
-    //         const multiRoute = new ymaps.multiRouter.MultiRoute(
-    //             {
-    //                 referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
-    //             },
-    //             {
-    //                 boundsAutoApply: true
-    //             }
-    //         );
+    },
+    created() {
+        // eslint-disable-next-line
+        ymaps.ready(() => {
+            // eslint-disable-next-line
+            const map = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                controls: [],
+                zoom: 15
+            });
+            // eslint-disable-next-line
+            const zoomControl = new ymaps.control.ZoomControl({
+                options: {
+                    size: "small",
+                    position: {
+                        top: "300px",
+                        right: "10px"
+                    }
+                }
+            });
+            // eslint-disable-next-line
+            const geolocationControl = new ymaps.control.GeolocationControl({
+                options: {
+                    noPlacemark: true,
+                    position: {
+                        top: "375px",
+                        right: "10px"
+                    }
+                }
+            });
+            geolocationControl.events.add("locationchange", function(event) {
+                const position = event.get("position"),
+                    // eslint-disable-next-line
+                    locationPlacemark = new ymaps.Placemark(position);
+                map.geoObjects.add(locationPlacemark);
+                map.panTo(position);
+            });
+            // eslint-disable-next-line
+            const multiRoute = new ymaps.multiRouter.MultiRoute(
+                {
+                    referencePoints: ["Москва, метро Смоленская", "Москва, метро Арбатская"]
+                },
+                {
+                    boundsAutoApply: true
+                }
+            );
 
-    //         map.geoObjects.add(multiRoute);
-    //         map.controls.add(geolocationControl);
-    //         map.controls.add(zoomControl);
-    //     });
-    // }
+            map.geoObjects.add(multiRoute);
+            map.controls.add(geolocationControl);
+            map.controls.add(zoomControl);
+        });
+    }
 };
 </script>
 

@@ -7,11 +7,22 @@
                 <div class="director-name">Director</div>
             </div>
             <div class="wallet">-150 000Р</div>
-            <img class="logout" src="@/assets/logout-icon.svg" />
+
+            <img class="logout" src="@/assets/logout-icon.svg" @click="logout" />
         </div>
     </div>
 </template>
 
+<script>
+export default {
+    name: "Header",
+    methods: {
+        logout() {
+            this.$router.push("/");
+        }
+    }
+};
+</script>
 
 <style scoped>
 .header-container,
@@ -104,6 +115,7 @@
         margin-right: 80px;
     }
     .logout {
+        cursor: pointer;
         width: 22px;
     }
 }

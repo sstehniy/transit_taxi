@@ -130,6 +130,7 @@ export default {
 .dialogue-window {
     top: 138px;
     left: 3vw;
+    margin-bottom: 20px;
 }
 
 .chat,

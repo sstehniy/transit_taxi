@@ -206,11 +206,9 @@
                         class="attribute-wrapper"
                         v-for="attribute in autoAttributes"
                         :key="attribute.id"
+                        @click="toggleAutoAttribute(attribute.id)"
                     >
-                        <Checkbox
-                            :checked="!!auto_attributes.find(a=>a.id===attribute.id)"
-                            @click.native="toggleAutoAttribute(attribute.id)"
-                        />
+                        <Checkbox :checked="!!auto_attributes.find(a=>a.id===attribute.id)" />
                         <p class="attribute-text">{{attribute.title}}</p>
                     </div>
                 </div>
@@ -608,6 +606,7 @@ export default {
 .attribute-wrapper {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .attribute-wrapper:nth-child(5n) {
     align-items: flex-start;

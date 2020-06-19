@@ -8,7 +8,7 @@
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
         <ChatsWindow v-if="windows['chat']" class="dialogue-window chat" />
         <MapFilters class="map-settings" />
-        <Statistics />
+        <Statistics class="statistics" />
         <div id="map" @click="closeOpenedTabs"></div>
     </div>
 </template>
@@ -131,6 +131,12 @@ export default {
 .map-settings {
     top: 78px;
     right: 3vw;
+}
+
+.statistics {
+    position: absolute;
+    bottom: 8px;
+    right: 150px;
 }
 
 #map {

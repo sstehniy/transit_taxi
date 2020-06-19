@@ -19,6 +19,9 @@ body {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
 }
 #app {
     font-family: "Poppins", sans-serif;

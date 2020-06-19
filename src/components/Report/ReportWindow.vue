@@ -19,7 +19,10 @@
                 </div>
                 <div class="separator lg right"></div>
                 <div class="header-btn extended" :class="{active: showDateFilter}">
-                    <p class="btn-text" @click="toggleDateFilter">Сегодня</p>
+                    <p
+                        class="btn-text"
+                        @click="toggleDateFilter"
+                    >{{datePeriods.find(p=>p.id === currentDatePeriodId).title}}</p>
                     <div class="date-filter-controls" v-if="showDateFilter">
                         <div class="filter-main">
                             <div class="filter-field">

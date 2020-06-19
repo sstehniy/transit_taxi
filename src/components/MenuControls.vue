@@ -1,7 +1,16 @@
 <template>
-    <div class="menu-buttons-container">
+    <div v-if="this.$route.name === 'director'" class="menu-buttons-container">
         <MenuButton
             v-for="button in buttons"
+            :key="button.id"
+            :buttonInfo="button"
+            class="menu-button"
+            @click.native="$store.commit('toggleWindow', button.window)"
+        />
+    </div>
+    <div v-else class="menu-buttons-container">
+        <MenuButton
+            v-for="button in opButtons"
             :key="button.id"
             :buttonInfo="button"
             class="menu-button"
@@ -34,6 +43,17 @@ export default {
                     src: "reports-icon",
                     name: "Отчеты"
                 },
+                { id: 5, window: "chat", src: "chats-icon", name: "Чат" }
+            ],
+            opButtons: [
+                { id: 1, window: "orders", src: "orders-icon", name: "Заказы" },
+                {
+                    id: 2,
+                    window: "drivers",
+                    src: "drivers-icon",
+                    name: "Водители"
+                },
+                { id: 3, window: "info", src: "info-icon", name: "Инфо. блок" },
                 { id: 5, window: "chat", src: "chats-icon", name: "Чат" }
             ]
         };

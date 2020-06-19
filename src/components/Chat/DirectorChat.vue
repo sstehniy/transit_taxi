@@ -170,9 +170,6 @@ export default {
     background-color: var(--btn-normal-selected-bg);
 }
 
-.dropdown {
-}
-
 .dropdown-item {
     width: 100%;
     height: 25px;

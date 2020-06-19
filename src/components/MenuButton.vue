@@ -52,6 +52,7 @@ export default {
 .call-button {
     user-select: none;
     background: #ececec;
+    min-width: 170px;
     width: 18vw;
     height: 50px;
     line-height: 50px;

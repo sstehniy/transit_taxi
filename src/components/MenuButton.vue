@@ -3,6 +3,7 @@
         v-if="buttonInfo.name !== 'Вызов'"
         class="control-button"
         :class="{ active : this.$store.state.windows[buttonInfo.window] }"
+        @click="$store.commit('toggleWindow', buttonInfo.window)"
     >
         <div class="button-misc-wrapper">
             <img
@@ -19,14 +20,23 @@
     <div v-else class="call-button">
         <img src="@/assets/endcall-icon.svg" />
         <p>x-xxx-xxx-xx-xx</p>
-        <img src="@/assets/acceptcall-icon.svg" />
+        <img src="@/assets/acceptcall-icon.svg" @click="acceptCall" />
     </div>
 </template>
 
 <script>
+import { eventBus } from "@/main.js";
 export default {
     props: {
         buttonInfo: Object
+    },
+    methods: {
+        acceptCall() {
+            this.$store.commit("openWindow", this.buttonInfo.window);
+            setTimeout(() => {
+                eventBus.$emit("orderFromCall");
+            }, 1);
+        }
     }
 };
 </script>

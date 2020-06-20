@@ -130,6 +130,8 @@ import OrderMin from "./OrderMin.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
 
+import { eventBus } from "@/main.js";
+
 export default {
     components: {
         simplebar,
@@ -153,6 +155,11 @@ export default {
         orderStatuses() {
             return this.$store.state.orderDetails.orderStatuses;
         }
+    },
+    created() {
+        eventBus.$on("orderFromCall", () => {
+            this.toggleCreateOrder(true);
+        });
     },
     data() {
         return {

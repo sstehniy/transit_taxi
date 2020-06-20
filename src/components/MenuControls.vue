@@ -5,7 +5,6 @@
             :key="button.id"
             :buttonInfo="button"
             class="menu-button"
-            @click.native="$store.commit('toggleWindow', button.window)"
         />
     </div>
     <div v-else class="menu-buttons-container">
@@ -14,7 +13,6 @@
             :key="button.id"
             :buttonInfo="button"
             class="menu-button"
-            @click.native="$store.commit('toggleWindow', button.window)"
         />
     </div>
 </template>

@@ -753,6 +753,15 @@ export default new Vuex.Store({
                 }
             }
         },
+        openWindow(state, window) {
+            for (var key in state.windows) {
+                if (key === window) {
+                    state.windows[key] = true;
+                } else {
+                    state.windows[key] = false;
+                }
+            }
+        },
         changeStatus(state, { order_id, status_id }) {
             const stateStatus = state.orderDetails.orderStatuses.find(s => s.id === status_id);
             state.orders = state.orders.map(o =>

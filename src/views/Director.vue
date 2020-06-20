@@ -2,7 +2,7 @@
     <div class="director">
         <Header class="header" />
         <MenuControls class="menu-controls" />
-        <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
+        <OrdersWindow v-if="windows['orders']" class="dialogue-window" ref="ordersWindow" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
         <InfoWindow v-if="windows['info']" class="dialogue-window" />

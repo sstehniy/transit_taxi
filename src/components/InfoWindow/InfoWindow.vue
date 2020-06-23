@@ -117,8 +117,8 @@ export default {
     width: calc(15px + 27vw);
     min-width: 300px;
     min-height: 215px;
-    height: 80vh;
-    max-height: 80vh;
+    height: calc(90vh - 105px);
+    max-height: calc(90vh - 105px);
     border-radius: 8px;
     background-color: lightsalmon;
     resize: vertical;

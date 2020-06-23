@@ -92,8 +92,8 @@ export default {
     min-height: 215px;
     resize: vertical;
     overflow-y: scroll;
-    height: 80vh;
-    max-height: 80vh;
+    height: calc(90vh - 105px);
+    max-height: calc(90vh - 105px);
     position: relative;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
     background-color: transparent;

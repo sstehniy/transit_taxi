@@ -333,8 +333,8 @@ export default {
     min-width: 300px;
     width: calc(15px + 25vw);
     min-height: 215px;
-    height: 80vh;
-    max-height: 80vh;
+    height: calc(90vh - 105px);
+    max-height: calc(90vh - 105px);
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
     background-color: transparent;
     border-radius: 8px;

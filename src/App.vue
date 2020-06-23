@@ -12,7 +12,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scrollbar-width: 0;
+}
+
+* {
+    -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+body,
+html {
+    scrollbar-width: none;
 }
 
 body {

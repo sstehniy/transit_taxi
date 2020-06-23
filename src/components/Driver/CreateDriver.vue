@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="currentForm==='main'" class="create-driver-body">
+        <simplebar v-if="currentForm==='main'" class="create-driver-body">
             <p class="form-title primary">Добавить водителя</p>
             <div class="form-field">
                 <label for="name" class="field-label">Ф.И.О</label>
@@ -122,8 +122,8 @@
                 <label for="comment" class="field-label">Комментарии</label>
                 <textarea name="comment" class="field-input" type="text" v-model="comment" />
             </div>
-        </div>
-        <div v-else-if="currentForm==='sub'" class="create-driver-body">
+        </simplebar>
+        <simplebar v-else-if="currentForm==='sub'" class="create-driver-body">
             <p class="form-title primary">Выбор автомобиля</p>
             <div class="form-field">
                 <label class="field-label">Марка</label>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </simplebar>
         <div class="create-driver-footer">
             <button class="footer-btn primary" @click="submit">Сохранить</button>
             <button class="footer-btn" @click="$emit('close-create-driver')">Отменить</button>
@@ -178,9 +178,11 @@
 
 <script>
 import Checkbox from "@/components/UI/Checkbox.vue";
+import simplebar from "simplebar-vue";
+import "simplebar/dist/simplebar.min.css";
 export default {
     name: "CreateDriver",
-    components: { Checkbox },
+    components: { Checkbox, simplebar },
     data() {
         return {
             currentForm: "main",
@@ -426,6 +428,7 @@ export default {
     line-height: 100%;
     font-size: var(--text-middle);
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .create-driver-body .form-title.primary {

@@ -234,7 +234,7 @@ export default {
     min-width: 300px;
     width: calc(15px + 25vw);
     min-height: 215px;
-    resize: vertical;
+    /*resize: vertical;*/
     overflow-y: scroll;
     height: calc(90vh - 105px);
     max-height: calc(90vh - 105px);

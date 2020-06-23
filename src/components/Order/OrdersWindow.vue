@@ -95,6 +95,7 @@
                     :key="order.id"
                     :orderInfo="order"
                     @change-status="toggleSettings"
+                    @openInfo="toggleOrderInfo"
                 />
                 <div class="blank-separator"></div>
             </simplebar>
@@ -109,6 +110,12 @@
                 <div class="order-counter">{{ this.orders.length }}/100</div>
             </div>
         </div>
+        <OrderInfo
+            v-if="this.orderInfo"
+            :orderObject="orderToBeShownInfoOf"
+            @close-order-info="toggleOrderInfo"
+            @openNewOrder="toggleCreateOrder(true)"
+        />
         <StatusSettings
             v-if="this.settings"
             class="status-settings"
@@ -129,6 +136,7 @@ import "simplebar/dist/simplebar.min.css";
 import OrderMin from "./OrderMin.vue";
 import StatusSettings from "../StatusSettings.vue";
 import CreateOrder from "./CreateOrder.vue";
+import OrderInfo from "./OrderInfo.vue";
 
 import { eventBus } from "@/main.js";
 
@@ -137,7 +145,8 @@ export default {
         simplebar,
         OrderMin,
         StatusSettings,
-        CreateOrder
+        CreateOrder,
+        OrderInfo
     },
     computed: {
         orders() {
@@ -165,6 +174,8 @@ export default {
         return {
             numberOfOrders: 0,
             settings: false,
+            orderInfo: false,
+            orderToBeShownInfoOf: null,
             showCreateOrder: false,
             orderIdWaitingForChange: null,
             showFilters: false,
@@ -195,7 +206,19 @@ export default {
         toggleCreateOrder(value) {
             if (value === this.createOrder) return;
             this.settings = false;
+            this.orderInfo = false;
             this.showCreateOrder = value;
+        },
+        toggleOrderInfo(order) {
+            this.showStatus = false;
+            this.showFilters = false;
+            this.settings = false;
+            if (this.orderInfo === false) {
+                this.orderToBeShownInfoOf = order;
+            } else {
+                this.orderToBeShownInfoOf = null;
+            }
+            this.orderInfo = !this.orderInfo;
         },
         toggleFilters() {
             this.showStatus = false;

@@ -1,7 +1,7 @@
 <template>
     <div class="order-container">
         <div class="status-line" :style="{'background-color': orderState.color}"></div>
-        <div class="order-manage-block">
+        <div class="order-manage-block" @click="openInfo(orderInfo)">
             <div class="order-info">
                 <div class="number-status">
                     <div class="order-number">&#8470;{{ "*api" }}</div>
@@ -49,6 +49,9 @@ export default {
     methods: {
         changeStatus() {
             this.$emit("change-status", this.orderInfo.id);
+        },
+        openInfo(orderInfo) {
+            this.$emit("openInfo", orderInfo);
         }
     }
 };

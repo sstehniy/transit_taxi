@@ -17,7 +17,12 @@
             >{{ buttonInfo.name }}</div>
         </div>
     </div>
-    <div v-else class="call-button">
+    <div
+        v-else
+        class="call-button"
+        :class=" { incomingCall : this.callIncoming }"
+        @click="incomingCall"
+    >
         <img src="@/assets/endcall-icon.svg" />
         <p>x-xxx-xxx-xx-xx</p>
         <img src="@/assets/acceptcall-icon.svg" @click="acceptCall" />
@@ -26,12 +31,39 @@
 
 <script>
 import { eventBus } from "@/main.js";
+import { Howl } from "howler";
+
+var ring = new Howl({
+    src: ["audio/ring.mp3"],
+    loop: true,
+    volume: 0.1
+});
+
 export default {
+    data() {
+        return {
+            callIncoming: false /* state for animation toggling */
+        };
+    },
     props: {
         buttonInfo: Object
     },
     methods: {
+        incomingCall() {
+            /* REMOVE IF-ELSE STATEMENT WHEN YOU CHANGE THE TRIGGER FOR THIS METHOD */
+            if (this.callIncoming === true) {
+                ring.stop();
+            } else {
+                ring.play();
+            }
+
+            this.callIncoming = !this.callIncoming;
+        },
         acceptCall() {
+            // UNCOMMENT THIS WHEN CHANGING THE TRIGGER FOR incomingCall()
+            /*this.callIncoming = false;
+            ring.stop();*/
+
             this.$store.commit("openWindow", this.buttonInfo.window);
             setTimeout(() => {
                 eventBus.$emit("orderFromCall");
@@ -78,6 +110,21 @@ export default {
 }
 .call-button img {
     cursor: pointer;
+}
+.incomingCall {
+    background: #ececec;
+    animation: incomingCall 1.5s infinite;
+}
+@keyframes incomingCall {
+    0% {
+        background: #ececec;
+    }
+    50% {
+        background: #adff2f;
+    }
+    100% {
+        background: #ececec;
+    }
 }
 .active {
     background-color: #fdbf5a;

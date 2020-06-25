@@ -7,7 +7,7 @@
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
         <InfoWindow v-if="windows['info']" class="dialogue-window" />
         <DirectorChat v-if="windows['chat']" class="dialogue-window chat" />
-        <MapFilters class="map-settings" />
+        <MapFilters class="map-settings" ref="mapFilters" />
         <Statistics class="statistics" />
         <div id="map" @click="closeOpenedTabs"></div>
     </div>
@@ -48,6 +48,7 @@ export default {
                 if (!this.windows[window]) continue;
                 this.$store.commit("toggleWindow", window);
             }
+            this.$refs.mapFilters.closeFilters();
         }
     },
     created() {

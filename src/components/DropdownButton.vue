@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown-button">
+    <div class="dropdown-button" tabindex="-1" @focusout="handleFocusOut">
         <div class="button-container" @click="toggleOptions">
             <div class="picked-option">{{ defaultSetting }}</div>
             <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
@@ -33,6 +33,9 @@ export default {
         pickOption(someSetting) {
             this.options = false;
             this.defaultSetting = someSetting;
+        },
+        handleFocusOut() {
+            this.options = false;
         }
     }
 };
@@ -44,6 +47,7 @@ export default {
     position: relative;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    outline: none;
 }
 .button-container {
     width: 130px;

@@ -75,7 +75,7 @@ export default {
     },
     data() {
         return {
-            selectedPhotoId: null
+            selectedPhotoId: 0
         };
     }
 };

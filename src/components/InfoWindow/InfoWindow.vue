@@ -1,7 +1,7 @@
 <template>
     <div class="info-container">
         <div class="info-header">
-            <div class="header-btn">
+            <div class="header-btn" tabindex="-1" @focusout="filterOff">
                 <p
                     class="btn-text"
                     @click="toggleCityFilters"
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="header-btn">
+            <div class="header-btn" tabindex="-1" @focusout="filterOff">
                 <p
                     class="btn-text"
                     @click="toggleGroupFilters"
@@ -107,6 +107,10 @@ export default {
         },
         createMessage() {
             console.log("sendind message");
+        },
+        filterOff() {
+            this.showCityFilters = false;
+            this.showGroupFilters = false;
         }
     }
 };

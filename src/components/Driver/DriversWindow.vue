@@ -2,7 +2,7 @@
     <div class="whole-container">
         <div class="container-manage">
             <div class="controls">
-                <div class="control filters">
+                <div class="control filters" tabindex="-1" @focusout="statusOff">
                     <div class="control-name" @click="toggleStatusFilter">Водитель</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
                     <div v-if="showStatusFilters" class="filter-dropdown">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="control currents">
+                <div class="control currents" tabindex="-1" @focusout="groupOff">
                     <div
                         class="control-name"
                         @click="toggleGroupFilter"
@@ -177,6 +177,12 @@ export default {
         },
         handleScroll() {
             console.log("scroll");
+        },
+        statusOff() {
+            this.showStatusFilters = false;
+        },
+        groupOff() {
+            this.showGroupFilters = false;
         }
     },
     mounted() {
@@ -236,6 +242,7 @@ export default {
     position: relative;
     background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
+    outline: none;
 }
 .control:hover {
     background-color: #d8d8d8;

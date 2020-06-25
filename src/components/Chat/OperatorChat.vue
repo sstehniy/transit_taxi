@@ -3,7 +3,7 @@
         <div class="chats-container">
             <div class="chats-manage">
                 <div class="chats-header" :class="{disabled: showChat}">
-                    <div class="header-btn">
+                    <div class="header-btn" tabindex="-1" @focusout="tabOff">
                         <p
                             class="btn-text"
                             @click="showGroupFilters=!showGroupFilters"
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="separator"></div>
-                    <div class="header-btn">
+                    <div class="header-btn" tabindex="-1" @focusout="tabOff">
                         <p
                             class="btn-text"
                             @click="showStatusFilters=!showStatusFilters"
@@ -191,6 +191,10 @@ export default {
             this.showChatOptions = false;
             this.chatIdWaitingForChange = null;
             this.chatOptionsTopStyleProp = null;
+        },
+        tabOff() {
+            this.showGroupFilters = false;
+            this.showStatusFilters = false;
         }
     },
 

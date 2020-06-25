@@ -95,7 +95,7 @@ export default {
     --btn-normal-selected-bg: #d8d8d8;
 
     position: absolute;
-    left: calc(100% + 20px);
+    left: calc(100% + calc(3px + 2vw));
     top: 0;
     min-height: 540px;
     height: 540px;

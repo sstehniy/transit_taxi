@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="header-bottom" v-if="activeTab==='orders'">
-                <div class="header-btn">
+                <div class="header-btn" tabindex="-1" @focusout="tabOff">
                     <img alt="drop-icon" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     <p class="btn-text" @click="showOrderGroups = !showOrderGroups">Группа заказа</p>
                     <div v-if="showOrderGroups" class="dropdown-container">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="separator sm"></div>
-                <div class="header-btn">
+                <div class="header-btn" tabindex="-1" @focusout="tabOff">
                     <img alt="drop-icon" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     <p class="btn-text" @click="showExportGroups = !showExportGroups">Группа вывоза</p>
                     <div v-if="showExportGroups" class="dropdown-container">
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="header-bottom" v-else-if="activeTab==='drivers'">
-                <div class="header-btn">
+                <div class="header-btn" tabindex="-1" @focusout="tabOff">
                     <img alt="drop-icon" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     <p class="btn-text" @click="showCrewGroups = !showCrewGroups">Группа экипажа</p>
                     <div v-if="showCrewGroups" class="dropdown-container">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="separator sm"></div>
-                <div class="header-btn">
+                <div class="header-btn" tabindex="-1" @focusout="tabOff">
                     <img alt="drop-icon" id="drop" :src="require('@/assets/drop-icon.svg')" />
                     <p class="btn-text" @click="showCrewMembers = !showCrewMembers">Член экипажа</p>
                     <div v-if="showCrewMembers" class="dropdown-container">
@@ -243,6 +243,12 @@ export default {
         };
     },
     methods: {
+        tabOff() {
+            this.showOrderGroups = false;
+            this.showExportGroups = false;
+            this.showCrewGroups = false;
+            this.showCrewMembers = false;
+        },
         toggleTab(tabName) {
             this.showOrderGroups = false;
             this.showExportGroups = false;

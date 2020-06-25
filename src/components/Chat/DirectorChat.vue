@@ -1,7 +1,12 @@
 <template>
     <div class="chat-window">
         <div class="chat-header">
-            <div class="header-btn" :class="{active: showDropdown}">
+            <div
+                class="header-btn"
+                :class="{active: showDropdown}"
+                tabindex="-1"
+                @focusout="tabOff"
+            >
                 <p class="btn-text" @click="toggleDropdown">Оператор</p>
                 <img :src="require('@/assets/drop-icon.svg')" alt="drop-icon" id="drop" />
                 <div v-if="showDropdown" class="dropdown">
@@ -67,6 +72,9 @@ export default {
         sendMessage() {
             console.log("sending message...");
             this.newMessage = "";
+        },
+        tabOff() {
+            this.showDropdown = false;
         }
     }
 };

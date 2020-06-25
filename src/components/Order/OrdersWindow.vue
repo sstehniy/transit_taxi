@@ -2,7 +2,12 @@
     <div class="whole-container">
         <div class="container-manage">
             <div class="controls">
-                <div class="control filters" :class="{active: showFilters}">
+                <div
+                    class="control filters"
+                    :class="{active: showFilters}"
+                    tabindex="-1"
+                    @focusout="filterOff"
+                >
                     <div class="control-name" @click="toggleFilters">Фильтры</div>
                     <img class="dropdown-icon" src="@/assets/drop-icon.svg" />
                     <div v-if="showFilters && !showStatus" class="filters-dropdown">
@@ -69,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="control currents">
+                <div class="control currents" tabindex="-1" @focusout="statusOff">
                     <div
                         class="control-name"
                         @click="toggleStatus"
@@ -276,6 +281,14 @@ export default {
                 }
                 this.filterDate = valueArr.join("");
             } else this.filterDate = "";
+        },
+        filterOff() {
+            this.showStatus = false;
+            this.showFilters = !this.showFilters;
+        },
+        statusOff() {
+            this.showFilters = false;
+            this.showStatus = !this.showStatus;
         }
     }
 };
@@ -370,6 +383,8 @@ export default {
     position: relative;
     background-color: #e5e5e5;
     transition: background-color 0.3s ease-in-out;
+
+    outline: none;
 }
 .control:hover {
     background-color: #d8d8d8;

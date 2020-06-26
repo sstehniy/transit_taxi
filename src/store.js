@@ -748,8 +748,24 @@ export default new Vuex.Store({
             for (var key in state.windows) {
                 if (key === window) {
                     state.windows[key] = !state.windows[key];
-                } else {
-                    state.windows[key] = false;
+                    if (key === "orders") {
+                        state.windows["drivers"] = false;
+                        state.windows["info"] = false;
+                    }
+                    if (key === "drivers") {
+                        state.windows["orders"] = false;
+                        state.windows["info"] = false;
+                    }
+                    if (key === "info") {
+                        state.windows["orders"] = false;
+                        state.windows["drivers"] = false;
+                    }
+                    if (key === "chat") {
+                        state.windows["reports"] = false;
+                    }
+                    if (key === "reports") {
+                        state.windows["chat"] = false;
+                    }
                 }
             }
         },

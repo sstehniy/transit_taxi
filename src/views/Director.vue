@@ -48,7 +48,6 @@ export default {
                 if (!this.windows[window]) continue;
                 this.$store.commit("toggleWindow", window);
             }
-            this.$refs.mapFilters.closeFilters();
         }
     },
     created() {

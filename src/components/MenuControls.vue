@@ -35,13 +35,13 @@ export default {
                     name: "Водители"
                 },
                 { id: 3, window: "info", src: "info-icon", name: "Инфо. блок" },
+                { id: 4, window: "chat", src: "chats-icon", name: "Чат" },
                 {
-                    id: 4,
+                    id: 5,
                     window: "reports",
                     src: "reports-icon",
                     name: "Отчеты"
-                },
-                { id: 5, window: "chat", src: "chats-icon", name: "Чат" }
+                }
             ],
             opButtons: [
                 { id: 1, window: "orders", src: "orders-icon", name: "Заказы" },

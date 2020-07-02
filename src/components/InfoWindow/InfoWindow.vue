@@ -124,7 +124,7 @@ export default {
     height: calc(90vh - 105px);
     max-height: calc(90vh - 105px);
     border-radius: 8px;
-    background-color: lightsalmon;
+
     resize: vertical;
     overflow: auto;
 }
@@ -144,9 +144,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e5e5e5;
-    transition: background-color 0.2s ease-in-out;
-    cursor: pointer;
+    background-color: #fff;
 }
 
 .header-btn img#drop {
@@ -164,15 +162,17 @@ export default {
     border-radius: 0px 5px 0px 0px;
 }
 
-.header-btn:hover {
-    background-color: #d8d8d8;
-}
-
 .btn-text {
     font-size: 14px;
     width: 100%;
     line-height: 38px;
     text-align: center;
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.btn-text:hover {
+    background-color: #d8d8d8;
 }
 
 .dropdown {
@@ -183,6 +183,8 @@ export default {
     z-index: 100;
     padding: 5px 10px 0px 10px;
     background-color: #d8d8d8;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
 }
 
 .dropdown-item {
@@ -197,11 +199,11 @@ export default {
 }
 
 .dropdown-item:hover {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 .dropdown-item.selected {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 .item-text {
@@ -292,7 +294,7 @@ input::placeholder {
     justify-content: center;
     padding: 0 25px;
     border-radius: 0px 0px 8px 8px;
-    background-color: #e5e5e5;
+    background-color: #fff;
 }
 
 .footer-btn {
@@ -301,6 +303,8 @@ input::placeholder {
     border-radius: 5px;
     text-align: center;
     background-color: #fdbf5a;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
+
     cursor: pointer;
 }
 .footer-btn .btn-text {

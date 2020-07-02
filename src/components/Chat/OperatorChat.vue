@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="chats-footer">
-                    <div v-if="!showChat" class="footer-btn">Написать всем</div>
+                    <div v-if="!showChat" class="footer-btn" @click="writeToAll">Написать всем</div>
                     <div v-else class="footer-btn">Отправить</div>
                 </div>
             </div>
@@ -109,13 +109,14 @@
             :style="{top: `${chatOptionsTopStyleProp}px`}"
             class="options-dropdown"
         >
-            <p class="dropdown-item" @click="editChat(chatIdWaitingForChange)">Изменить</p>
+            <p class="dropdown-item" @click="openDriverInfo">Изменить</p>
             <p class="dropdown-item" @click="deleteChat(chatIdWaitingForChange)">Удалить</p>
         </div>
     </div>
 </template>
 
 <script>
+import { eventBus } from "@/main.js";
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
@@ -126,7 +127,10 @@ export default {
     },
     computed: {
         chats() {
-            return this.$store.state.chats.chatPreviews;
+            return this.$store.state.chats.chatPreviews.filter(c => c.id !== 1000);
+        },
+        allDriversChat() {
+            return this.$store.state.chats.chatPreviews.find(c => c.id === 1000);
         },
         groupFilters() {
             return this.$store.state.chats.chatFilters.groups;
@@ -135,6 +139,7 @@ export default {
             return this.$store.state.chats.chatFilters.status;
         },
         selectedChatInfo() {
+            if (this.selectedChatId === 1000) return this.allDriversChat;
             return this.chats.find(c => c.id === this.selectedChatId);
         }
     },
@@ -195,6 +200,17 @@ export default {
         tabOff() {
             this.showGroupFilters = false;
             this.showStatusFilters = false;
+        },
+        writeToAll() {
+            this.showChatOptions = false;
+            this.selectedChatId = this.allDriversChat.id;
+            this.showChat = true;
+        },
+        openDriverInfo() {
+            this.$store.commit("openWindow", "drivers");
+            setImmediate(() => {
+                eventBus.$emit("openDriverInfoFromChat", this.chatIdWaitingForChange);
+            });
         }
     },
 
@@ -223,7 +239,7 @@ export default {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
-    --dark-grey-bg: #e5e5e5;
+    --dark-grey-bg: #fff;
     --light-grey-bg: #fafafa;
     --btn-text-color: #181c21;
     --btn-primary-selected: #f4f4f4;

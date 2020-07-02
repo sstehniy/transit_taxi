@@ -12,6 +12,7 @@
             <div class="driver-settings" @click="toggleSettings">
                 <img src="@/assets/status-changer-icon.svg" />
             </div>
+            <div class="underline"></div>
         </div>
         <div
             v-if="this.settings && this.$route.name==='director'"
@@ -76,7 +77,7 @@ export default {
     width: calc(100% - 20px);
     height: 60px;
     margin-left: 5px;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     transition: background-color 0.3s ease-in-out;
     background-color: #fafafa;
     display: flex;
@@ -107,6 +108,17 @@ export default {
     width: 85%;
     justify-content: space-between;
 }
+
+.underline {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 2px;
+    background-color: #ececec;
+}
+
 .driver-settings {
     position: absolute;
     top: 8px;

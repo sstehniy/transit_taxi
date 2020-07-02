@@ -57,6 +57,39 @@ export default new Vuex.Store({
                 cashless_sum: "322",
                 cash_sum: "228",
                 timestamp: { minutes: "22", date: "14/04/2020" }
+            },
+            {
+                comment: "Go to Niko and smoke hookah",
+                id: 2,
+                state_id: 1,
+                state_kind: "accepted",
+                source: "Toronto",
+                source_lat: 52.192652,
+                source_lon: 54.627506,
+                destination: "Izba",
+                destination_lat: 42.372136,
+                destination_lon: 51.240732,
+                stops: [{ address: "Ottawa", lat: 53.023744, lon: 41.937491, id: 0 }],
+                customer: "Bob Burger",
+                passanger: "Bob Burger",
+                crew_id: 1,
+                order_crew_group_id: 1,
+                is_prior: true,
+                auto_search_driver: true,
+                name: "Bob Burger",
+                phone: "1-234-567-89-0",
+                save_client: true,
+                tariff_id: 1,
+                hourly_payment: true,
+                two_way_ride: true,
+                attributes: [
+                    { id: 2, title: "Attribute 2" },
+                    { id: 1, title: "Детское кресло" }
+                ],
+                total_cost: "550",
+                cashless_sum: "322",
+                cash_sum: "228",
+                timestamp: { minutes: "22", date: "14/04/2020" }
             }
         ],
         orderDetails: {
@@ -638,6 +671,10 @@ export default new Vuex.Store({
         chats: {
             chatPreviews: [
                 {
+                    id: 1000,
+                    name: "Все водители"
+                },
+                {
                     id: 0,
                     name: "Иванов И.И",
                     lastMessage: "This is a message"
@@ -723,6 +760,29 @@ export default new Vuex.Store({
                         name: "Фамилия И.О"
                     }
                 ],
+                directors: [
+                    {
+                        id: 0,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 1,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 2,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 3,
+                        name: "Фамилия И.О"
+                    },
+                    {
+                        id: 4,
+                        name: "Фамилия И.О"
+                    }
+                ],
+
                 status: [
                     {
                         id: 0,
@@ -777,6 +837,10 @@ export default new Vuex.Store({
                     state.windows[key] = false;
                 }
             }
+        },
+        closeSubWindows(state) {
+            state.windows.reports = false;
+            state.windows.chat = false;
         },
         changeStatus(state, { order_id, status_id }) {
             const stateStatus = state.orderDetails.orderStatuses.find(s => s.id === status_id);

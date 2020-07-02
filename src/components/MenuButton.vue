@@ -65,9 +65,9 @@ export default {
             ring.stop();*/
 
             this.$store.commit("openWindow", this.buttonInfo.window);
-            setTimeout(() => {
+            setImmediate(() => {
                 eventBus.$emit("orderFromCall");
-            }, 1);
+            });
         }
     }
 };
@@ -81,7 +81,8 @@ export default {
 }
 .control-button {
     user-select: none;
-    background-color: #ececec;
+    background-color: #fff;
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     width: 9vw;
     min-width: 50px;
     height: 50px;
@@ -89,7 +90,6 @@ export default {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
 }
 .call-button {
     user-select: none;
@@ -99,7 +99,7 @@ export default {
     height: 50px;
     line-height: 50px;
     border-radius: 8px;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
 
     display: flex;
     flex-direction: row;

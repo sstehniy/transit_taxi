@@ -358,7 +358,7 @@ export default {
     font-size: var(--text-small);
     cursor: pointer;
     background-color: var(--btn-normal-bg);
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
 }
 .btn.primary {
     background-color: var(--btn-primary-bg);
@@ -386,7 +386,7 @@ export default {
 .reports-header .header-top {
     position: absolute;
     z-index: 200;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
 }
 .reports-header .header-bottom {
     top: 38px;
@@ -397,7 +397,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--dark-grey-bg);
+    background-color: #fff;
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 .header-btn:hover {
@@ -552,6 +553,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .dropdown-item:hover {
@@ -565,7 +567,7 @@ export default {
 }
 
 .reports-body {
-    background-color: var(--light-grey-bg);
+    background-color: #f4f4f4;
     width: 100%;
     height: calc(100% - 138px);
     padding: 20px 15px;
@@ -595,7 +597,7 @@ export default {
 }
 
 .reports-footer {
-    background-color: var(--dark-grey-bg);
+    background-color: #fff;
     width: 100%;
     height: 65px;
     display: flex;

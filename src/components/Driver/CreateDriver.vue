@@ -327,7 +327,7 @@ export default {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
-    --dark-grey-bg: #e5e5e5;
+    --dark-grey-bg: #fff;
     --light-grey-bg: #fafafa;
     --btn-text-color: #181c21;
     --btn-primary-selected: #f4f4f4;
@@ -581,6 +581,7 @@ button.primary:hover {
 .dropdown-btn {
     cursor: pointer;
     background-color: var(--btn-normal-bg);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.5);
 }
 
 .action-select {

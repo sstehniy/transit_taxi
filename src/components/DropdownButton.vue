@@ -46,7 +46,7 @@ export default {
     width: 130px;
     position: relative;
     border-radius: 5px;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
     outline: none;
 }
 .button-container {
@@ -54,7 +54,8 @@ export default {
     height: 40px;
 
     border-radius: 5px;
-    background-color: #ececec;
+    background-color: #fff;
+
     cursor: pointer;
 
     display: flex;
@@ -98,6 +99,6 @@ export default {
     cursor: pointer;
 }
 .option:hover {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 </style>

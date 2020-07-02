@@ -200,6 +200,8 @@ export default {
     },
     methods: {
         toggleSettings(orderId) {
+            console.log("hello");
+            this.$store.commit("closeSubWindows");
             if (this.orderIdWaitingForChange === orderId) {
                 this.settings = false;
                 this.orderIdWaitingForChange = null;
@@ -284,11 +286,11 @@ export default {
         },
         filterOff() {
             this.showStatus = false;
-            this.showFilters = !this.showFilters;
+            this.showFilters = false;
         },
         statusOff() {
             this.showFilters = false;
-            this.showStatus = !this.showStatus;
+            this.showStatus = false;
         }
     }
 };
@@ -302,7 +304,7 @@ export default {
     position: relative;
 }
 .container-manage {
-    background-color: #fafafa;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     max-width: calc(15px + 27vw);
@@ -314,7 +316,6 @@ export default {
     resize: vertical;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
 }
 .controls {
     width: 100%;
@@ -381,7 +382,7 @@ export default {
 
     font-size: 14px;
     position: relative;
-    background-color: #e5e5e5;
+    background-color: #fff;
     transition: background-color 0.3s ease-in-out;
 
     outline: none;
@@ -503,7 +504,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     border-radius: 5px;
     outline: none;
     cursor: pointer;
@@ -570,15 +571,14 @@ export default {
     height: calc(100% - 125px);
     max-height: calc(100% - 125px);
     overflow-y: scroll;
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.5);
+    background-color: #f5f5f5;
 }
 .orders {
     width: 100%;
     height: auto;
     overflow: hidden;
-    /*padding-bottom: 95px;*/
-
-    background-color: #fafafa;
-
+    padding-bottom: 95px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -586,14 +586,13 @@ export default {
 .blank-separator {
     width: 100%;
     height: 10px;
-    background-color: #fafafa;
 }
 .operations {
     width: 100%;
     height: 80px;
     position: absolute;
     bottom: 0px;
-    background-color: #ececec;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
 }

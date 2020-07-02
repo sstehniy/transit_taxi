@@ -31,6 +31,7 @@
         <div class="pinpoint">
             <img src="@/assets/pinpoint-icon.svg" />
         </div>
+        <div class="underline"></div>
     </div>
 </template>
 
@@ -62,15 +63,12 @@ export default {
     width: calc(100% - 20px);
     min-height: 90px;
     height: 90px;
-
     margin-left: 5px;
-    background-color: #fafafa;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    background-color: #fff;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease-in-out;
-
     display: flex;
     flex-direction: row;
-
     position: relative;
 }
 .order-container:hover {
@@ -150,5 +148,14 @@ export default {
 .status-changer:hover,
 .pinpoint:hover {
     cursor: pointer;
+}
+.underline {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 2px;
+    background-color: #ececec;
 }
 </style>

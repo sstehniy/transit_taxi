@@ -45,8 +45,6 @@
                     @open-edit-driver="toggleEditDriver(true, driver.id)"
                     @delete-driver="deleteDriver(driver.id)"
                 />
-
-                <div class="blank-separator"></div>
             </simplebar>
             <div class="operations">
                 <div class="operations-buttons">
@@ -84,6 +82,7 @@
 </template>
 
 <script>
+import { eventBus } from "@/main.js";
 import simplebar from "simplebar-vue";
 import "simplebar/dist/simplebar.min.css";
 
@@ -138,6 +137,7 @@ export default {
             if (this.showCreateDriver === value) return;
             this.showCreateDriver = value;
         },
+
         toggleEditDriver(value, driver_id = null) {
             if (value === false) {
                 this.showEditDriver = value;
@@ -146,6 +146,7 @@ export default {
             }
             if (this.showCreateDriver) {
                 this.showCreateDriver = false;
+                return;
             }
             this.showEditDriver = false;
             this.driverIdWaitingForChange = driver_id;
@@ -185,6 +186,12 @@ export default {
             this.showGroupFilters = false;
         }
     },
+    created() {
+        eventBus.$on("openDriverInfoFromChat", driverId => {
+            this.driverIdWaitingForChange = driverId;
+            setImmediate(() => (this.showEditDriver = true));
+        });
+    },
     mounted() {
         document
             .querySelector(".container-manage")
@@ -201,7 +208,7 @@ export default {
     position: relative;
 }
 .container-manage {
-    background-color: #fafafa;
+    background-color: #fff;
 
     display: flex;
     flex-direction: column;
@@ -240,7 +247,7 @@ export default {
     height: 100%;
     font-size: 14px;
     position: relative;
-    background-color: #e5e5e5;
+    background-color: #fff;
     transition: background-color 0.3s ease-in-out;
     outline: none;
 }
@@ -285,11 +292,11 @@ export default {
     margin-bottom: 5px;
 }
 .dropdown-item:hover {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 .dropdown-item.selected {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 .item-text {
@@ -303,19 +310,10 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.5);
 }
-.orders {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    /*padding-bottom: 95px;*/
 
-    background-color: #fafafa;
-
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
 .blank-separator {
     width: 100%;
     height: 10px;
@@ -326,7 +324,7 @@ export default {
     height: 80px;
     position: absolute;
     bottom: 0px;
-    background-color: #e5e5e5;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
 }
@@ -344,7 +342,7 @@ export default {
     line-height: 35px;
     text-align: center;
     margin-top: 14px;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }

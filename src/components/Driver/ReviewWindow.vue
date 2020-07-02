@@ -86,7 +86,7 @@ export default {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
-    --dark-grey-bg: #e5e5e5;
+    --dark-grey-bg: #fff;
     --light-grey-bg: #fafafa;
     --btn-text-color: #181c21;
     --btn-primary-selected: #f4f4f4;
@@ -117,20 +117,22 @@ export default {
 .review-main {
     position: relative;
     width: 100%;
+    overflow: hidden;
     height: calc(100% - 98px);
     padding: 10px 0 20px 10px;
     background-color: var(--light-grey-bg);
 }
 
 .photo-inspect {
+    position: relative;
     width: 550px;
     height: 474px;
 }
 
 .inspect-container {
     width: 100%;
-    height: 350px;
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    /* height: 350px; */
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     border-radius: 8px;
 }
 
@@ -161,7 +163,8 @@ export default {
 }
 
 .comments-input-wrapper {
-    position: relative;
+    position: absolute;
+    bottom: 50px;
     width: 100%;
     height: 54px;
     margin-top: 20px;
@@ -247,7 +250,8 @@ export default {
 .review-footer {
     width: 100%;
     height: 60px;
-    background-color: var(--dark-grey-bg);
+
+    background-color: #fff;
     display: flex;
     align-items: center;
     padding: 0 15px;
@@ -262,7 +266,7 @@ export default {
     align-items: center;
     justify-content: center;
     background-color: var(--btn-normal-bg);
-    box-shadow: 0px 2px 4px rgba(103, 103, 103, 0.3);
+    box-shadow: 0px 2px 15px rgba(103, 103, 103, 0.3);
     margin-right: 20px;
     cursor: pointer;
 }

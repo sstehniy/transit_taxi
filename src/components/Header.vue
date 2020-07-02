@@ -32,7 +32,8 @@ export default {
     flex-direction: row;
 }
 .header-container {
-    background-color: #ececec;
+    background-color: #fff;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
     width: 100%;
     height: 55px;
     justify-content: space-between;

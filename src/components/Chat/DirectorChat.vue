@@ -3,13 +3,13 @@
         <div class="chat-header">
             <div
                 class="header-btn"
-                :class="{active: showDropdown}"
+                :class="{active: showOperators}"
                 tabindex="-1"
                 @focusout="tabOff"
             >
-                <p class="btn-text" @click="toggleDropdown">Оператор</p>
+                <p class="btn-text" @click="toggleOperators">Оператор</p>
                 <img :src="require('@/assets/drop-icon.svg')" alt="drop-icon" id="drop" />
-                <div v-if="showDropdown" class="dropdown">
+                <div v-if="showOperators" class="dropdown">
                     <div
                         v-for="operator in operators"
                         :key="operator.id"
@@ -22,8 +22,25 @@
                 </div>
             </div>
             <div class="separator"></div>
-            <div class="header-btn">
-                <p class="btn-text">Директор</p>
+            <div
+                class="header-btn"
+                :class="{active: showDirectors}"
+                tabindex="-1"
+                @focusout="tabOff"
+            >
+                <p class="btn-text" @click="toggleDirectors">Директор</p>
+                <img :src="require('@/assets/drop-icon.svg')" alt="drop-icon" id="drop" />
+                <div v-if="showDirectors" class="dropdown shifted">
+                    <div
+                        v-for="director in directors"
+                        :key="director.id"
+                        class="dropdown-item"
+                        @click="selectDirector(director.id)"
+                        :class="{selected: director.id === selectedDirectorId}"
+                    >
+                        <p class="item-text">{{director.name}}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="chat-main">
@@ -52,22 +69,36 @@ export default {
     computed: {
         operators() {
             return this.$store.state.chats.chatFilters.operators;
+        },
+        directors() {
+            return this.$store.state.chats.chatFilters.directors;
         }
     },
     data() {
         return {
-            showDropdown: false,
+            showOperators: false,
+            showDirectors: false,
             selectedOperatorId: 0,
+            selectedDirectorId: 0,
             newMessage: ""
         };
     },
     methods: {
-        toggleDropdown() {
-            this.showDropdown = !this.showDropdown;
+        toggleOperators() {
+            this.showDirectors = false;
+            this.showOperators = !this.showOperators;
         },
         selectOperator(id) {
             this.selectedOperatorId = id;
-            this.showDropdown = false;
+            this.showOperators = false;
+        },
+        toggleDirectors() {
+            this.showOperators = false;
+            this.showDirectors = !this.showDirectors;
+        },
+        selectDirector(id) {
+            this.selectedDirectorId = id;
+            this.showDirectors = false;
         },
         sendMessage() {
             console.log("sending message...");
@@ -85,7 +116,7 @@ export default {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
-    --dark-grey-bg: #e5e5e5;
+    --dark-grey-bg: #fff;
     --light-grey-bg: #fafafa;
     --btn-text-color: #181c21;
     --btn-primary-selected: #f4f4f4;
@@ -176,6 +207,11 @@ export default {
     right: -100%;
     padding: 5px 10px;
     background-color: var(--btn-normal-selected-bg);
+}
+
+.dropdown.shifted {
+    left: -100%;
+    right: 0;
 }
 
 .dropdown-item {

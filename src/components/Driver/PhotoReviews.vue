@@ -138,6 +138,7 @@ export default {
             this.showDateFilters = false;
         },
         toggleReviewOptions(e, id) {
+            this.$store.commit("closeSubWindows");
             if (this.showReview) {
                 return;
             } else if (
@@ -207,7 +208,7 @@ export default {
     --text-small: 12px;
     --text-middle: 14px;
     --text-large: 16px;
-    --dark-grey-bg: #e5e5e5;
+    --dark-grey-bg: #fff;
     --light-grey-bg: #fafafa;
     --btn-text-color: #181c21;
     --btn-primary-selected: #f4f4f4;
@@ -313,7 +314,7 @@ export default {
 .bottom-filter-btn {
     width: 50%;
     height: 100%;
-    background-color: var(--dark-grey-bg);
+    background-color: #ececec;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -348,7 +349,7 @@ img#drop {
     top: 0;
     left: 0;
     right: 0;
-    background-color: var(--dark-grey-bg);
+    background-color: #ececec;
     padding: 5px 5px 0 5px;
     border-radius: 0 0 5px 5px;
 }
@@ -369,10 +370,10 @@ img#drop {
 }
 
 .drop-item-text:hover {
-    background-color: var(--light-grey-bg);
+    background-color: #fff;
 }
 .drop-item-text.selected {
-    background-color: var(--light-grey-bg);
+    background-color: #fff;
 }
 .scrollable-reviews {
     width: 100%;
@@ -382,7 +383,7 @@ img#drop {
     padding-bottom: 40px;
     z-index: 10;
     overflow-y: scroll;
-    background-color: var(--light-grey-bg);
+    background-color: #f4f4f4;
 }
 
 .reviews-footer {

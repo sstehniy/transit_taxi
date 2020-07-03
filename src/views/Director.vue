@@ -6,7 +6,7 @@
         <ReportsWindow v-if="windows['reports']" class="dialogue-window reports" />
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" ref="ordersWindow" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
-        <InfoWindow v-if="windows['info']" class="dialogue-window" />
+        <InfoWindow v-if="windows['info']" class="dialogue-window info" />
         <MapFilters class="map-settings" ref="mapFilters" />
         <Statistics class="statistics" />
         <div id="map"></div>
@@ -116,7 +116,7 @@ export default {
     margin-bottom: 20px;
 }
 
-.chat,
+.info,
 .reports {
     left: 33.3vw;
 }

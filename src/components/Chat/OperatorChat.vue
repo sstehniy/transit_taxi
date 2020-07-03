@@ -250,9 +250,11 @@ export default {
 }
 
 .chats-container {
-    max-width: calc(15px + 27vw);
+    /*max-width: calc(15px + 27vw);
     min-width: 300px;
-    width: calc(15px + 25vw);
+    width: calc(15px + 25vw);*/
+    width: calc(15px + 27vw);
+    min-width: 300px;
     min-height: 215px;
     /*resize: vertical;*/
     overflow-y: scroll;

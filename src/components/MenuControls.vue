@@ -34,8 +34,8 @@ export default {
                     src: "drivers-icon",
                     name: "Водители"
                 },
-                { id: 3, window: "info", src: "info-icon", name: "Инфо. блок" },
-                { id: 4, window: "chat", src: "chats-icon", name: "Чат" },
+                { id: 3, window: "chat", src: "chats-icon", name: "Чат" },
+                { id: 4, window: "info", src: "info-icon", name: "Инфо. блок" },
                 {
                     id: 5,
                     window: "reports",
@@ -51,9 +51,9 @@ export default {
                     src: "drivers-icon",
                     name: "Водители"
                 },
-                { id: 3, window: "info", src: "info-icon", name: "Инфо. блок" },
+                { id: 3, window: "chat", src: "chats-icon", name: "Чат" },
                 { id: 4, window: "orders", src: "info-icon", name: "Вызов" },
-                { id: 5, window: "chat", src: "chats-icon", name: "Чат" }
+                { id: 5, window: "info", src: "info-icon", name: "Инфо. блок" }
             ]
         };
     }

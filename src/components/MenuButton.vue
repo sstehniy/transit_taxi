@@ -93,7 +93,7 @@ export default {
 }
 .call-button {
     user-select: none;
-    background: #ececec;
+    background: #ffffff;
     min-width: 170px;
     width: 18vw;
     height: 50px;
@@ -112,18 +112,18 @@ export default {
     cursor: pointer;
 }
 .incomingCall {
-    background: #ececec;
+    background: #ffffff;
     animation: incomingCall 1.5s infinite;
 }
 @keyframes incomingCall {
     0% {
-        background: #ececec;
+        background: #ffffff;
     }
     50% {
         background: #adff2f;
     }
     100% {
-        background: #ececec;
+        background: #ffffff;
     }
 }
 .active {

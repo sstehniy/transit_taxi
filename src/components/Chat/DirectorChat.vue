@@ -125,9 +125,11 @@ export default {
     --btn-normal-selected-bg: #d8d8d8;
 
     left: 33.3vw;
-    max-width: calc(15px + 27vw);
+    /*max-width: calc(15px + 27vw);
     min-width: 300px;
-    width: calc(15px + 25vw);
+    width: calc(15px + 25vw);*/
+    width: calc(15px + 27vw);
+    min-width: 300px;
     min-height: 215px;
     overflow-y: scroll;
     height: calc(90vh - 105px);

@@ -167,7 +167,7 @@ export default new Vuex.Store({
         },
         drivers: [
             {
-                id: 2,
+                id: 0,
                 driver_id: 1,
                 name: "DRIVER_NAME1",
                 balance: 100.0,
@@ -204,7 +204,7 @@ export default new Vuex.Store({
                 ]
             },
             {
-                id: 3,
+                id: 1,
                 driver_id: 2,
                 name: "DRIVER_NAME2",
                 balance: -50.0,
@@ -241,7 +241,7 @@ export default new Vuex.Store({
                 ]
             },
             {
-                id: 5,
+                id: 2,
                 name: "Зубенко Михаил Петрович",
                 driver_id: "228322",
                 balance: 200,
@@ -676,44 +676,19 @@ export default new Vuex.Store({
                 },
                 {
                     id: 0,
-                    name: "Иванов И.И",
+                    name: "DRIVER_NAME1",
                     lastMessage: "This is a message"
                 },
                 {
                     id: 1,
-                    name: "Стегний С.Б",
+                    name: "DRIVER_NAME2",
                     lastMessage: "This is a message"
                 },
                 {
                     id: 2,
-                    name: "Иванов И.И",
+                    name: "Зубенко Михаил Петрович",
                     lastMessage: "This is a message"
                 },
-                {
-                    id: 3,
-                    name: "Иванов И.И",
-                    lastMessage: "This is a message"
-                },
-                {
-                    id: 4,
-                    name: "Иванов И.И",
-                    lastMessage: "This is a message"
-                },
-                {
-                    id: 5,
-                    name: "Иванов И.И",
-                    lastMessage: "This is a message"
-                },
-                {
-                    id: 6,
-                    name: "Иванов И.И",
-                    lastMessage: "This is a message"
-                },
-                {
-                    id: 7,
-                    name: "Иванов И.И",
-                    lastMessage: "This is a message"
-                }
             ],
             chatFilters: {
                 groups: [
@@ -810,21 +785,21 @@ export default new Vuex.Store({
                     state.windows[key] = !state.windows[key];
                     if (key === "orders") {
                         state.windows["drivers"] = false;
-                        state.windows["info"] = false;
+                        state.windows["chat"] = false;
                     }
                     if (key === "drivers") {
                         state.windows["orders"] = false;
-                        state.windows["info"] = false;
+                        state.windows["chat"] = false;
                     }
                     if (key === "info") {
+                        state.windows["reports"] = false;
+                    }
+                    if (key === "chat") {
                         state.windows["orders"] = false;
                         state.windows["drivers"] = false;
                     }
-                    if (key === "chat") {
-                        state.windows["reports"] = false;
-                    }
                     if (key === "reports") {
-                        state.windows["chat"] = false;
+                        state.windows["info"] = false;
                     }
                 }
             }

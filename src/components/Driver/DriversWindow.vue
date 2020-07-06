@@ -188,8 +188,9 @@ export default {
     },
     created() {
         eventBus.$on("openDriverInfoFromChat", driverId => {
-            this.driverIdWaitingForChange = driverId;
-            setImmediate(() => (this.showEditDriver = true));
+            setImmediate(() => {
+                this.toggleEditDriver(true, driverId);
+            });
         });
     },
     mounted() {

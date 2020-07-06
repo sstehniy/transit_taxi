@@ -2,7 +2,7 @@
     <div class="operator">
         <Header class="header" />
         <MenuControls class="menu-controls" />
-        <InfoWindow v-if="windows['info']" class="dialogue-window" />
+        <InfoWindow v-if="windows['info']" class="dialogue-window info" />
         <OperatorChat v-if="windows['chat']" class="dialogue-window chat" />
         <OrdersWindow v-if="windows['orders']" class="dialogue-window" />
         <DriversWindow v-if="windows['drivers']" class="dialogue-window" />
@@ -113,7 +113,7 @@ export default {
     margin-bottom: 20px;
 }
 
-.chat,
+.info,
 .reports {
     left: 33.3vw;
 }

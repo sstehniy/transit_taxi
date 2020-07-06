@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "core-js": "^3.6.5",
+        "express": "^4.17.1",
         "howler": "^2.2.0",
         "simplebar-vue": "^1.5.0",
         "vue": "^2.6.11",
